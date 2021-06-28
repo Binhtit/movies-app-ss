@@ -15,7 +15,6 @@ class FilmController extends Controller
     public function index()
     {
         //
-        echo "Đây là index trong homecontroller";
     }
 
     /**
