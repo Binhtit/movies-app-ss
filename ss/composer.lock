@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3e4080bbd3eca70a57e83193ee1a7877",
+    "content-hash": "823d19b1240bdc4bd74684aa76bcf21f",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -1689,17 +1689,43 @@
             "time": "2020-07-20T17:29:33+00:00"
         },
         {
-            "name": "plugins/film-management",
+            "name": "plugins/admin",
             "version": "dev-develop",
             "dist": {
                 "type": "path",
-                "url": "./platform/plugins/film-management",
-                "reference": "e9a90e01ae4759b76b4f6c145e7a79f1fbe4e779"
+                "url": "./platform/plugins/admin",
+                "reference": "8ae803821fc5933f811f962bca372bcd072adfc9"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Admin\\Providers\\ModuleServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Admin\\": "src/"
+                }
+            },
+            "description": "admin magagement",
+            "transport-options": {
+                "relative": true
+            }
+        },
+        {
+            "name": "plugins/film",
+            "version": "dev-develop",
+            "dist": {
+                "type": "path",
+                "url": "./platform/plugins/film",
+                "reference": "aaa19dfafa367b589ffe3709ca106fba6a1ce0a4"
             },
             "type": "library",
             "autoload": {
                 "psr-4": {
-                    "FilmManagement\\": "src/"
+                    "Film\\": "src/"
                 }
             },
             "description": "Film Management",

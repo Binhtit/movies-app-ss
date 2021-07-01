@@ -1,0 +1,12 @@
+{
+    "name": "plugins/film",
+    "require": {},
+    "require-dev": {},
+    "autoload": {
+        "psr-4": {
+            "Film\\": "src/"
+        }
+    },
+    "minimum-stability": "dev",
+    "description": "Film Management"
+}

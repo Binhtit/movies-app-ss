@@ -178,7 +178,7 @@ return [
         /*
          * Package Service Providers...
          */
-        FilmManagement\Providers\ModuleServiceProvider::class,
+        Film\Providers\ModuleServiceProvider::class,
 
     ],
 

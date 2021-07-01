@@ -1,0 +1,5 @@
+{
+    "alias": "film",
+    "description": "Film Management",
+    "namespace": "Film"
+}

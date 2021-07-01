@@ -1,0 +1,19 @@
+{
+    "name": "plugins/admin",
+    "require": {},
+    "require-dev": {},
+    "autoload": {
+        "psr-4": {
+            "Admin\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Admin\\Providers\\ModuleServiceProvider"
+            ]
+        }
+    },
+    "minimum-stability": "dev",
+    "description": "admin magagement"
+}
