@@ -17,3 +17,11 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::apiResource('films', 'Api\FilmController');
+
+$moduleRoute = '/admin';
+Route::group(['prefix' => $moduleRoute], function () {
+    Route::get('/login', 'AdminController@index');
+    Route::post('/dashboard', 'AdminController@show_dashboard');
+});

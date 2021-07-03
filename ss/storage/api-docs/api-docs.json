@@ -1,0 +1,391 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "movies-app-ss",
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/admin/dashboard": {
+            "get": {
+                "tags": [
+                    "auth"
+                ],
+                "summary": "Sign in",
+                "description": "Login by email, password",
+                "operationId": "778218e2bcaf9b96939ba3053691f6df",
+                "parameters": [
+                    {
+                        "name": "email",
+                        "in": "query",
+                        "description": "Email",
+                        "required": true,
+                        "schema": {
+                            "type": "email"
+                        }
+                    },
+                    {
+                        "name": "password",
+                        "in": "query",
+                        "description": "Password",
+                        "required": true,
+                        "schema": {
+                            "type": "password"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "Pass film credentials",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "email",
+                                    "password"
+                                ],
+                                "properties": {
+                                    "email": {
+                                        "type": "string",
+                                        "format": "email",
+                                        "example": "user1@mail.com"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "format": "password",
+                                        "example": "PassWord12345"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Display list of admin"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    }
+                },
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/films": {
+            "get": {
+                "tags": [
+                    "films"
+                ],
+                "summary": "Get all films",
+                "description": "Display a listing of the resource.",
+                "operationId": "0e13f888d97ac478f4f75ae8b1dca605",
+                "responses": {
+                    "200": {
+                        "description": "Display a listing of films."
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    }
+                },
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "films"
+                ],
+                "summary": "Create new film",
+                "description": "Create new film",
+                "operationId": "5e07c8a38fdba7cc2f5a881638de16da",
+                "parameters": [
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "description": "Name of films.",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "description",
+                        "in": "query",
+                        "description": "Description of films.",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "Pass film credentials",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "name",
+                                    "description"
+                                ],
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "user1@mail.com"
+                                    },
+                                    "author": {
+                                        "type": "string",
+                                        "example": "Biên kịch"
+                                    },
+                                    "country": {
+                                        "type": "string",
+                                        "example": "Quốc gia"
+                                    },
+                                    "category": {
+                                        "type": "string",
+                                        "example": "Chuyên mục"
+                                    },
+                                    "episodes": {
+                                        "type": "string",
+                                        "example": "Số tập"
+                                    },
+                                    "description": {
+                                        "type": "string",
+                                        "example": "This is description"
+                                    },
+                                    "star": {
+                                        "type": "string",
+                                        "example": "Đánh giá"
+                                    },
+                                    "date": {
+                                        "type": "string",
+                                        "example": "Ngày ra mắt"
+                                    },
+                                    "type": {
+                                        "type": "string",
+                                        "example": "Loại"
+                                    },
+                                    "image": {
+                                        "type": "string",
+                                        "example": "Path"
+                                    },
+                                    "banner": {
+                                        "type": "string",
+                                        "example": "Path"
+                                    },
+                                    "created_by": {
+                                        "type": "string",
+                                        "example": "Ng tạo"
+                                    },
+                                    "updated_by": {
+                                        "type": "string",
+                                        "example": "Ng sửa"
+                                    },
+                                    "deleted_by": {
+                                        "type": "string",
+                                        "example": "Ng xóa"
+                                    },
+                                    "created_at": {
+                                        "type": "string",
+                                        "example": "Ngày tạo"
+                                    },
+                                    "update_at": {
+                                        "type": "string",
+                                        "example": "Ngày sửa"
+                                    },
+                                    "deleted_at": {
+                                        "type": "string",
+                                        "example": "Ngày xóa"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Display a listing of films."
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    }
+                }
+            }
+        },
+        "/films/{id}": {
+            "get": {
+                "tags": [
+                    "films"
+                ],
+                "summary": "Show film's details",
+                "description": "Details",
+                "operationId": "d0556bb7a3dfaca9bbd182074c7332a3",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "ID",
+                        "required": true,
+                        "schema": {
+                            "type": "int"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Display details of films."
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "films"
+                ],
+                "summary": "Update film",
+                "description": "Update film",
+                "operationId": "4570a5e50c0aa60ec2002b646893372e",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "ID",
+                        "required": true,
+                        "schema": {
+                            "type": "int"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "Enter info",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "name",
+                                    "description"
+                                ],
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "user1@mail.com"
+                                    },
+                                    "author": {
+                                        "type": "string",
+                                        "example": "Biên kịch"
+                                    },
+                                    "country": {
+                                        "type": "string",
+                                        "example": "Quốc gia"
+                                    },
+                                    "category": {
+                                        "type": "string",
+                                        "example": "Chuyên mục"
+                                    },
+                                    "episodes": {
+                                        "type": "string",
+                                        "example": "Số tập"
+                                    },
+                                    "description": {
+                                        "type": "string",
+                                        "example": "This is description"
+                                    },
+                                    "star": {
+                                        "type": "string",
+                                        "example": "Đánh giá"
+                                    },
+                                    "date": {
+                                        "type": "string",
+                                        "example": "Ngày ra mắt"
+                                    },
+                                    "type": {
+                                        "type": "string",
+                                        "example": "Loại"
+                                    },
+                                    "image": {
+                                        "type": "string",
+                                        "example": "Path"
+                                    },
+                                    "banner": {
+                                        "type": "string",
+                                        "example": "Path"
+                                    },
+                                    "created_by": {
+                                        "type": "string",
+                                        "example": "Ng tạo"
+                                    },
+                                    "updated_by": {
+                                        "type": "string",
+                                        "example": "Ng sửa"
+                                    },
+                                    "deleted_by": {
+                                        "type": "string",
+                                        "example": "Ng xóa"
+                                    },
+                                    "created_at": {
+                                        "type": "string",
+                                        "example": "Ngày tạo"
+                                    },
+                                    "update_at": {
+                                        "type": "string",
+                                        "example": "Ngày sửa"
+                                    },
+                                    "deleted_at": {
+                                        "type": "string",
+                                        "example": "Ngày xóa"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Display a listing of films."
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "films"
+                ],
+                "summary": "Delete film",
+                "description": "Delete",
+                "operationId": "091e167808ac8841f6eb27baa61bd0b8",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "ID",
+                        "required": true,
+                        "schema": {
+                            "type": "int"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Delete successfully"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    }
+                }
+            }
+        }
+    }
+}
