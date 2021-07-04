@@ -75,13 +75,367 @@
                 ]
             }
         },
-        "/film_categories": {
+        "api/countries": {
+            "get": {
+                "tags": [
+                    "Country"
+                ],
+                "summary": "Get list of countries.",
+                "operationId": "43abbe97628eec020b1781dfdfc2b1f5",
+                "responses": {
+                    "200": {
+                        "description": "Display a listing of countries."
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Country"
+                ],
+                "summary": "Create new country.",
+                "operationId": "cc37fa1e55cf1f19db71a9be710e48d2",
+                "parameters": [
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "description": "Name of country",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/components/schemas/Country/properties/name"
+                        }
+                    },
+                    {
+                        "name": "status",
+                        "in": "query",
+                        "description": "Status of category.",
+                        "required": false,
+                        "schema": {
+                            "$ref": "#/components/schemas/Country/properties/status"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Country"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Create successfully."
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    }
+                }
+            }
+        },
+        "api/countries/{id}": {
+            "get": {
+                "tags": [
+                    "Country"
+                ],
+                "summary": "Get country by id",
+                "operationId": "8376046675556ab45916ea28d0175470",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/components/schemas/Country/properties/id"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Display a listing of films."
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Country"
+                ],
+                "summary": "Update country by id.",
+                "operationId": "c763b602b642fcb692397d98028478c6",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/components/schemas/Country/properties/id"
+                        }
+                    },
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "description": "Name of country",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/components/schemas/Country/properties/name"
+                        }
+                    },
+                    {
+                        "name": "status",
+                        "in": "query",
+                        "description": "Status of country.",
+                        "required": false,
+                        "schema": {
+                            "$ref": "#/components/schemas/Country/properties/status"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Country"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Update successfully."
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Country"
+                ],
+                "summary": "Delete country by id.",
+                "operationId": "d107ed96c4294f00b2035f2a4dca12d2",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/components/schemas/Country/properties/id"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Delete successfully."
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    }
+                }
+            }
+        },
+        "api/episodes": {
+            "get": {
+                "tags": [
+                    "Episode"
+                ],
+                "summary": "Get list of episodes.",
+                "operationId": "5590e0cc915414a2ca8be5dab6894230",
+                "responses": {
+                    "200": {
+                        "description": "Display a listing of episodes."
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Episode"
+                ],
+                "summary": "Create new episode.",
+                "operationId": "cbdc69e9ad4b2a3e5cca8c41dcf063eb",
+                "parameters": [
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "description": "Name of episode",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/components/schemas/Episode/properties/name"
+                        }
+                    },
+                    {
+                        "name": "link",
+                        "in": "query",
+                        "description": "Link of ep.",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/components/schemas/Episode/properties/link"
+                        }
+                    },
+                    {
+                        "name": "film_id",
+                        "in": "query",
+                        "description": "Film id of ep.",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/components/schemas/Episode/properties/film_id"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Episode"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Create successfully."
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    }
+                }
+            }
+        },
+        "api/episodes/{id}": {
+            "get": {
+                "tags": [
+                    "Episode"
+                ],
+                "summary": "Get episode by id",
+                "operationId": "f3681a83f9e27120a1bb0ba7eabed4a3",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/components/schemas/Episode/properties/id"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Display a listing of films."
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Episode"
+                ],
+                "summary": "Update episode by id.",
+                "operationId": "ed25b0dfff92cc9bef42322f6347a6a7",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/components/schemas/Episode/properties/id"
+                        }
+                    },
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "description": "Name of episode",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/components/schemas/Episode/properties/name"
+                        }
+                    },
+                    {
+                        "name": "link",
+                        "in": "query",
+                        "description": "Link of episode.",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/components/schemas/Episode/properties/link"
+                        }
+                    },
+                    {
+                        "name": "film_id",
+                        "in": "query",
+                        "description": "Film id of episode.",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/components/schemas/Episode/properties/film_id"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Episode"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Update successfully."
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Episode"
+                ],
+                "summary": "Delete episode by id.",
+                "operationId": "e37f1647b34939d6d980ffdd7ed5483f",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/components/schemas/Episode/properties/id"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Delete successfully."
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    }
+                }
+            }
+        },
+        "api/film_categories": {
             "get": {
                 "tags": [
                     "FilmCategory"
                 ],
                 "summary": "Get all film categories",
-                "operationId": "dc7356a8a608b38cc756023edd5bd908",
+                "operationId": "7250e4786f448dc9e86df196927b1724",
                 "responses": {
                     "200": {
                         "description": "Display a listing of film categories."
@@ -96,17 +450,8 @@
                     "FilmCategory"
                 ],
                 "summary": "Create new film category",
-                "operationId": "7a0e82964a74bf57785b4537ee56e220",
+                "operationId": "84cdc52cab0053a02547b4a19479c5b0",
                 "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "description": "ID",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/components/schemas/FilmCategory/properties/id"
-                        }
-                    },
                     {
                         "name": "name",
                         "in": "query",
@@ -127,7 +472,6 @@
                     }
                 ],
                 "requestBody": {
-                    "required": true,
                     "content": {
                         "application/json": {
                             "schema": {
@@ -146,13 +490,13 @@
                 }
             }
         },
-        "/film_categories/{id}": {
+        "api/film_categories/{id}": {
             "get": {
                 "tags": [
                     "FilmCategory"
                 ],
                 "summary": "Get category by id",
-                "operationId": "50d9a3e0e5b0266551e57c8a39b7815a",
+                "operationId": "b7bba3a6cfc1cdf282c65e8dd591994e",
                 "parameters": [
                     {
                         "name": "id",
@@ -178,7 +522,7 @@
                     "FilmCategory"
                 ],
                 "summary": "Update category by id.",
-                "operationId": "1fb995605bd6b678367540a85bf9a998",
+                "operationId": "c3867c11652df67e316777e3f7dde44a",
                 "parameters": [
                     {
                         "name": "id",
@@ -209,7 +553,6 @@
                     }
                 ],
                 "requestBody": {
-                    "required": true,
                     "content": {
                         "application/json": {
                             "schema": {
@@ -232,7 +575,7 @@
                     "FilmCategory"
                 ],
                 "summary": "Delete film category by id.",
-                "operationId": "e480784b07d1351bb3dfa8c04b45bd2b",
+                "operationId": "71a494433cea582d1ece168edd791444",
                 "parameters": [
                     {
                         "name": "id",
@@ -254,14 +597,14 @@
                 }
             }
         },
-        "/films": {
+        "api/films": {
             "get": {
                 "tags": [
                     "Film"
                 ],
                 "summary": "Get all films",
                 "description": "Display a listing of the resource.",
-                "operationId": "0e13f888d97ac478f4f75ae8b1dca605",
+                "operationId": "ebb0cec707c468dcba11124cd88e54ae",
                 "responses": {
                     "200": {
                         "description": "Display a listing of films."
@@ -276,17 +619,8 @@
                     "Film"
                 ],
                 "summary": "Create new film",
-                "operationId": "5e07c8a38fdba7cc2f5a881638de16da",
+                "operationId": "677ee0fba991d15a6ce9a78711136972",
                 "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "description": "ID",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/components/schemas/Film/properties/id"
-                        }
-                    },
                     {
                         "name": "name",
                         "in": "query",
@@ -294,6 +628,15 @@
                         "required": true,
                         "schema": {
                             "$ref": "#/components/schemas/Film/properties/name"
+                        }
+                    },
+                    {
+                        "name": "category_id",
+                        "in": "query",
+                        "description": "Category",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/components/schemas/Film/properties/category_id"
                         }
                     },
                     {
@@ -307,7 +650,6 @@
                     }
                 ],
                 "requestBody": {
-                    "required": true,
                     "content": {
                         "application/json": {
                             "schema": {
@@ -326,13 +668,13 @@
                 }
             }
         },
-        "/films/{id}": {
+        "api/films/{id}": {
             "get": {
                 "tags": [
                     "Film"
                 ],
                 "summary": "Show film's details",
-                "operationId": "d0556bb7a3dfaca9bbd182074c7332a3",
+                "operationId": "183782c73d5ca7703c3817663d162a61",
                 "parameters": [
                     {
                         "name": "id",
@@ -358,7 +700,7 @@
                     "Film"
                 ],
                 "summary": "Update film",
-                "operationId": "4570a5e50c0aa60ec2002b646893372e",
+                "operationId": "b5fc7bead18afa0af8284be773ec5991",
                 "parameters": [
                     {
                         "name": "id",
@@ -389,7 +731,6 @@
                     }
                 ],
                 "requestBody": {
-                    "required": true,
                     "content": {
                         "application/json": {
                             "schema": {
@@ -412,7 +753,7 @@
                     "Film"
                 ],
                 "summary": "Delete film",
-                "operationId": "091e167808ac8841f6eb27baa61bd0b8",
+                "operationId": "c5fa3226c98d23d759f1cfd951547b57",
                 "parameters": [
                     {
                         "name": "id",
@@ -433,12 +774,367 @@
                     }
                 }
             }
+        },
+        "api/menus": {
+            "get": {
+                "tags": [
+                    "Menu"
+                ],
+                "summary": "Get list of menus.",
+                "operationId": "73e593337d4b0fb63abc1aab484ff408",
+                "responses": {
+                    "200": {
+                        "description": "Display a listing of menus."
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Menu"
+                ],
+                "summary": "Create new menu.",
+                "operationId": "b9cf840f041e3b43462f46397dffbdc7",
+                "parameters": [
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "description": "Name of menu",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/components/schemas/Menu/properties/name"
+                        }
+                    },
+                    {
+                        "name": "status",
+                        "in": "query",
+                        "description": "Status of category.",
+                        "required": false,
+                        "schema": {
+                            "$ref": "#/components/schemas/Menu/properties/status"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Menu"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Create successfully."
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    }
+                }
+            }
+        },
+        "api/menus/{id}": {
+            "get": {
+                "tags": [
+                    "Menu"
+                ],
+                "summary": "Get menu by id",
+                "operationId": "1913bf30321220c8e570da8e0f44c9d4",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/components/schemas/Menu/properties/id"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Display a listing of films."
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Menu"
+                ],
+                "summary": "Update menu by id.",
+                "operationId": "78a2d2818371eb442182b1f8e3b2e438",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/components/schemas/Menu/properties/id"
+                        }
+                    },
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "description": "Name of menu",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/components/schemas/Menu/properties/name"
+                        }
+                    },
+                    {
+                        "name": "status",
+                        "in": "query",
+                        "description": "Status of menu.",
+                        "required": false,
+                        "schema": {
+                            "$ref": "#/components/schemas/Menu/properties/status"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Menu"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Update successfully."
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Menu"
+                ],
+                "summary": "Delete menu by id.",
+                "operationId": "fb6189fa0b2a2eee0d9454d9ab0aee1d",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/components/schemas/Menu/properties/id"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Delete successfully."
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    }
+                }
+            }
+        },
+        "api/types": {
+            "get": {
+                "tags": [
+                    "Type"
+                ],
+                "summary": "Get list of types.",
+                "operationId": "d9f028e8a4867c716bbe193b7020045b",
+                "responses": {
+                    "200": {
+                        "description": "Display a listing of types."
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Type"
+                ],
+                "summary": "Create new type.",
+                "operationId": "767b2444ef5397215dabacf77fe2811c",
+                "parameters": [
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "description": "Name of type",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/components/schemas/Type/properties/name"
+                        }
+                    },
+                    {
+                        "name": "status",
+                        "in": "query",
+                        "description": "Status of category.",
+                        "required": false,
+                        "schema": {
+                            "$ref": "#/components/schemas/Type/properties/status"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Type"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Create successfully."
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    }
+                }
+            }
+        },
+        "api/types/{id}": {
+            "get": {
+                "tags": [
+                    "Type"
+                ],
+                "summary": "Get type by id",
+                "operationId": "3198ec82757f8592d968562b8380b820",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/components/schemas/Type/properties/id"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Display a listing of films."
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Type"
+                ],
+                "summary": "Update type by id.",
+                "operationId": "b5a52b87def51dfa1fc2d979e0ebfc3f",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/components/schemas/Type/properties/id"
+                        }
+                    },
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "description": "Name of type",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/components/schemas/Type/properties/name"
+                        }
+                    },
+                    {
+                        "name": "status",
+                        "in": "query",
+                        "description": "Status of type.",
+                        "required": false,
+                        "schema": {
+                            "$ref": "#/components/schemas/Type/properties/status"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Type"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Update successfully."
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Type"
+                ],
+                "summary": "Delete type by id.",
+                "operationId": "f8a0df368734faa39f8df16035a4d080",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/components/schemas/Type/properties/id"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Delete successfully."
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    }
+                }
+            }
         }
     },
     "components": {
         "schemas": {
             "BaseModel": {
                 "properties": {
+                    "id": {
+                        "type": "integer",
+                        "readOnly": "true"
+                    },
+                    "created_by": {
+                        "type": "string",
+                        "readOnly": "true",
+                        "example": "Ng tạo"
+                    },
+                    "updated_by": {
+                        "type": "string",
+                        "readOnly": "true",
+                        "example": "Ng sửa"
+                    },
+                    "deleted_by": {
+                        "type": "string",
+                        "readOnly": "true",
+                        "example": "Ng xóa"
+                    },
                     "created_at": {
                         "description": "Initial creation timestamp",
                         "type": "string",
@@ -460,6 +1156,110 @@
                 },
                 "type": "object"
             },
+            "Country": {
+                "required": [
+                    "name"
+                ],
+                "properties": {
+                    "id": {
+                        "$ref": "#/components/schemas/BaseModel/properties/id"
+                    },
+                    "name": {
+                        "type": "string",
+                        "example": "Vietnam"
+                    },
+                    "status": {
+                        "type": "integer",
+                        "example": "Trạng thái: 1-kích hoạt, 2-vô hiệu, 3-đã xóa"
+                    },
+                    "position": {
+                        "type": "integer",
+                        "example": "1"
+                    },
+                    "created_by": {
+                        "$ref": "#/components/schemas/BaseModel/properties/created_by"
+                    },
+                    "updated_by": {
+                        "$ref": "#/components/schemas/BaseModel/properties/updated_at"
+                    },
+                    "deleted_by": {
+                        "$ref": "#/components/schemas/BaseModel/properties/deleted_at"
+                    },
+                    "created_at": {
+                        "$ref": "#/components/schemas/BaseModel/properties/created_at"
+                    },
+                    "update_at": {
+                        "$ref": "#/components/schemas/BaseModel/properties/updated_at"
+                    },
+                    "deleted_at": {
+                        "$ref": "#/components/schemas/BaseModel/properties/deleted_at"
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "Country"
+                }
+            },
+            "Episode": {
+                "required": [
+                    "name"
+                ],
+                "properties": {
+                    "id": {
+                        "$ref": "#/components/schemas/BaseModel/properties/id"
+                    },
+                    "name": {
+                        "type": "string",
+                        "example": "Tập 1"
+                    },
+                    "link": {
+                        "type": "string",
+                        "example": "https://www.youtube.com/watch?v=yCvSR4lSqTg"
+                    },
+                    "film_id": {
+                        "type": "integer",
+                        "example": "1"
+                    },
+                    "thumbnail": {
+                        "type": "string",
+                        "example": "upload/img.jpg"
+                    },
+                    "description": {
+                        "type": "string",
+                        "example": "Description"
+                    },
+                    "status": {
+                        "type": "integer",
+                        "example": "Trạng thái: 1-kích hoạt, 2-vô hiệu, 3-đã xóa"
+                    },
+                    "position": {
+                        "type": "integer",
+                        "example": "1"
+                    },
+                    "created_by": {
+                        "$ref": "#/components/schemas/BaseModel/properties/created_by"
+                    },
+                    "updated_by": {
+                        "$ref": "#/components/schemas/BaseModel/properties/updated_at"
+                    },
+                    "deleted_by": {
+                        "$ref": "#/components/schemas/BaseModel/properties/deleted_at"
+                    },
+                    "created_at": {
+                        "$ref": "#/components/schemas/BaseModel/properties/created_at"
+                    },
+                    "update_at": {
+                        "$ref": "#/components/schemas/BaseModel/properties/updated_at"
+                    },
+                    "deleted_at": {
+                        "$ref": "#/components/schemas/BaseModel/properties/deleted_at"
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "Episode"
+                }
+            },
             "Film": {
                 "required": [
                     "name",
@@ -468,8 +1268,7 @@
                 ],
                 "properties": {
                     "id": {
-                        "type": "integer",
-                        "readOnly": "true"
+                        "$ref": "#/components/schemas/BaseModel/properties/id"
                     },
                     "name": {
                         "type": "string",
@@ -485,15 +1284,15 @@
                     },
                     "country": {
                         "type": "integer",
-                        "example": "Quốc gia"
+                        "example": "1"
                     },
                     "category_id": {
                         "type": "integer",
-                        "example": "Chuyên mục: 3D or 2D ..."
+                        "example": "1"
                     },
                     "episodes": {
                         "type": "integer",
-                        "example": "Số tập"
+                        "example": "20"
                     },
                     "description": {
                         "type": "string",
@@ -501,16 +1300,16 @@
                     },
                     "star": {
                         "type": "integer",
-                        "example": "Đánh giá"
+                        "example": "5"
                     },
                     "release_date": {
                         "type": "datetime",
                         "format": "date-time",
-                        "example": "Ngày ra mắt"
+                        "example": "20/09/1998"
                     },
                     "type_id": {
                         "type": "integer",
-                        "example": "Kiếm hiệp, tình cảm ..."
+                        "example": "1"
                     },
                     "image": {
                         "type": "string",
@@ -534,19 +1333,16 @@
                     },
                     "position": {
                         "type": "integer",
-                        "example": "số"
+                        "example": "1"
                     },
                     "created_by": {
-                        "type": "string",
-                        "example": "Ng tạo"
+                        "$ref": "#/components/schemas/BaseModel/properties/created_by"
                     },
                     "updated_by": {
-                        "type": "string",
-                        "example": "Ng sửa"
+                        "$ref": "#/components/schemas/BaseModel/properties/updated_at"
                     },
                     "deleted_by": {
-                        "type": "string",
-                        "example": "Ng xóa"
+                        "$ref": "#/components/schemas/BaseModel/properties/deleted_at"
                     },
                     "created_at": {
                         "$ref": "#/components/schemas/BaseModel/properties/created_at"
@@ -569,8 +1365,7 @@
                 ],
                 "properties": {
                     "id": {
-                        "type": "integer",
-                        "readOnly": "true"
+                        "$ref": "#/components/schemas/BaseModel/properties/id"
                     },
                     "name": {
                         "type": "string",
@@ -585,16 +1380,13 @@
                         "example": "số"
                     },
                     "created_by": {
-                        "type": "string",
-                        "example": "Ng tạo"
+                        "$ref": "#/components/schemas/BaseModel/properties/created_by"
                     },
                     "updated_by": {
-                        "type": "string",
-                        "example": "Ng sửa"
+                        "$ref": "#/components/schemas/BaseModel/properties/updated_at"
                     },
                     "deleted_by": {
-                        "type": "string",
-                        "example": "Ng xóa"
+                        "$ref": "#/components/schemas/BaseModel/properties/deleted_at"
                     },
                     "created_at": {
                         "$ref": "#/components/schemas/BaseModel/properties/created_at"
@@ -609,6 +1401,94 @@
                 "type": "object",
                 "xml": {
                     "name": "FilmCategory"
+                }
+            },
+            "Menu": {
+                "required": [
+                    "name"
+                ],
+                "properties": {
+                    "id": {
+                        "$ref": "#/components/schemas/BaseModel/properties/id"
+                    },
+                    "name": {
+                        "type": "string",
+                        "example": "Trang chủ"
+                    },
+                    "status": {
+                        "type": "integer",
+                        "example": "Trạng thái: 1-kích hoạt, 2-vô hiệu, 3-đã xóa"
+                    },
+                    "position": {
+                        "type": "integer",
+                        "example": "1"
+                    },
+                    "created_by": {
+                        "$ref": "#/components/schemas/BaseModel/properties/created_by"
+                    },
+                    "updated_by": {
+                        "$ref": "#/components/schemas/BaseModel/properties/updated_at"
+                    },
+                    "deleted_by": {
+                        "$ref": "#/components/schemas/BaseModel/properties/deleted_at"
+                    },
+                    "created_at": {
+                        "$ref": "#/components/schemas/BaseModel/properties/created_at"
+                    },
+                    "update_at": {
+                        "$ref": "#/components/schemas/BaseModel/properties/updated_at"
+                    },
+                    "deleted_at": {
+                        "$ref": "#/components/schemas/BaseModel/properties/deleted_at"
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "Menu"
+                }
+            },
+            "Type": {
+                "required": [
+                    "name"
+                ],
+                "properties": {
+                    "id": {
+                        "$ref": "#/components/schemas/BaseModel/properties/id"
+                    },
+                    "name": {
+                        "type": "string",
+                        "example": "Kiếm hiệp"
+                    },
+                    "status": {
+                        "type": "integer",
+                        "example": "Trạng thái: 1-kích hoạt, 2-vô hiệu, 3-đã xóa"
+                    },
+                    "position": {
+                        "type": "integer",
+                        "example": "1"
+                    },
+                    "created_by": {
+                        "$ref": "#/components/schemas/BaseModel/properties/created_by"
+                    },
+                    "updated_by": {
+                        "$ref": "#/components/schemas/BaseModel/properties/updated_at"
+                    },
+                    "deleted_by": {
+                        "$ref": "#/components/schemas/BaseModel/properties/deleted_at"
+                    },
+                    "created_at": {
+                        "$ref": "#/components/schemas/BaseModel/properties/created_at"
+                    },
+                    "update_at": {
+                        "$ref": "#/components/schemas/BaseModel/properties/updated_at"
+                    },
+                    "deleted_at": {
+                        "$ref": "#/components/schemas/BaseModel/properties/deleted_at"
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "Type"
                 }
             }
         }

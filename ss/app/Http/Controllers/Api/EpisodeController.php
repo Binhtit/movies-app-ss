@@ -3,33 +3,36 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Models\Film;
+use App\Models\Episode;
 use Illuminate\Http\Request;
 
-class FilmController extends Controller
+class MenuController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
+     * @return \Illuminate\Http\Response
+     */
+
+    /**
+     *
      *  @OA\Get( 
-     *      path="api/films",
-     *      summary="Get all films", 
-     *      tags={"Film"}, 
+     *      path="api/episodes",
+     *      summary="Get list of episodes.", 
+     *      tags={"Episode"}, 
      *      @OA\Response( 
      *          response=200, 
-     *          description="Display a listing of films.", 
+     *          description="Display a listing of episodes.", 
      *      ), 
      *      @OA\Response( 
      *          response=400, 
      *          description="Bad Request", 
      *      ) 
      *  ) 
-     * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        //
-        return Film::all();
+        Episode::all();
     }
 
     /**
@@ -40,32 +43,32 @@ class FilmController extends Controller
      */
     /**
      * @OA\Post(
-     *      path="api/films",
-     *      summary="Create new film",
-     *      tags={"Film"},
+     *      path="api/episodes",
+     *      summary="Create new episode.",
+     *      tags={"Episode"},
      *      @OA\Parameter( 
      *          in="query", 
      *          name="name", 
      *          required=true, 
-     *          description="Name of films.", 
-     *          @OA\Schema( ref="#/components/schemas/Film/properties/name")
+     *          description="Name of episode", 
+     *          @OA\Schema( ref="#/components/schemas/Episode/properties/name")
      *      ), 
      *      @OA\Parameter( 
      *          in="query", 
-     *          name="category_id", 
+     *          name="link", 
      *          required=true, 
-     *          description="Category", 
-     *          @OA\Schema( ref="#/components/schemas/Film/properties/category_id")
+     *          description="Link of ep.", 
+     *          @OA\Schema( ref="#/components/schemas/Episode/properties/link")
      *      ),
      *      @OA\Parameter( 
      *          in="query", 
-     *          name="description", 
+     *          name="film_id", 
      *          required=true, 
-     *          description="Description of films.", 
-     *          @OA\Schema( ref="#/components/schemas/Film/properties/description")
+     *          description="Film id of ep.", 
+     *          @OA\Schema( ref="#/components/schemas/Episode/properties/film_id")
      *      ),
      *      @OA\RequestBody(
-     *          @OA\JsonContent(ref="#/components/schemas/Film"),
+     *          @OA\JsonContent(ref="#/components/schemas/Episode"),
      *      ),
      *      @OA\Response( 
      *          response=200, 
@@ -79,30 +82,30 @@ class FilmController extends Controller
      */
     public function store(Request $request)
     {
-        return Film::create($request->all());        
+        return Episode::create($request->all());
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Film  $film
+     * @param  \App\Models\Episode  $episode
      * @return \Illuminate\Http\Response
      */
     /**
      * @OA\Get(
-     *      path="api/films/{id}",
-     *      summary="Show film's details",
-     *      tags={"Film"},
+     *      path="api/episodes/{id}",
+     *      summary="Get episode by id",
+     *      tags={"Episode"},
      *      @OA\Parameter( 
      *          in="path", 
      *          name="id", 
      *          required=true, 
      *          description="ID", 
-     *          @OA\Schema( ref="#/components/schemas/Film/properties/id") 
+     *          @OA\Schema( type="integer", ref="#/components/schemas/Episode/properties/id") 
      *      ),
      *      @OA\Response( 
      *          response=200, 
-     *          description="Display details of films.", 
+     *          description="Display a listing of films.", 
      *      ), 
      *      @OA\Response( 
      *          response=400, 
@@ -110,47 +113,53 @@ class FilmController extends Controller
      *      ),
      * )
      */
-    public function show(Film $film)
+    public function show(Episode $episode)
     {
-        return $film;
+        return $episode;
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Film  $film
+     * @param  \App\Models\Episode  $episode
      * @return \Illuminate\Http\Response
      */
-
     /**
      * @OA\Put(
-     *      path="api/films/{id}",
-     *      summary="Update film",
-     *      tags={"Film"},
+     *      path="api/episodes/{id}",
+     *      summary="Update episode by id.",
+     *      tags={"Episode"},
      *      @OA\Parameter( 
      *          in="path", 
      *          name="id", 
      *          required=true, 
      *          description="ID", 
-     *          @OA\Schema( ref="#/components/schemas/Film/properties/id") 
+     *          @OA\Schema( type="integer", ref="#/components/schemas/Episode/properties/id") 
      *      ),
      *      @OA\Parameter( 
      *          in="query", 
      *          name="name", 
      *          required=true, 
-     *          description="Name of films.", 
-     *          @OA\Schema( ref="#/components/schemas/Film/properties/name")
+     *          description="Name of episode", 
+     *          @OA\Schema( ref="#/components/schemas/Episode/properties/name")
      *      ), 
      *      @OA\Parameter( 
      *          in="query", 
-     *          name="description", 
+     *          name="link", 
      *          required=true, 
-     *          description="Description of films.", 
-     *          @OA\Schema( ref="#/components/schemas/Film/properties/description")
+     *          description="Link of episode.", 
+     *          @OA\Schema( ref="#/components/schemas/Episode/properties/link")
+     *      ),
+     *      @OA\Parameter( 
+     *          in="query", 
+     *          name="film_id", 
+     *          required=true, 
+     *          description="Film id of episode.", 
+     *          @OA\Schema( ref="#/components/schemas/Episode/properties/film_id")
      *      ),
      *      @OA\RequestBody(
-     *          @OA\JsonContent(ref="#/components/schemas/Film"),
+     *          @OA\JsonContent(ref="#/components/schemas/Episode"),
      *      ),
      *      @OA\Response( 
      *          response=200, 
@@ -162,30 +171,29 @@ class FilmController extends Controller
      *      ),
      * )
      */
-    public function update(Request $request, Film $film)
+    public function update(Request $request, Episode $episode)
     {
-        $film->update($request->all());
-        return $film;
+        $episode->update($request->all());
+        return $episode;
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Film  $film
+     * @param  \App\Models\Episode  $episode
      * @return \Illuminate\Http\Response
      */
-
     /**
      * @OA\Delete(
-     *      path="api/films/{id}",
-     *      summary="Delete film",
-     *      tags={"Film"},
+     *      path="api/episodes/{id}",
+     *      summary="Delete episode by id.",
+     *      tags={"Episode"},
      *      @OA\Parameter( 
      *          in="path", 
      *          name="id", 
      *          required=true, 
      *          description="ID", 
-     *          @OA\Schema( ref="#/components/schemas/Film/properties/id") 
+     *          @OA\Schema( type="integer", ref="#/components/schemas/Episode/properties/id") 
      *      ),
      *      @OA\Response( 
      *          response=200, 
@@ -197,8 +205,8 @@ class FilmController extends Controller
      *      ),
      * )
      */
-    public function destroy(Film $film)
+    public function destroy(Episode $episode)
     {
-        $film->delete();
+        $episode->delete();
     }
 }

@@ -3,33 +3,36 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Models\Film;
+use App\Models\Country;
 use Illuminate\Http\Request;
 
-class FilmController extends Controller
+class MenuController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
+     * @return \Illuminate\Http\Response
+     */
+
+    /**
+     *
      *  @OA\Get( 
-     *      path="api/films",
-     *      summary="Get all films", 
-     *      tags={"Film"}, 
+     *      path="api/countries",
+     *      summary="Get list of countries.", 
+     *      tags={"Country"}, 
      *      @OA\Response( 
      *          response=200, 
-     *          description="Display a listing of films.", 
+     *          description="Display a listing of countries.", 
      *      ), 
      *      @OA\Response( 
      *          response=400, 
      *          description="Bad Request", 
      *      ) 
      *  ) 
-     * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        //
-        return Film::all();
+        Country::all();
     }
 
     /**
@@ -40,32 +43,25 @@ class FilmController extends Controller
      */
     /**
      * @OA\Post(
-     *      path="api/films",
-     *      summary="Create new film",
-     *      tags={"Film"},
+     *      path="api/countries",
+     *      summary="Create new country.",
+     *      tags={"Country"},
      *      @OA\Parameter( 
      *          in="query", 
      *          name="name", 
      *          required=true, 
-     *          description="Name of films.", 
-     *          @OA\Schema( ref="#/components/schemas/Film/properties/name")
+     *          description="Name of country", 
+     *          @OA\Schema( ref="#/components/schemas/Country/properties/name")
      *      ), 
      *      @OA\Parameter( 
      *          in="query", 
-     *          name="category_id", 
-     *          required=true, 
-     *          description="Category", 
-     *          @OA\Schema( ref="#/components/schemas/Film/properties/category_id")
-     *      ),
-     *      @OA\Parameter( 
-     *          in="query", 
-     *          name="description", 
-     *          required=true, 
-     *          description="Description of films.", 
-     *          @OA\Schema( ref="#/components/schemas/Film/properties/description")
+     *          name="status", 
+     *          required=false, 
+     *          description="Status of category.", 
+     *          @OA\Schema( ref="#/components/schemas/Country/properties/status")
      *      ),
      *      @OA\RequestBody(
-     *          @OA\JsonContent(ref="#/components/schemas/Film"),
+     *          @OA\JsonContent(ref="#/components/schemas/Country"),
      *      ),
      *      @OA\Response( 
      *          response=200, 
@@ -79,30 +75,30 @@ class FilmController extends Controller
      */
     public function store(Request $request)
     {
-        return Film::create($request->all());        
+        return Country::create($request->all());
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Film  $film
+     * @param  \App\Models\Country  $country
      * @return \Illuminate\Http\Response
      */
     /**
      * @OA\Get(
-     *      path="api/films/{id}",
-     *      summary="Show film's details",
-     *      tags={"Film"},
+     *      path="api/countries/{id}",
+     *      summary="Get country by id",
+     *      tags={"Country"},
      *      @OA\Parameter( 
      *          in="path", 
      *          name="id", 
      *          required=true, 
      *          description="ID", 
-     *          @OA\Schema( ref="#/components/schemas/Film/properties/id") 
+     *          @OA\Schema( type="integer", ref="#/components/schemas/Country/properties/id") 
      *      ),
      *      @OA\Response( 
      *          response=200, 
-     *          description="Display details of films.", 
+     *          description="Display a listing of films.", 
      *      ), 
      *      @OA\Response( 
      *          response=400, 
@@ -110,47 +106,46 @@ class FilmController extends Controller
      *      ),
      * )
      */
-    public function show(Film $film)
+    public function show(Country $country)
     {
-        return $film;
+        return $country;
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Film  $film
+     * @param  \App\Models\Country  $country
      * @return \Illuminate\Http\Response
      */
-
     /**
      * @OA\Put(
-     *      path="api/films/{id}",
-     *      summary="Update film",
-     *      tags={"Film"},
+     *      path="api/countries/{id}",
+     *      summary="Update country by id.",
+     *      tags={"Country"},
      *      @OA\Parameter( 
      *          in="path", 
      *          name="id", 
      *          required=true, 
      *          description="ID", 
-     *          @OA\Schema( ref="#/components/schemas/Film/properties/id") 
+     *          @OA\Schema( type="integer", ref="#/components/schemas/Country/properties/id") 
      *      ),
      *      @OA\Parameter( 
      *          in="query", 
      *          name="name", 
      *          required=true, 
-     *          description="Name of films.", 
-     *          @OA\Schema( ref="#/components/schemas/Film/properties/name")
+     *          description="Name of country", 
+     *          @OA\Schema( ref="#/components/schemas/Country/properties/name")
      *      ), 
      *      @OA\Parameter( 
      *          in="query", 
-     *          name="description", 
-     *          required=true, 
-     *          description="Description of films.", 
-     *          @OA\Schema( ref="#/components/schemas/Film/properties/description")
+     *          name="status", 
+     *          required=false, 
+     *          description="Status of country.", 
+     *          @OA\Schema( ref="#/components/schemas/Country/properties/status")
      *      ),
      *      @OA\RequestBody(
-     *          @OA\JsonContent(ref="#/components/schemas/Film"),
+     *          @OA\JsonContent(ref="#/components/schemas/Country"),
      *      ),
      *      @OA\Response( 
      *          response=200, 
@@ -162,30 +157,29 @@ class FilmController extends Controller
      *      ),
      * )
      */
-    public function update(Request $request, Film $film)
+    public function update(Request $request, Country $country)
     {
-        $film->update($request->all());
-        return $film;
+        $country->update($request->all());
+        return $country;
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Film  $film
+     * @param  \App\Models\Country  $country
      * @return \Illuminate\Http\Response
      */
-
     /**
      * @OA\Delete(
-     *      path="api/films/{id}",
-     *      summary="Delete film",
-     *      tags={"Film"},
+     *      path="api/countries/{id}",
+     *      summary="Delete country by id.",
+     *      tags={"Country"},
      *      @OA\Parameter( 
      *          in="path", 
      *          name="id", 
      *          required=true, 
      *          description="ID", 
-     *          @OA\Schema( ref="#/components/schemas/Film/properties/id") 
+     *          @OA\Schema( type="integer", ref="#/components/schemas/Country/properties/id") 
      *      ),
      *      @OA\Response( 
      *          response=200, 
@@ -197,8 +191,8 @@ class FilmController extends Controller
      *      ),
      * )
      */
-    public function destroy(Film $film)
+    public function destroy(Country $country)
     {
-        $film->delete();
+        $country->delete();
     }
 }

@@ -17,7 +17,7 @@ class FilmCategoryController extends Controller
     /**
      *
      *  @OA\Get( 
-     *      path="/film_categories",
+     *      path="api/film_categories",
      *      summary="Get all film categories", 
      *      tags={"FilmCategory"}, 
      *      @OA\Response( 
@@ -43,16 +43,9 @@ class FilmCategoryController extends Controller
      */
     /**
      * @OA\Post(
-     *      path="/film_categories",
+     *      path="api/film_categories",
      *      summary="Create new film category",
      *      tags={"FilmCategory"},
-     *      @OA\Parameter( 
-     *          in="path", 
-     *          name="id", 
-     *          required=true, 
-     *          description="ID", 
-     *          @OA\Schema( type="integer", ref="#/components/schemas/FilmCategory/properties/id") 
-     *      ),
      *      @OA\Parameter( 
      *          in="query", 
      *          name="name", 
@@ -68,7 +61,6 @@ class FilmCategoryController extends Controller
      *          @OA\Schema( ref="#/components/schemas/FilmCategory/properties/status")
      *      ),
      *      @OA\RequestBody(
-     *          required=true,
      *          @OA\JsonContent(ref="#/components/schemas/FilmCategory"),
      *      ),
      *      @OA\Response( 
@@ -94,7 +86,7 @@ class FilmCategoryController extends Controller
      */
     /**
      * @OA\Get(
-     *      path="/film_categories/{id}",
+     *      path="api/film_categories/{id}",
      *      summary="Get category by id",
      *      tags={"FilmCategory"},
      *      @OA\Parameter( 
@@ -128,7 +120,7 @@ class FilmCategoryController extends Controller
      */
     /**
      * @OA\Put(
-     *      path="/film_categories/{id}",
+     *      path="api/film_categories/{id}",
      *      summary="Update category by id.",
      *      tags={"FilmCategory"},
      *      @OA\Parameter( 
@@ -153,7 +145,6 @@ class FilmCategoryController extends Controller
      *          @OA\Schema( ref="#/components/schemas/FilmCategory/properties/status")
      *      ),
      *      @OA\RequestBody(
-     *          required=true,
      *          @OA\JsonContent(ref="#/components/schemas/FilmCategory"),
      *      ),
      *      @OA\Response( 
@@ -180,7 +171,7 @@ class FilmCategoryController extends Controller
      */
     /**
      * @OA\Delete(
-     *      path="/film_categories/{id}",
+     *      path="api/film_categories/{id}",
      *      summary="Delete film category by id.",
      *      tags={"FilmCategory"},
      *      @OA\Parameter( 
