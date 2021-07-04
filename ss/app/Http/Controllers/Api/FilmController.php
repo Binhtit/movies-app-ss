@@ -14,7 +14,7 @@ class FilmController extends Controller
      *  @OA\Get( 
      *      path="/films",
      *      summary="Get all films", 
-     *      tags={"films"}, 
+     *      tags={"Film"}, 
      *      security={{"BearerAuth":{}}}, 
      *      @OA\Response( 
      *          response=200, 
@@ -44,44 +44,31 @@ class FilmController extends Controller
      *      path="/films",
      *      summary="Create new film",
      *      description="Create new film",
-     *      tags={"films"},
+     *      tags={"Film"},
+     *      @OA\Parameter( 
+     *          in="query", 
+     *          name="id", 
+     *          required=true, 
+     *          description="ID", 
+     *          @OA\Schema( ref="#/components/schemas/Film/properties/id") 
+     *      ),
      *      @OA\Parameter( 
      *          in="query", 
      *          name="name", 
      *          required=true, 
      *          description="Name of films.", 
-     *          @OA\Schema( * type="string") 
+     *          @OA\Schema( ref="#/components/schemas/Film/properties/name")
      *      ), 
      *      @OA\Parameter( 
      *          in="query", 
      *          name="description", 
      *          required=true, 
      *          description="Description of films.", 
-     *          @OA\Schema( * type="string") 
+     *          @OA\Schema( ref="#/components/schemas/Film/properties/description")
      *      ),
      *      @OA\RequestBody(
      *          required=true,
-     *          description="Pass film credentials",
-     *          @OA\JsonContent(
-     *              required={"name","description"},
-     *              @OA\Property(property="name", type="string", example="user1@mail.com"),
-     *              @OA\Property(property="author", type="string", example="Biên kịch"),
-     *              @OA\Property(property="country", type="string", example="Quốc gia"),
-     *              @OA\Property(property="category", type="string", example="Chuyên mục"),
-     *              @OA\Property(property="episodes", type="string", example="Số tập"),
-     *              @OA\Property(property="description", type="string", example="This is description"),
-     *              @OA\Property(property="star", type="string", example="Đánh giá"),
-     *              @OA\Property(property="date", type="string", example="Ngày ra mắt"),
-     *              @OA\Property(property="type", type="string", example="Loại"),
-     *              @OA\Property(property="image", type="string", example="Path"),
-     *              @OA\Property(property="banner", type="string", example="Path"),
-     *              @OA\Property(property="created_by", type="string", example="Ng tạo"),
-     *              @OA\Property(property="updated_by", type="string", example="Ng sửa"),
-     *              @OA\Property(property="deleted_by", type="string", example="Ng xóa"),
-     *              @OA\Property(property="created_at", type="string", example="Ngày tạo"),
-     *              @OA\Property(property="update_at", type="string", example="Ngày sửa"),
-     *              @OA\Property(property="deleted_at", type="string", example="Ngày xóa"),
-     *          ),
+     *          @OA\JsonContent(ref="#/components/schemas/Film"),
      *      ),
      *      @OA\Response( 
      *          response=200, 
@@ -109,13 +96,13 @@ class FilmController extends Controller
      *      path="/films/{id}",
      *      summary="Show film's details",
      *      description="Details",
-     *      tags={"films"},
+     *      tags={"Film"},
      *      @OA\Parameter( 
      *          in="query", 
      *          name="id", 
      *          required=true, 
      *          description="ID", 
-     *          @OA\Schema( * type="int") 
+     *          @OA\Schema( ref="#/components/schemas/Film/properties/id") 
      *      ),
      *      @OA\Response( 
      *          response=200, 
@@ -145,37 +132,31 @@ class FilmController extends Controller
      *      path="/films/{id}",
      *      summary="Update film",
      *      description="Update film",
-     *      tags={"films"},
+     *      tags={"Film"},
      *      @OA\Parameter( 
      *          in="query", 
      *          name="id", 
      *          required=true, 
      *          description="ID", 
-     *          @OA\Schema( * type="int") 
+     *          @OA\Schema( ref="#/components/schemas/Film/properties/id") 
+     *      ),
+     *      @OA\Parameter( 
+     *          in="query", 
+     *          name="name", 
+     *          required=true, 
+     *          description="Name of films.", 
+     *          @OA\Schema( ref="#/components/schemas/Film/properties/name")
+     *      ), 
+     *      @OA\Parameter( 
+     *          in="query", 
+     *          name="description", 
+     *          required=true, 
+     *          description="Description of films.", 
+     *          @OA\Schema( ref="#/components/schemas/Film/properties/description")
      *      ),
      *      @OA\RequestBody(
      *          required=true,
-     *          description="Enter info",
-     *          @OA\JsonContent(
-     *              required={"name","description"},
-     *              @OA\Property(property="name", type="string", example="user1@mail.com"),
-     *              @OA\Property(property="author", type="string", example="Biên kịch"),
-     *              @OA\Property(property="country", type="string", example="Quốc gia"),
-     *              @OA\Property(property="category", type="string", example="Chuyên mục"),
-     *              @OA\Property(property="episodes", type="string", example="Số tập"),
-     *              @OA\Property(property="description", type="string", example="This is description"),
-     *              @OA\Property(property="star", type="string", example="Đánh giá"),
-     *              @OA\Property(property="date", type="string", example="Ngày ra mắt"),
-     *              @OA\Property(property="type", type="string", example="Loại"),
-     *              @OA\Property(property="image", type="string", example="Path"),
-     *              @OA\Property(property="banner", type="string", example="Path"),
-     *              @OA\Property(property="created_by", type="string", example="Ng tạo"),
-     *              @OA\Property(property="updated_by", type="string", example="Ng sửa"),
-     *              @OA\Property(property="deleted_by", type="string", example="Ng xóa"),
-     *              @OA\Property(property="created_at", type="string", example="Ngày tạo"),
-     *              @OA\Property(property="update_at", type="string", example="Ngày sửa"),
-     *              @OA\Property(property="deleted_at", type="string", example="Ngày xóa"),
-     *          ),
+     *          @OA\JsonContent(ref="#/components/schemas/Film"),
      *      ),
      *      @OA\Response( 
      *          response=200, 
@@ -205,13 +186,13 @@ class FilmController extends Controller
      *      path="/films/{id}",
      *      summary="Delete film",
      *      description="Delete",
-     *      tags={"films"},
+     *      tags={"Film"},
      *      @OA\Parameter( 
      *          in="query", 
      *          name="id", 
      *          required=true, 
      *          description="ID", 
-     *          @OA\Schema( * type="int") 
+     *          @OA\Schema( ref="#/components/schemas/Film/properties/id") 
      *      ),
      *      @OA\Response( 
      *          response=200, 
