@@ -19,7 +19,13 @@ class CreateAdminsTable extends Migration
             $table->string('admin_password');
             $table->string('admin_name');
             $table->string('admin_phone');
+            $table->integer('status')->default(1);
+            $table->integer('position')->nullable();
+            $table->string('created_by')->nullable();
+            $table->string('updated_by')->nullable();
+            $table->string('deleted_by')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
