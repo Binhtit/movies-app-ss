@@ -19,6 +19,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::apiResource('films', 'Api\FilmController');
+Route::apiResource('film_categories', 'Api\FilmCategoryController');
 
 $moduleRoute = '/admin';
 Route::group(['prefix' => $moduleRoute], function () {

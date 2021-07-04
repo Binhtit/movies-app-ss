@@ -3,33 +3,36 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Models\Film;
+use App\Models\FilmCategory;
 use Illuminate\Http\Request;
 
-class FilmController extends Controller
+class FilmCategoryController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
+     * @return \Illuminate\Http\Response
+     */
+
+    /**
+     *
      *  @OA\Get( 
-     *      path="/films",
-     *      summary="Get all films", 
-     *      tags={"Film"}, 
+     *      path="/film_categories",
+     *      summary="Get all film categories", 
+     *      tags={"FilmCategory"}, 
      *      @OA\Response( 
      *          response=200, 
-     *          description="Display a listing of films.", 
+     *          description="Display a listing of film categories.", 
      *      ), 
      *      @OA\Response( 
      *          response=400, 
      *          description="Bad Request", 
      *      ) 
      *  ) 
-     * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        //
-        return Film::all();
+        return FilmCategory::all();
     }
 
     /**
@@ -40,33 +43,33 @@ class FilmController extends Controller
      */
     /**
      * @OA\Post(
-     *      path="/films",
-     *      summary="Create new film",
-     *      tags={"Film"},
+     *      path="/film_categories",
+     *      summary="Create new film category",
+     *      tags={"FilmCategory"},
      *      @OA\Parameter( 
      *          in="path", 
      *          name="id", 
      *          required=true, 
      *          description="ID", 
-     *          @OA\Schema( ref="#/components/schemas/Film/properties/id") 
+     *          @OA\Schema( type="integer", ref="#/components/schemas/FilmCategory/properties/id") 
      *      ),
      *      @OA\Parameter( 
      *          in="query", 
      *          name="name", 
      *          required=true, 
-     *          description="Name of films.", 
-     *          @OA\Schema( ref="#/components/schemas/Film/properties/name")
+     *          description="Name of category", 
+     *          @OA\Schema( ref="#/components/schemas/FilmCategory/properties/name")
      *      ), 
      *      @OA\Parameter( 
      *          in="query", 
-     *          name="description", 
-     *          required=true, 
-     *          description="Description of films.", 
-     *          @OA\Schema( ref="#/components/schemas/Film/properties/description")
+     *          name="status", 
+     *          required=false, 
+     *          description="Status of category.", 
+     *          @OA\Schema( ref="#/components/schemas/FilmCategory/properties/status")
      *      ),
      *      @OA\RequestBody(
      *          required=true,
-     *          @OA\JsonContent(ref="#/components/schemas/Film"),
+     *          @OA\JsonContent(ref="#/components/schemas/FilmCategory"),
      *      ),
      *      @OA\Response( 
      *          response=200, 
@@ -80,30 +83,30 @@ class FilmController extends Controller
      */
     public function store(Request $request)
     {
-        return Film::create($request->all());        
+        return FilmCategory::create($request->all()); 
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Film  $film
+     * @param  \App\Models\FilmCategory  $filmCategory
      * @return \Illuminate\Http\Response
      */
     /**
      * @OA\Get(
-     *      path="/films/{id}",
-     *      summary="Show film's details",
-     *      tags={"Film"},
+     *      path="/film_categories/{id}",
+     *      summary="Get category by id",
+     *      tags={"FilmCategory"},
      *      @OA\Parameter( 
      *          in="path", 
      *          name="id", 
      *          required=true, 
      *          description="ID", 
-     *          @OA\Schema( ref="#/components/schemas/Film/properties/id") 
+     *          @OA\Schema( type="integer", ref="#/components/schemas/FilmCategory/properties/id") 
      *      ),
      *      @OA\Response( 
      *          response=200, 
-     *          description="Display details of films.", 
+     *          description="Display a listing of films.", 
      *      ), 
      *      @OA\Response( 
      *          response=400, 
@@ -111,48 +114,47 @@ class FilmController extends Controller
      *      ),
      * )
      */
-    public function show(Film $film)
+    public function show(FilmCategory $filmCategory)
     {
-        return $film;
+        return $filmCategory;
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Film  $film
+     * @param  \App\Models\FilmCategory  $filmCategory
      * @return \Illuminate\Http\Response
      */
-
     /**
      * @OA\Put(
-     *      path="/films/{id}",
-     *      summary="Update film",
-     *      tags={"Film"},
+     *      path="/film_categories/{id}",
+     *      summary="Update category by id.",
+     *      tags={"FilmCategory"},
      *      @OA\Parameter( 
      *          in="path", 
      *          name="id", 
      *          required=true, 
      *          description="ID", 
-     *          @OA\Schema( ref="#/components/schemas/Film/properties/id") 
+     *          @OA\Schema( type="integer", ref="#/components/schemas/FilmCategory/properties/id") 
      *      ),
      *      @OA\Parameter( 
      *          in="query", 
      *          name="name", 
      *          required=true, 
-     *          description="Name of films.", 
-     *          @OA\Schema( ref="#/components/schemas/Film/properties/name")
+     *          description="Name of category", 
+     *          @OA\Schema( ref="#/components/schemas/FilmCategory/properties/name")
      *      ), 
      *      @OA\Parameter( 
      *          in="query", 
-     *          name="description", 
-     *          required=true, 
-     *          description="Description of films.", 
-     *          @OA\Schema( ref="#/components/schemas/Film/properties/description")
+     *          name="status", 
+     *          required=false, 
+     *          description="Status of category.", 
+     *          @OA\Schema( ref="#/components/schemas/FilmCategory/properties/status")
      *      ),
      *      @OA\RequestBody(
      *          required=true,
-     *          @OA\JsonContent(ref="#/components/schemas/Film"),
+     *          @OA\JsonContent(ref="#/components/schemas/FilmCategory"),
      *      ),
      *      @OA\Response( 
      *          response=200, 
@@ -164,30 +166,29 @@ class FilmController extends Controller
      *      ),
      * )
      */
-    public function update(Request $request, Film $film)
+    public function update(Request $request, FilmCategory $filmCategory)
     {
-        $film->update($request->all());
-        return $film;
+        $filmCategory->update($request->all());
+        return $filmCategory;
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Film  $film
+     * @param  \App\Models\FilmCategory  $filmCategory
      * @return \Illuminate\Http\Response
      */
-
     /**
      * @OA\Delete(
-     *      path="/films/{id}",
-     *      summary="Delete film",
-     *      tags={"Film"},
+     *      path="/film_categories/{id}",
+     *      summary="Delete film category by id.",
+     *      tags={"FilmCategory"},
      *      @OA\Parameter( 
      *          in="path", 
      *          name="id", 
      *          required=true, 
      *          description="ID", 
-     *          @OA\Schema( ref="#/components/schemas/Film/properties/id") 
+     *          @OA\Schema( type="integer", ref="#/components/schemas/FilmCategory/properties/id") 
      *      ),
      *      @OA\Response( 
      *          response=200, 
@@ -199,8 +200,8 @@ class FilmController extends Controller
      *      ),
      * )
      */
-    public function destroy(Film $film)
+    public function destroy(FilmCategory $filmCategory)
     {
-        $film->delete();
+        $filmCategory->delete();
     }
 }

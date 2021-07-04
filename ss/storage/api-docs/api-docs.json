@@ -75,6 +75,185 @@
                 ]
             }
         },
+        "/film_categories": {
+            "get": {
+                "tags": [
+                    "FilmCategory"
+                ],
+                "summary": "Get all film categories",
+                "operationId": "dc7356a8a608b38cc756023edd5bd908",
+                "responses": {
+                    "200": {
+                        "description": "Display a listing of film categories."
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "FilmCategory"
+                ],
+                "summary": "Create new film category",
+                "operationId": "7a0e82964a74bf57785b4537ee56e220",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/components/schemas/FilmCategory/properties/id"
+                        }
+                    },
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "description": "Name of category",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/components/schemas/FilmCategory/properties/name"
+                        }
+                    },
+                    {
+                        "name": "status",
+                        "in": "query",
+                        "description": "Status of category.",
+                        "required": false,
+                        "schema": {
+                            "$ref": "#/components/schemas/FilmCategory/properties/status"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/FilmCategory"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Create successfully."
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    }
+                }
+            }
+        },
+        "/film_categories/{id}": {
+            "get": {
+                "tags": [
+                    "FilmCategory"
+                ],
+                "summary": "Get category by id",
+                "operationId": "50d9a3e0e5b0266551e57c8a39b7815a",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/components/schemas/FilmCategory/properties/id"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Display a listing of films."
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "FilmCategory"
+                ],
+                "summary": "Update category by id.",
+                "operationId": "1fb995605bd6b678367540a85bf9a998",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/components/schemas/FilmCategory/properties/id"
+                        }
+                    },
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "description": "Name of category",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/components/schemas/FilmCategory/properties/name"
+                        }
+                    },
+                    {
+                        "name": "status",
+                        "in": "query",
+                        "description": "Status of category.",
+                        "required": false,
+                        "schema": {
+                            "$ref": "#/components/schemas/FilmCategory/properties/status"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/FilmCategory"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Update successfully."
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "FilmCategory"
+                ],
+                "summary": "Delete film category by id.",
+                "operationId": "e480784b07d1351bb3dfa8c04b45bd2b",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/components/schemas/FilmCategory/properties/id"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Delete successfully."
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    }
+                }
+            }
+        },
         "/films": {
             "get": {
                 "tags": [
@@ -90,24 +269,18 @@
                     "400": {
                         "description": "Bad Request"
                     }
-                },
-                "security": [
-                    {
-                        "BearerAuth": []
-                    }
-                ]
+                }
             },
             "post": {
                 "tags": [
                     "Film"
                 ],
                 "summary": "Create new film",
-                "description": "Create new film",
                 "operationId": "5e07c8a38fdba7cc2f5a881638de16da",
                 "parameters": [
                     {
                         "name": "id",
-                        "in": "query",
+                        "in": "path",
                         "description": "ID",
                         "required": true,
                         "schema": {
@@ -145,7 +318,7 @@
                 },
                 "responses": {
                     "200": {
-                        "description": "Display a listing of films."
+                        "description": "Create successfully."
                     },
                     "400": {
                         "description": "Bad Request"
@@ -159,12 +332,11 @@
                     "Film"
                 ],
                 "summary": "Show film's details",
-                "description": "Details",
                 "operationId": "d0556bb7a3dfaca9bbd182074c7332a3",
                 "parameters": [
                     {
                         "name": "id",
-                        "in": "query",
+                        "in": "path",
                         "description": "ID",
                         "required": true,
                         "schema": {
@@ -186,12 +358,11 @@
                     "Film"
                 ],
                 "summary": "Update film",
-                "description": "Update film",
                 "operationId": "4570a5e50c0aa60ec2002b646893372e",
                 "parameters": [
                     {
                         "name": "id",
-                        "in": "query",
+                        "in": "path",
                         "description": "ID",
                         "required": true,
                         "schema": {
@@ -229,7 +400,7 @@
                 },
                 "responses": {
                     "200": {
-                        "description": "Display a listing of films."
+                        "description": "Update successfully."
                     },
                     "400": {
                         "description": "Bad Request"
@@ -241,12 +412,11 @@
                     "Film"
                 ],
                 "summary": "Delete film",
-                "description": "Delete",
                 "operationId": "091e167808ac8841f6eb27baa61bd0b8",
                 "parameters": [
                     {
                         "name": "id",
-                        "in": "query",
+                        "in": "path",
                         "description": "ID",
                         "required": true,
                         "schema": {
@@ -256,7 +426,7 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "Delete successfully"
+                        "description": "Delete successfully."
                     },
                     "400": {
                         "description": "Bad Request"
@@ -391,6 +561,54 @@
                 "type": "object",
                 "xml": {
                     "name": "Film"
+                }
+            },
+            "FilmCategory": {
+                "required": [
+                    "name"
+                ],
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "readOnly": "true"
+                    },
+                    "name": {
+                        "type": "string",
+                        "example": "2D"
+                    },
+                    "status": {
+                        "type": "integer",
+                        "example": "Trạng thái: 1-kích hoạt, 2-vô hiệu, 3-đã xóa"
+                    },
+                    "position": {
+                        "type": "integer",
+                        "example": "số"
+                    },
+                    "created_by": {
+                        "type": "string",
+                        "example": "Ng tạo"
+                    },
+                    "updated_by": {
+                        "type": "string",
+                        "example": "Ng sửa"
+                    },
+                    "deleted_by": {
+                        "type": "string",
+                        "example": "Ng xóa"
+                    },
+                    "created_at": {
+                        "$ref": "#/components/schemas/BaseModel/properties/created_at"
+                    },
+                    "update_at": {
+                        "$ref": "#/components/schemas/BaseModel/properties/updated_at"
+                    },
+                    "deleted_at": {
+                        "$ref": "#/components/schemas/BaseModel/properties/deleted_at"
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "FilmCategory"
                 }
             }
         }
