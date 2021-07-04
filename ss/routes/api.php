@@ -23,9 +23,10 @@ Route::apiResource('film_categories', 'Api\FilmCategoryController');
 Route::apiResource('menus', 'Api\MenuController');
 Route::apiResource('types', 'Api\TypeController');
 Route::apiResource('countries', 'Api\CountryController');
-
-$moduleRoute = '/admin';
-Route::group(['prefix' => $moduleRoute], function () {
-    Route::get('/login', 'AdminController@index');
-    Route::post('/dashboard', 'AdminController@show_dashboard');
-});
+Route::apiResource('episodes', 'Api\EpisodeController');
+Route::apiResource('banners', 'Api\BannerController');
+Route::apiResource('ads', 'Api\AdController');
+Route::apiResource('configurations', 'Api\ConfigurationController');
+Route::apiResource('users', 'Api\UserController');
+Route::apiResource('admins', 'Api\AdminController');
+Route::apiResource('password_resets', 'Api\PasswordResetController');

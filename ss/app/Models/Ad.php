@@ -6,12 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * @OA\Schema(
- * required={"admin_email", "admin_password"},
- * @OA\Xml(name="Admin"),
+ * required={"name", "image"},
+ * @OA\Xml(name="Ad"),
  * @OA\Property(property="id", ref="#/components/schemas/BaseModel/properties/id"),
- * @OA\Property(property="admin_email", type="string"),
- * @OA\Property(property="admin_password", type="string"),
- * @OA\Property(property="admin_phone", type="string"),
+ * @OA\Property(property="name", type="string", example="Ad 1"),
+ * @OA\Property(property="image", type="string", example="upload/image.jpg"),
  * @OA\Property(property="status", type="integer", example="Trạng thái: 1-kích hoạt, 2-vô hiệu, 3-đã xóa"),
  * @OA\Property(property="position", type="integer", example="1"),
  * @OA\Property(property="created_by", ref="#/components/schemas/BaseModel/properties/created_by"),
@@ -23,16 +22,13 @@ use Illuminate\Database\Eloquent\Model;
  * )
  */
 
-class Admin extends Model
+class Ad extends Model
 {
-    public $table = 'admins';
+    public $table = 'ads';
 
     public $fillable = [
-        'admin_email',
-        'admin_password',
-        'admin_name',
-        'admin_phone',
-        'create_at',
-        'update_at',
+        'name',
+        'status',
+        'position',
     ];
 }

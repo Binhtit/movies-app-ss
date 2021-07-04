@@ -15,6 +15,7 @@ class CreateConfigurationsTable extends Migration
     {
         Schema::create('configurations', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->integer('domain');
             $table->integer('domain_template_id')->default(1);
             $table->string('site_name')->nullable();
             $table->string('site_description')->nullable();

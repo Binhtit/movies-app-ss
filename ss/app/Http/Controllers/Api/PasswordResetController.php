@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Models\Admin;
+use App\Models\PasswordReset;
 use Illuminate\Http\Request;
 
 class MenuController extends Controller
@@ -17,12 +17,12 @@ class MenuController extends Controller
     /**
      *
      *  @OA\Get( 
-     *      path="api/admins",
-     *      summary="Get list of admins.", 
-     *      tags={"Admin"}, 
+     *      path="api/password_resets",
+     *      summary="Get list of password resets.", 
+     *      tags={"PasswordReset"}, 
      *      @OA\Response( 
      *          response=200, 
-     *          description="Display a listing of admins.", 
+     *          description="Display a listing of password_resets.", 
      *      ), 
      *      @OA\Response( 
      *          response=400, 
@@ -32,7 +32,7 @@ class MenuController extends Controller
      */
     public function index()
     {
-        Admin::all();
+        PasswordReset::all();
     }
 
     /**
@@ -43,25 +43,25 @@ class MenuController extends Controller
      */
     /**
      * @OA\Post(
-     *      path="api/admins",
-     *      summary="Create new admin.",
-     *      tags={"Admin"},
+     *      path="api/password_resets",
+     *      summary="Create new password_reset.",
+     *      tags={"PasswordReset"},
      *      @OA\Parameter( 
      *          in="query", 
-     *          name="admin_email", 
+     *          name="email", 
      *          required=true, 
-     *          description="Name of admin", 
-     *          @OA\Schema( ref="#/components/schemas/Admin/properties/admin_email")
+     *          description="Email of password_reset", 
+     *          @OA\Schema( ref="#/components/schemas/PasswordReset/properties/email")
      *      ), 
      *      @OA\Parameter( 
      *          in="query", 
-     *          name="admin_password", 
-     *          required=true, 
-     *          description="Pw of admin.", 
-     *          @OA\Schema( ref="#/components/schemas/Admin/properties/admin_password")
+     *          name="token", 
+     *          required=false, 
+     *          description="Status of category.", 
+     *          @OA\Schema( ref="#/components/schemas/PasswordReset/properties/token")
      *      ),
      *      @OA\RequestBody(
-     *          @OA\JsonContent(ref="#/components/schemas/Admin"),
+     *          @OA\JsonContent(ref="#/components/schemas/PasswordReset"),
      *      ),
      *      @OA\Response( 
      *          response=200, 
@@ -75,26 +75,26 @@ class MenuController extends Controller
      */
     public function store(Request $request)
     {
-        return Admin::create($request->all());
+        return PasswordReset::create($request->all());
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Admin  $admin
+     * @param  \App\Models\PasswordReset  $password_reset
      * @return \Illuminate\Http\Response
      */
     /**
      * @OA\Get(
-     *      path="api/admins/{id}",
-     *      summary="Get admin by id",
-     *      tags={"Admin"},
+     *      path="api/password_resets/{id}",
+     *      summary="Get password_reset by id",
+     *      tags={"PasswordReset"},
      *      @OA\Parameter( 
      *          in="path", 
      *          name="id", 
      *          required=true, 
      *          description="ID", 
-     *          @OA\Schema( type="integer", ref="#/components/schemas/Admin/properties/id") 
+     *          @OA\Schema( type="integer", ref="#/components/schemas/PasswordReset/properties/id") 
      *      ),
      *      @OA\Response( 
      *          response=200, 
@@ -106,46 +106,46 @@ class MenuController extends Controller
      *      ),
      * )
      */
-    public function show(Admin $admin)
+    public function show(PasswordReset $password_reset)
     {
-        return $admin;
+        return $password_reset;
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Admin  $admin
+     * @param  \App\Models\PasswordReset  $password_reset
      * @return \Illuminate\Http\Response
      */
     /**
      * @OA\Put(
-     *      path="api/admins/{id}",
-     *      summary="Update admin by id.",
-     *      tags={"Admin"},
+     *      path="api/password_resets/{id}",
+     *      summary="Update password_reset by id.",
+     *      tags={"PasswordReset"},
      *      @OA\Parameter( 
      *          in="path", 
      *          name="id", 
      *          required=true, 
      *          description="ID", 
-     *          @OA\Schema( type="integer", ref="#/components/schemas/Admin/properties/id") 
+     *          @OA\Schema( type="integer", ref="#/components/schemas/PasswordReset/properties/id") 
      *      ),
      *      @OA\Parameter( 
      *          in="query", 
-     *          name="admin_email", 
+     *          name="email", 
      *          required=true, 
-     *          description="Name of admin", 
-     *          @OA\Schema( ref="#/components/schemas/Admin/properties/admin_email")
+     *          description="Email of password_reset", 
+     *          @OA\Schema( ref="#/components/schemas/PasswordReset/properties/email")
      *      ), 
      *      @OA\Parameter( 
      *          in="query", 
-     *          name="admin_password", 
+     *          name="token", 
      *          required=false, 
-     *          description="Pw of admin.", 
-     *          @OA\Schema( ref="#/components/schemas/Admin/properties/admin_password")
+     *          description="Status of password_reset.", 
+     *          @OA\Schema( ref="#/components/schemas/PasswordReset/properties/token")
      *      ),
      *      @OA\RequestBody(
-     *          @OA\JsonContent(ref="#/components/schemas/Admin"),
+     *          @OA\JsonContent(ref="#/components/schemas/PasswordReset"),
      *      ),
      *      @OA\Response( 
      *          response=200, 
@@ -157,29 +157,29 @@ class MenuController extends Controller
      *      ),
      * )
      */
-    public function update(Request $request, Admin $admin)
+    public function update(Request $request, PasswordReset $password_reset)
     {
-        $admin->update($request->all());
-        return $admin;
+        $password_reset->update($request->all());
+        return $password_reset;
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Admin  $admin
+     * @param  \App\Models\PasswordReset  $password_reset
      * @return \Illuminate\Http\Response
      */
     /**
      * @OA\Delete(
-     *      path="api/admins/{id}",
-     *      summary="Delete admin by id.",
-     *      tags={"Admin"},
+     *      path="api/password_resets/{id}",
+     *      summary="Delete password_reset by id.",
+     *      tags={"PasswordReset"},
      *      @OA\Parameter( 
      *          in="path", 
      *          name="id", 
      *          required=true, 
      *          description="ID", 
-     *          @OA\Schema( type="integer", ref="#/components/schemas/Admin/properties/id") 
+     *          @OA\Schema( type="integer", ref="#/components/schemas/PasswordReset/properties/id") 
      *      ),
      *      @OA\Response( 
      *          response=200, 
@@ -191,8 +191,8 @@ class MenuController extends Controller
      *      ),
      * )
      */
-    public function destroy(Admin $admin)
+    public function destroy(PasswordReset $password_reset)
     {
-        $admin->delete();
+        $password_reset->delete();
     }
 }

@@ -6,12 +6,13 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * @OA\Schema(
- * required={"admin_email", "admin_password"},
- * @OA\Xml(name="Admin"),
+ * required={"name", "email", "password"},
+ * @OA\Xml(name="User"),
  * @OA\Property(property="id", ref="#/components/schemas/BaseModel/properties/id"),
- * @OA\Property(property="admin_email", type="string"),
- * @OA\Property(property="admin_password", type="string"),
- * @OA\Property(property="admin_phone", type="string"),
+ * @OA\Property(property="name", type="string"),
+ * @OA\Property(property="email", type="string", format="email"),
+ * @OA\Property(property="email_verified_at", type="string", format="email"),
+ * @OA\Property(property="password", type="string"),
  * @OA\Property(property="status", type="integer", example="Trạng thái: 1-kích hoạt, 2-vô hiệu, 3-đã xóa"),
  * @OA\Property(property="position", type="integer", example="1"),
  * @OA\Property(property="created_by", ref="#/components/schemas/BaseModel/properties/created_by"),
@@ -23,16 +24,16 @@ use Illuminate\Database\Eloquent\Model;
  * )
  */
 
-class Admin extends Model
+class User extends Model
 {
-    public $table = 'admins';
+    public $table = 'users';
 
     public $fillable = [
-        'admin_email',
-        'admin_password',
-        'admin_name',
-        'admin_phone',
-        'create_at',
-        'update_at',
+        'name',
+        'email',
+        'email_verified_at',
+        'password',
+        'status',
+        'position',
     ];
 }

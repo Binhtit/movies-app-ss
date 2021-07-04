@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Models\Admin;
+use App\Models\Banner;
 use Illuminate\Http\Request;
 
 class MenuController extends Controller
@@ -17,12 +17,12 @@ class MenuController extends Controller
     /**
      *
      *  @OA\Get( 
-     *      path="api/admins",
-     *      summary="Get list of admins.", 
-     *      tags={"Admin"}, 
+     *      path="api/banners",
+     *      summary="Get list of banners.", 
+     *      tags={"Banner"}, 
      *      @OA\Response( 
      *          response=200, 
-     *          description="Display a listing of admins.", 
+     *          description="Display a listing of banners.", 
      *      ), 
      *      @OA\Response( 
      *          response=400, 
@@ -32,7 +32,7 @@ class MenuController extends Controller
      */
     public function index()
     {
-        Admin::all();
+        Banner::all();
     }
 
     /**
@@ -43,25 +43,32 @@ class MenuController extends Controller
      */
     /**
      * @OA\Post(
-     *      path="api/admins",
-     *      summary="Create new admin.",
-     *      tags={"Admin"},
+     *      path="api/banners",
+     *      summary="Create new banner.",
+     *      tags={"Banner"},
      *      @OA\Parameter( 
      *          in="query", 
-     *          name="admin_email", 
+     *          name="name", 
      *          required=true, 
-     *          description="Name of admin", 
-     *          @OA\Schema( ref="#/components/schemas/Admin/properties/admin_email")
+     *          description="Name of banner", 
+     *          @OA\Schema( ref="#/components/schemas/Banner/properties/name")
      *      ), 
      *      @OA\Parameter( 
      *          in="query", 
-     *          name="admin_password", 
+     *          name="image", 
      *          required=true, 
-     *          description="Pw of admin.", 
-     *          @OA\Schema( ref="#/components/schemas/Admin/properties/admin_password")
+     *          description="Path of image.", 
+     *          @OA\Schema( ref="#/components/schemas/Banner/properties/image")
+     *      ),
+     *      @OA\Parameter( 
+     *          in="query", 
+     *          name="banner_category", 
+     *          required=false, 
+     *          description="Category.", 
+     *          @OA\Schema( ref="#/components/schemas/Banner/properties/banner_category")
      *      ),
      *      @OA\RequestBody(
-     *          @OA\JsonContent(ref="#/components/schemas/Admin"),
+     *          @OA\JsonContent(ref="#/components/schemas/Banner"),
      *      ),
      *      @OA\Response( 
      *          response=200, 
@@ -75,26 +82,26 @@ class MenuController extends Controller
      */
     public function store(Request $request)
     {
-        return Admin::create($request->all());
+        return Banner::create($request->all());
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Admin  $admin
+     * @param  \App\Models\Banner  $banner
      * @return \Illuminate\Http\Response
      */
     /**
      * @OA\Get(
-     *      path="api/admins/{id}",
-     *      summary="Get admin by id",
-     *      tags={"Admin"},
+     *      path="api/banners/{id}",
+     *      summary="Get banner by id",
+     *      tags={"Banner"},
      *      @OA\Parameter( 
      *          in="path", 
      *          name="id", 
      *          required=true, 
      *          description="ID", 
-     *          @OA\Schema( type="integer", ref="#/components/schemas/Admin/properties/id") 
+     *          @OA\Schema( type="integer", ref="#/components/schemas/Banner/properties/id") 
      *      ),
      *      @OA\Response( 
      *          response=200, 
@@ -106,46 +113,53 @@ class MenuController extends Controller
      *      ),
      * )
      */
-    public function show(Admin $admin)
+    public function show(Banner $banner)
     {
-        return $admin;
+        return $banner;
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Admin  $admin
+     * @param  \App\Models\Banner  $banner
      * @return \Illuminate\Http\Response
      */
     /**
      * @OA\Put(
-     *      path="api/admins/{id}",
-     *      summary="Update admin by id.",
-     *      tags={"Admin"},
+     *      path="api/banners/{id}",
+     *      summary="Update banner by id.",
+     *      tags={"Banner"},
      *      @OA\Parameter( 
      *          in="path", 
      *          name="id", 
      *          required=true, 
      *          description="ID", 
-     *          @OA\Schema( type="integer", ref="#/components/schemas/Admin/properties/id") 
+     *          @OA\Schema( type="integer", ref="#/components/schemas/Banner/properties/id") 
      *      ),
      *      @OA\Parameter( 
      *          in="query", 
-     *          name="admin_email", 
+     *          name="name", 
      *          required=true, 
-     *          description="Name of admin", 
-     *          @OA\Schema( ref="#/components/schemas/Admin/properties/admin_email")
+     *          description="Name of banner", 
+     *          @OA\Schema( ref="#/components/schemas/Banner/properties/name")
      *      ), 
      *      @OA\Parameter( 
      *          in="query", 
-     *          name="admin_password", 
+     *          name="image", 
+     *          required=true, 
+     *          description="Link of banner.", 
+     *          @OA\Schema( ref="#/components/schemas/Banner/properties/image")
+     *      ),
+     *      @OA\Parameter( 
+     *          in="query", 
+     *          name="banner_category", 
      *          required=false, 
-     *          description="Pw of admin.", 
-     *          @OA\Schema( ref="#/components/schemas/Admin/properties/admin_password")
+     *          description="Category.", 
+     *          @OA\Schema( ref="#/components/schemas/Banner/properties/banner_category")
      *      ),
      *      @OA\RequestBody(
-     *          @OA\JsonContent(ref="#/components/schemas/Admin"),
+     *          @OA\JsonContent(ref="#/components/schemas/Banner"),
      *      ),
      *      @OA\Response( 
      *          response=200, 
@@ -157,29 +171,29 @@ class MenuController extends Controller
      *      ),
      * )
      */
-    public function update(Request $request, Admin $admin)
+    public function update(Request $request, Banner $banner)
     {
-        $admin->update($request->all());
-        return $admin;
+        $banner->update($request->all());
+        return $banner;
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Admin  $admin
+     * @param  \App\Models\Banner  $banner
      * @return \Illuminate\Http\Response
      */
     /**
      * @OA\Delete(
-     *      path="api/admins/{id}",
-     *      summary="Delete admin by id.",
-     *      tags={"Admin"},
+     *      path="api/banners/{id}",
+     *      summary="Delete banner by id.",
+     *      tags={"Banner"},
      *      @OA\Parameter( 
      *          in="path", 
      *          name="id", 
      *          required=true, 
      *          description="ID", 
-     *          @OA\Schema( type="integer", ref="#/components/schemas/Admin/properties/id") 
+     *          @OA\Schema( type="integer", ref="#/components/schemas/Banner/properties/id") 
      *      ),
      *      @OA\Response( 
      *          response=200, 
@@ -191,8 +205,8 @@ class MenuController extends Controller
      *      ),
      * )
      */
-    public function destroy(Admin $admin)
+    public function destroy(Banner $banner)
     {
-        $admin->delete();
+        $banner->delete();
     }
 }

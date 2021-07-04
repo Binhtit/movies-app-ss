@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * @OA\Schema(
- * required={"name"},
+ * required={"name", "link", "film_id"},
  * @OA\Xml(name="Episode"),
  * @OA\Property(property="id", ref="#/components/schemas/BaseModel/properties/id"),
  * @OA\Property(property="name", type="string", example="Tập 1"),

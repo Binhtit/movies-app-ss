@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Models\Admin;
+use App\Models\Ad;
 use Illuminate\Http\Request;
 
 class MenuController extends Controller
@@ -17,12 +17,12 @@ class MenuController extends Controller
     /**
      *
      *  @OA\Get( 
-     *      path="api/admins",
-     *      summary="Get list of admins.", 
-     *      tags={"Admin"}, 
+     *      path="api/ads",
+     *      summary="Get list of ads.", 
+     *      tags={"Ad"}, 
      *      @OA\Response( 
      *          response=200, 
-     *          description="Display a listing of admins.", 
+     *          description="Display a listing of ads.", 
      *      ), 
      *      @OA\Response( 
      *          response=400, 
@@ -32,7 +32,7 @@ class MenuController extends Controller
      */
     public function index()
     {
-        Admin::all();
+        Ad::all();
     }
 
     /**
@@ -43,25 +43,25 @@ class MenuController extends Controller
      */
     /**
      * @OA\Post(
-     *      path="api/admins",
-     *      summary="Create new admin.",
-     *      tags={"Admin"},
+     *      path="api/ads",
+     *      summary="Create new ad.",
+     *      tags={"Ad"},
      *      @OA\Parameter( 
      *          in="query", 
-     *          name="admin_email", 
+     *          name="name", 
      *          required=true, 
-     *          description="Name of admin", 
-     *          @OA\Schema( ref="#/components/schemas/Admin/properties/admin_email")
+     *          description="Name of ad", 
+     *          @OA\Schema( ref="#/components/schemas/Ad/properties/name")
      *      ), 
      *      @OA\Parameter( 
      *          in="query", 
-     *          name="admin_password", 
+     *          name="image", 
      *          required=true, 
-     *          description="Pw of admin.", 
-     *          @OA\Schema( ref="#/components/schemas/Admin/properties/admin_password")
+     *          description="Image of ad.", 
+     *          @OA\Schema( ref="#/components/schemas/Ad/properties/image")
      *      ),
      *      @OA\RequestBody(
-     *          @OA\JsonContent(ref="#/components/schemas/Admin"),
+     *          @OA\JsonContent(ref="#/components/schemas/Ad"),
      *      ),
      *      @OA\Response( 
      *          response=200, 
@@ -75,26 +75,26 @@ class MenuController extends Controller
      */
     public function store(Request $request)
     {
-        return Admin::create($request->all());
+        return Ad::create($request->all());
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Admin  $admin
+     * @param  \App\Models\Ad  $ad
      * @return \Illuminate\Http\Response
      */
     /**
      * @OA\Get(
-     *      path="api/admins/{id}",
-     *      summary="Get admin by id",
-     *      tags={"Admin"},
+     *      path="api/ads/{id}",
+     *      summary="Get ad by id",
+     *      tags={"Ad"},
      *      @OA\Parameter( 
      *          in="path", 
      *          name="id", 
      *          required=true, 
      *          description="ID", 
-     *          @OA\Schema( type="integer", ref="#/components/schemas/Admin/properties/id") 
+     *          @OA\Schema( type="integer", ref="#/components/schemas/Ad/properties/id") 
      *      ),
      *      @OA\Response( 
      *          response=200, 
@@ -106,46 +106,46 @@ class MenuController extends Controller
      *      ),
      * )
      */
-    public function show(Admin $admin)
+    public function show(Ad $ad)
     {
-        return $admin;
+        return $ad;
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Admin  $admin
+     * @param  \App\Models\Ad  $ad
      * @return \Illuminate\Http\Response
      */
     /**
      * @OA\Put(
-     *      path="api/admins/{id}",
-     *      summary="Update admin by id.",
-     *      tags={"Admin"},
+     *      path="api/ads/{id}",
+     *      summary="Update ad by id.",
+     *      tags={"Ad"},
      *      @OA\Parameter( 
      *          in="path", 
      *          name="id", 
      *          required=true, 
      *          description="ID", 
-     *          @OA\Schema( type="integer", ref="#/components/schemas/Admin/properties/id") 
+     *          @OA\Schema( type="integer", ref="#/components/schemas/Ad/properties/id") 
      *      ),
      *      @OA\Parameter( 
      *          in="query", 
-     *          name="admin_email", 
+     *          name="name", 
      *          required=true, 
-     *          description="Name of admin", 
-     *          @OA\Schema( ref="#/components/schemas/Admin/properties/admin_email")
+     *          description="Name of ad", 
+     *          @OA\Schema( ref="#/components/schemas/Ad/properties/name")
      *      ), 
      *      @OA\Parameter( 
      *          in="query", 
-     *          name="admin_password", 
-     *          required=false, 
-     *          description="Pw of admin.", 
-     *          @OA\Schema( ref="#/components/schemas/Admin/properties/admin_password")
+     *          name="image", 
+     *          required=true, 
+     *          description="Image of ad.", 
+     *          @OA\Schema( ref="#/components/schemas/Ad/properties/image")
      *      ),
      *      @OA\RequestBody(
-     *          @OA\JsonContent(ref="#/components/schemas/Admin"),
+     *          @OA\JsonContent(ref="#/components/schemas/Ad"),
      *      ),
      *      @OA\Response( 
      *          response=200, 
@@ -157,29 +157,29 @@ class MenuController extends Controller
      *      ),
      * )
      */
-    public function update(Request $request, Admin $admin)
+    public function update(Request $request, Ad $ad)
     {
-        $admin->update($request->all());
-        return $admin;
+        $ad->update($request->all());
+        return $ad;
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Admin  $admin
+     * @param  \App\Models\Ad  $ad
      * @return \Illuminate\Http\Response
      */
     /**
      * @OA\Delete(
-     *      path="api/admins/{id}",
-     *      summary="Delete admin by id.",
-     *      tags={"Admin"},
+     *      path="api/ads/{id}",
+     *      summary="Delete ad by id.",
+     *      tags={"Ad"},
      *      @OA\Parameter( 
      *          in="path", 
      *          name="id", 
      *          required=true, 
      *          description="ID", 
-     *          @OA\Schema( type="integer", ref="#/components/schemas/Admin/properties/id") 
+     *          @OA\Schema( type="integer", ref="#/components/schemas/Ad/properties/id") 
      *      ),
      *      @OA\Response( 
      *          response=200, 
@@ -191,8 +191,8 @@ class MenuController extends Controller
      *      ),
      * )
      */
-    public function destroy(Admin $admin)
+    public function destroy(Ad $ad)
     {
-        $admin->delete();
+        $ad->delete();
     }
 }

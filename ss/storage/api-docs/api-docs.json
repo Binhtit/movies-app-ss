@@ -5,74 +5,676 @@
         "version": "1.0.0"
     },
     "paths": {
-        "/admin/dashboard": {
+        "api/ads": {
             "get": {
                 "tags": [
-                    "auth"
+                    "Ad"
                 ],
-                "summary": "Sign in",
-                "description": "Login by email, password",
-                "operationId": "778218e2bcaf9b96939ba3053691f6df",
+                "summary": "Get list of ads.",
+                "operationId": "2ac83226d75045908f54059aab7a2c3b",
+                "responses": {
+                    "200": {
+                        "description": "Display a listing of ads."
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Ad"
+                ],
+                "summary": "Create new ad.",
+                "operationId": "98cf29c88c33fbcbf8ae29145d77d599",
                 "parameters": [
                     {
-                        "name": "email",
+                        "name": "name",
                         "in": "query",
-                        "description": "Email",
+                        "description": "Name of ad",
                         "required": true,
                         "schema": {
-                            "type": "email"
+                            "$ref": "#/components/schemas/Ad/properties/name"
                         }
                     },
                     {
-                        "name": "password",
+                        "name": "image",
                         "in": "query",
-                        "description": "Password",
+                        "description": "Image of ad.",
                         "required": true,
                         "schema": {
-                            "type": "password"
+                            "$ref": "#/components/schemas/Ad/properties/image"
                         }
                     }
                 ],
                 "requestBody": {
-                    "description": "Pass film credentials",
-                    "required": true,
                     "content": {
                         "application/json": {
                             "schema": {
-                                "required": [
-                                    "email",
-                                    "password"
-                                ],
-                                "properties": {
-                                    "email": {
-                                        "type": "string",
-                                        "format": "email",
-                                        "example": "user1@mail.com"
-                                    },
-                                    "password": {
-                                        "type": "string",
-                                        "format": "password",
-                                        "example": "PassWord12345"
-                                    }
-                                },
-                                "type": "object"
+                                "$ref": "#/components/schemas/Ad"
                             }
                         }
                     }
                 },
                 "responses": {
                     "200": {
-                        "description": "Display list of admin"
+                        "description": "Create successfully."
                     },
                     "400": {
                         "description": "Bad Request"
                     }
-                },
-                "security": [
+                }
+            }
+        },
+        "api/ads/{id}": {
+            "get": {
+                "tags": [
+                    "Ad"
+                ],
+                "summary": "Get ad by id",
+                "operationId": "4c02eadec1ea36728db4a2b4a3627e51",
+                "parameters": [
                     {
-                        "BearerAuth": []
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/components/schemas/Ad/properties/id"
+                        }
                     }
-                ]
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Display a listing of films."
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Ad"
+                ],
+                "summary": "Update ad by id.",
+                "operationId": "ad07341613dcd1f42fee351a4d407151",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/components/schemas/Ad/properties/id"
+                        }
+                    },
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "description": "Name of ad",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/components/schemas/Ad/properties/name"
+                        }
+                    },
+                    {
+                        "name": "image",
+                        "in": "query",
+                        "description": "Image of ad.",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/components/schemas/Ad/properties/image"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Ad"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Update successfully."
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Ad"
+                ],
+                "summary": "Delete ad by id.",
+                "operationId": "a13dead5f40f2ab3376c587219c3b83c",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/components/schemas/Ad/properties/id"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Delete successfully."
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    }
+                }
+            }
+        },
+        "api/admins": {
+            "get": {
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "Get list of admins.",
+                "operationId": "fbc07323735b16946e96dcfe9e2f63ef",
+                "responses": {
+                    "200": {
+                        "description": "Display a listing of admins."
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "Create new admin.",
+                "operationId": "ca6d3a7a351815b74a84efa68a5dab58",
+                "parameters": [
+                    {
+                        "name": "admin_email",
+                        "in": "query",
+                        "description": "Name of admin",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/components/schemas/Admin/properties/admin_email"
+                        }
+                    },
+                    {
+                        "name": "admin_password",
+                        "in": "query",
+                        "description": "Pw of admin.",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/components/schemas/Admin/properties/admin_password"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Admin"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Create successfully."
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    }
+                }
+            }
+        },
+        "api/admins/{id}": {
+            "get": {
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "Get admin by id",
+                "operationId": "a58020596e5d1ce9e022a05de5b5a851",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/components/schemas/Admin/properties/id"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Display a listing of films."
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "Update admin by id.",
+                "operationId": "db7c958812e66e168437fe22151ac1cc",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/components/schemas/Admin/properties/id"
+                        }
+                    },
+                    {
+                        "name": "admin_email",
+                        "in": "query",
+                        "description": "Name of admin",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/components/schemas/Admin/properties/admin_email"
+                        }
+                    },
+                    {
+                        "name": "admin_password",
+                        "in": "query",
+                        "description": "Pw of admin.",
+                        "required": false,
+                        "schema": {
+                            "$ref": "#/components/schemas/Admin/properties/admin_password"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Admin"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Update successfully."
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "Delete admin by id.",
+                "operationId": "9ace2b7bb05b0e4c4baaee564fc52708",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/components/schemas/Admin/properties/id"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Delete successfully."
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    }
+                }
+            }
+        },
+        "api/banners": {
+            "get": {
+                "tags": [
+                    "Banner"
+                ],
+                "summary": "Get list of banners.",
+                "operationId": "b9d60a753393ddfebc34ce9a774b5a72",
+                "responses": {
+                    "200": {
+                        "description": "Display a listing of banners."
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Banner"
+                ],
+                "summary": "Create new banner.",
+                "operationId": "7d0921a177e15da085d65b1ab420d92b",
+                "parameters": [
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "description": "Name of banner",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/components/schemas/Banner/properties/name"
+                        }
+                    },
+                    {
+                        "name": "image",
+                        "in": "query",
+                        "description": "Path of image.",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/components/schemas/Banner/properties/image"
+                        }
+                    },
+                    {
+                        "name": "banner_category",
+                        "in": "query",
+                        "description": "Category.",
+                        "required": false,
+                        "schema": {
+                            "$ref": "#/components/schemas/Banner/properties/banner_category"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Banner"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Create successfully."
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    }
+                }
+            }
+        },
+        "api/banners/{id}": {
+            "get": {
+                "tags": [
+                    "Banner"
+                ],
+                "summary": "Get banner by id",
+                "operationId": "1796ba5085ae905013950f5542df8dbe",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/components/schemas/Banner/properties/id"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Display a listing of films."
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Banner"
+                ],
+                "summary": "Update banner by id.",
+                "operationId": "af2c6a0f5142c0cbb84b85e24e1624d6",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/components/schemas/Banner/properties/id"
+                        }
+                    },
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "description": "Name of banner",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/components/schemas/Banner/properties/name"
+                        }
+                    },
+                    {
+                        "name": "image",
+                        "in": "query",
+                        "description": "Link of banner.",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/components/schemas/Banner/properties/image"
+                        }
+                    },
+                    {
+                        "name": "banner_category",
+                        "in": "query",
+                        "description": "Category.",
+                        "required": false,
+                        "schema": {
+                            "$ref": "#/components/schemas/Banner/properties/banner_category"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Banner"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Update successfully."
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Banner"
+                ],
+                "summary": "Delete banner by id.",
+                "operationId": "d588badf7804dad9bbc57a6bb556c7c1",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/components/schemas/Banner/properties/id"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Delete successfully."
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    }
+                }
+            }
+        },
+        "api/configurations": {
+            "get": {
+                "tags": [
+                    "Configuration"
+                ],
+                "summary": "Get list of configurations.",
+                "operationId": "56c4593b5b5e67fcb2f4857348883a5f",
+                "responses": {
+                    "200": {
+                        "description": "Display a listing of configurations."
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Configuration"
+                ],
+                "summary": "Create new configuration.",
+                "operationId": "9a786befc915cbd212eec152de2a07e1",
+                "parameters": [
+                    {
+                        "name": "domain",
+                        "in": "query",
+                        "description": "Status of category.",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/components/schemas/Configuration/properties/domain"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Configuration"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Create successfully."
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    }
+                }
+            }
+        },
+        "api/configurations/{id}": {
+            "get": {
+                "tags": [
+                    "Configuration"
+                ],
+                "summary": "Get configuration by id",
+                "operationId": "b72937c09e5553be6dd5a90d1c0d7ac4",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/components/schemas/Configuration/properties/id"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Display a listing of films."
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Configuration"
+                ],
+                "summary": "Update configuration by id.",
+                "operationId": "105e288ee15341025b9f14642957e05e",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/components/schemas/Configuration/properties/id"
+                        }
+                    },
+                    {
+                        "name": "domain",
+                        "in": "query",
+                        "description": "Domain.",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/components/schemas/Configuration/properties/domain"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Configuration"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Update successfully."
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Configuration"
+                ],
+                "summary": "Delete configuration by id.",
+                "operationId": "36bee470c2933fbb9091dfcb574711c3",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/components/schemas/Configuration/properties/id"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Delete successfully."
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    }
+                }
             }
         },
         "api/countries": {
@@ -943,6 +1545,174 @@
                 }
             }
         },
+        "api/password_resets": {
+            "get": {
+                "tags": [
+                    "PasswordReset"
+                ],
+                "summary": "Get list of password resets.",
+                "operationId": "dd36f74550eae37544dbe9916f6fc1d2",
+                "responses": {
+                    "200": {
+                        "description": "Display a listing of password_resets."
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "PasswordReset"
+                ],
+                "summary": "Create new password_reset.",
+                "operationId": "a4a3482162578095bc8e14d55379e17f",
+                "parameters": [
+                    {
+                        "name": "email",
+                        "in": "query",
+                        "description": "Email of password_reset",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/components/schemas/PasswordReset/properties/email"
+                        }
+                    },
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "Status of category.",
+                        "required": false,
+                        "schema": {
+                            "$ref": "#/components/schemas/PasswordReset/properties/token"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/PasswordReset"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Create successfully."
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    }
+                }
+            }
+        },
+        "api/password_resets/{id}": {
+            "get": {
+                "tags": [
+                    "PasswordReset"
+                ],
+                "summary": "Get password_reset by id",
+                "operationId": "3b68e422bfad7096b14d71c128df6d2c",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/components/schemas/PasswordReset/properties/id"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Display a listing of films."
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "PasswordReset"
+                ],
+                "summary": "Update password_reset by id.",
+                "operationId": "706adcf9a4be241b27383f07a00551c6",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/components/schemas/PasswordReset/properties/id"
+                        }
+                    },
+                    {
+                        "name": "email",
+                        "in": "query",
+                        "description": "Email of password_reset",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/components/schemas/PasswordReset/properties/email"
+                        }
+                    },
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "Status of password_reset.",
+                        "required": false,
+                        "schema": {
+                            "$ref": "#/components/schemas/PasswordReset/properties/token"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/PasswordReset"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Update successfully."
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "PasswordReset"
+                ],
+                "summary": "Delete password_reset by id.",
+                "operationId": "b99d63e48567de49b1e82a09b18a0914",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/components/schemas/PasswordReset/properties/id"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Delete successfully."
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    }
+                }
+            }
+        },
         "api/types": {
             "get": {
                 "tags": [
@@ -1110,10 +1880,330 @@
                     }
                 }
             }
+        },
+        "api/users": {
+            "get": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "Get list of users.",
+                "operationId": "7a4026e2942db08b9bb6dbecaa330a7f",
+                "responses": {
+                    "200": {
+                        "description": "Display a listing of users."
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "Create new user.",
+                "operationId": "dc05e3f0479b55da3841174632933631",
+                "parameters": [
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "description": "Name of user",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/components/schemas/User/properties/name"
+                        }
+                    },
+                    {
+                        "name": "email",
+                        "in": "query",
+                        "description": "Email of category.",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/components/schemas/User/properties/email"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/User"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Create successfully."
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    }
+                }
+            }
+        },
+        "api/users/{id}": {
+            "get": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "Get user by id",
+                "operationId": "2d9515c3b86da14a85b45e5fce976985",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/components/schemas/User/properties/id"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Display a listing of films."
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "Update user by id.",
+                "operationId": "d80d10b99c4758003976f4ea7a405966",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/components/schemas/User/properties/id"
+                        }
+                    },
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "description": "Name of user",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/components/schemas/User/properties/name"
+                        }
+                    },
+                    {
+                        "name": "email",
+                        "in": "query",
+                        "description": "Email of user.",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/components/schemas/User/properties/email"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/User"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Update successfully."
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "Delete user by id.",
+                "operationId": "12f186e0f7bfd882720e227da3937bfa",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/components/schemas/User/properties/id"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Delete successfully."
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    }
+                }
+            }
         }
     },
     "components": {
         "schemas": {
+            "Ad": {
+                "required": [
+                    "name",
+                    "image"
+                ],
+                "properties": {
+                    "id": {
+                        "$ref": "#/components/schemas/BaseModel/properties/id"
+                    },
+                    "name": {
+                        "type": "string",
+                        "example": "Ad 1"
+                    },
+                    "image": {
+                        "type": "string",
+                        "example": "upload/image.jpg"
+                    },
+                    "status": {
+                        "type": "integer",
+                        "example": "Trạng thái: 1-kích hoạt, 2-vô hiệu, 3-đã xóa"
+                    },
+                    "position": {
+                        "type": "integer",
+                        "example": "1"
+                    },
+                    "created_by": {
+                        "$ref": "#/components/schemas/BaseModel/properties/created_by"
+                    },
+                    "updated_by": {
+                        "$ref": "#/components/schemas/BaseModel/properties/updated_at"
+                    },
+                    "deleted_by": {
+                        "$ref": "#/components/schemas/BaseModel/properties/deleted_at"
+                    },
+                    "created_at": {
+                        "$ref": "#/components/schemas/BaseModel/properties/created_at"
+                    },
+                    "update_at": {
+                        "$ref": "#/components/schemas/BaseModel/properties/updated_at"
+                    },
+                    "deleted_at": {
+                        "$ref": "#/components/schemas/BaseModel/properties/deleted_at"
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "Ad"
+                }
+            },
+            "Admin": {
+                "required": [
+                    "admin_email",
+                    "admin_password"
+                ],
+                "properties": {
+                    "id": {
+                        "$ref": "#/components/schemas/BaseModel/properties/id"
+                    },
+                    "admin_email": {
+                        "type": "string"
+                    },
+                    "admin_password": {
+                        "type": "string"
+                    },
+                    "admin_phone": {
+                        "type": "string"
+                    },
+                    "status": {
+                        "type": "integer",
+                        "example": "Trạng thái: 1-kích hoạt, 2-vô hiệu, 3-đã xóa"
+                    },
+                    "position": {
+                        "type": "integer",
+                        "example": "1"
+                    },
+                    "created_by": {
+                        "$ref": "#/components/schemas/BaseModel/properties/created_by"
+                    },
+                    "updated_by": {
+                        "$ref": "#/components/schemas/BaseModel/properties/updated_at"
+                    },
+                    "deleted_by": {
+                        "$ref": "#/components/schemas/BaseModel/properties/deleted_at"
+                    },
+                    "created_at": {
+                        "$ref": "#/components/schemas/BaseModel/properties/created_at"
+                    },
+                    "update_at": {
+                        "$ref": "#/components/schemas/BaseModel/properties/updated_at"
+                    },
+                    "deleted_at": {
+                        "$ref": "#/components/schemas/BaseModel/properties/deleted_at"
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "Admin"
+                }
+            },
+            "Banner": {
+                "required": [
+                    "name",
+                    "image"
+                ],
+                "properties": {
+                    "id": {
+                        "$ref": "#/components/schemas/BaseModel/properties/id"
+                    },
+                    "name": {
+                        "type": "string",
+                        "example": "Banner 1"
+                    },
+                    "image": {
+                        "type": "string",
+                        "example": "upload/image.png"
+                    },
+                    "banner_category": {
+                        "type": "integer",
+                        "example": "1"
+                    },
+                    "status": {
+                        "type": "integer",
+                        "example": "Trạng thái: 1-kích hoạt, 2-vô hiệu, 3-đã xóa"
+                    },
+                    "position": {
+                        "type": "integer",
+                        "example": "1"
+                    },
+                    "created_by": {
+                        "$ref": "#/components/schemas/BaseModel/properties/created_by"
+                    },
+                    "updated_by": {
+                        "$ref": "#/components/schemas/BaseModel/properties/updated_at"
+                    },
+                    "deleted_by": {
+                        "$ref": "#/components/schemas/BaseModel/properties/deleted_at"
+                    },
+                    "created_at": {
+                        "$ref": "#/components/schemas/BaseModel/properties/created_at"
+                    },
+                    "update_at": {
+                        "$ref": "#/components/schemas/BaseModel/properties/updated_at"
+                    },
+                    "deleted_at": {
+                        "$ref": "#/components/schemas/BaseModel/properties/deleted_at"
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "Banner"
+                }
+            },
             "BaseModel": {
                 "properties": {
                     "id": {
@@ -1155,6 +2245,91 @@
                     }
                 },
                 "type": "object"
+            },
+            "Configuration": {
+                "required": [
+                    "domain"
+                ],
+                "properties": {
+                    "id": {
+                        "$ref": "#/components/schemas/BaseModel/properties/id"
+                    },
+                    "domain": {
+                        "type": "string"
+                    },
+                    "domain_template_id": {
+                        "type": "integer"
+                    },
+                    "site_name": {
+                        "type": "string"
+                    },
+                    "site_description": {
+                        "type": "string"
+                    },
+                    "keyword": {
+                        "type": "string"
+                    },
+                    "company_name": {
+                        "type": "string"
+                    },
+                    "address": {
+                        "type": "string"
+                    },
+                    "email": {
+                        "type": "string"
+                    },
+                    "phone_number": {
+                        "type": "string"
+                    },
+                    "header": {
+                        "type": "string"
+                    },
+                    "footer": {
+                        "type": "string"
+                    },
+                    "logo": {
+                        "type": "string"
+                    },
+                    "facebook": {
+                        "type": "string"
+                    },
+                    "youtube": {
+                        "type": "string"
+                    },
+                    "instagram": {
+                        "type": "string"
+                    },
+                    "status": {
+                        "type": "integer",
+                        "example": "Trạng thái: 1-kích hoạt, 2-vô hiệu, 3-đã xóa"
+                    },
+                    "position": {
+                        "type": "integer",
+                        "example": "1"
+                    },
+                    "created_by": {
+                        "$ref": "#/components/schemas/BaseModel/properties/created_by"
+                    },
+                    "updated_by": {
+                        "$ref": "#/components/schemas/BaseModel/properties/updated_at"
+                    },
+                    "deleted_by": {
+                        "$ref": "#/components/schemas/BaseModel/properties/deleted_at"
+                    },
+                    "created_at": {
+                        "$ref": "#/components/schemas/BaseModel/properties/created_at"
+                    },
+                    "update_at": {
+                        "$ref": "#/components/schemas/BaseModel/properties/updated_at"
+                    },
+                    "deleted_at": {
+                        "$ref": "#/components/schemas/BaseModel/properties/deleted_at"
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "Configuration"
+                }
             },
             "Country": {
                 "required": [
@@ -1202,7 +2377,9 @@
             },
             "Episode": {
                 "required": [
-                    "name"
+                    "name",
+                    "link",
+                    "film_id"
                 ],
                 "properties": {
                     "id": {
@@ -1447,6 +2624,32 @@
                     "name": "Menu"
                 }
             },
+            "PasswordReset": {
+                "required": [
+                    "name"
+                ],
+                "properties": {
+                    "id": {
+                        "$ref": "#/components/schemas/BaseModel/properties/id"
+                    },
+                    "email": {
+                        "type": "string"
+                    },
+                    "token": {
+                        "type": "string"
+                    },
+                    "created_at": {
+                        "$ref": "#/components/schemas/BaseModel/properties/created_at"
+                    },
+                    "update_at": {
+                        "$ref": "#/components/schemas/BaseModel/properties/updated_at"
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "PasswordReset"
+                }
+            },
             "Type": {
                 "required": [
                     "name"
@@ -1489,6 +2692,62 @@
                 "type": "object",
                 "xml": {
                     "name": "Type"
+                }
+            },
+            "User": {
+                "required": [
+                    "name",
+                    "email",
+                    "password"
+                ],
+                "properties": {
+                    "id": {
+                        "$ref": "#/components/schemas/BaseModel/properties/id"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "email": {
+                        "type": "string",
+                        "format": "email"
+                    },
+                    "email_verified_at": {
+                        "type": "string",
+                        "format": "email"
+                    },
+                    "password": {
+                        "type": "string"
+                    },
+                    "status": {
+                        "type": "integer",
+                        "example": "Trạng thái: 1-kích hoạt, 2-vô hiệu, 3-đã xóa"
+                    },
+                    "position": {
+                        "type": "integer",
+                        "example": "1"
+                    },
+                    "created_by": {
+                        "$ref": "#/components/schemas/BaseModel/properties/created_by"
+                    },
+                    "updated_by": {
+                        "$ref": "#/components/schemas/BaseModel/properties/updated_at"
+                    },
+                    "deleted_by": {
+                        "$ref": "#/components/schemas/BaseModel/properties/deleted_at"
+                    },
+                    "created_at": {
+                        "$ref": "#/components/schemas/BaseModel/properties/created_at"
+                    },
+                    "update_at": {
+                        "$ref": "#/components/schemas/BaseModel/properties/updated_at"
+                    },
+                    "deleted_at": {
+                        "$ref": "#/components/schemas/BaseModel/properties/deleted_at"
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "User"
                 }
             }
         }
