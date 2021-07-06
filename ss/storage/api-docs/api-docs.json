@@ -1377,6 +1377,65 @@
                 }
             }
         },
+        "api/films/{id}/episodes": {
+            "get": {
+                "tags": [
+                    "Film"
+                ],
+                "summary": "Get all episodes of a film by film ID - Lấy tất cả tập phim theo id bộ phim.",
+                "operationId": "da0c79ab548ec61f53c4b7d966074714",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the film - Id của bộ phim.",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/components/schemas/Film/properties/id"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Display a listing of episodes - Hiển thị danh sách các tập phim."
+                    },
+                    "400": {
+                        "description": "Bad Request - Máy chủ không thể hiểu yêu cầu do cú pháp không hợp lệ"
+                    },
+                    "500": {
+                        "description": "Server errors - Lỗi phía máy chủ"
+                    }
+                }
+            }
+        },
+        "api/films/newest/{amount}": {
+            "get": {
+                "tags": [
+                    "Film"
+                ],
+                "summary": "Get new updated film by amount - Lấy các phim mới cập nhật theo số lượng.",
+                "operationId": "5c70199c93b63cb412abfff1a904b41e",
+                "parameters": [
+                    {
+                        "name": "amoumt",
+                        "in": "path",
+                        "description": "Number of newest film - Số lượng phim muốn lấy.",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Display a listing of films - Hiển thị danh sách các phim mới nhất."
+                    },
+                    "400": {
+                        "description": "Bad Request - Máy chủ không thể hiểu yêu cầu do cú pháp không hợp lệ"
+                    },
+                    "500": {
+                        "description": "Server errors - Lỗi phía máy chủ"
+                    }
+                }
+            }
+        },
         "api/menus": {
             "get": {
                 "tags": [

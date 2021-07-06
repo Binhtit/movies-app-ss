@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\Film;
 use Illuminate\Http\Request;
+use App\Models\Episode;
 
 class FilmController extends Controller
 {
@@ -200,5 +201,80 @@ class FilmController extends Controller
     public function destroy(Film $film)
     {
         $film->delete();
+    }
+
+    /**
+     * Get all episodes of a film by film ID.
+     *
+     * @param  \App\Models\Film  $film
+     * @return \Illuminate\Http\Response
+     */
+
+    /**
+     * @OA\Get(
+     *      path="api/films/{id}/episodes",
+     *      summary="Get all episodes of a film by film ID - Lấy tất cả tập phim theo id bộ phim.",
+     *      tags={"Film"},
+     *      @OA\Parameter( 
+     *          in="path", 
+     *          name="id", 
+     *          required=true, 
+     *          description="ID of the film - Id của bộ phim.", 
+     *          @OA\Schema( ref="#/components/schemas/Film/properties/id") 
+     *      ),
+     *      @OA\Response( 
+     *          response=200, 
+     *          description="Display a listing of episodes - Hiển thị danh sách các tập phim.", 
+     *      ), 
+     *      @OA\Response( 
+     *          response=400, 
+     *          description="Bad Request - Máy chủ không thể hiểu yêu cầu do cú pháp không hợp lệ", 
+     *      ),
+     *       @OA\Response( 
+     *          response=500, 
+     *          description="Server errors - Lỗi phía máy chủ", 
+     *      ),
+     * )
+     */
+    public function getAllEpisodeByID(Request $request)
+    {
+        return Episode::where('film_id', $request->id)->get();
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+
+    /**
+     * @OA\Get(
+     *      path="api/films/newest/{amount}",
+     *      summary="Get new updated film by amount - Lấy các phim mới cập nhật theo số lượng.",
+     *      tags={"Film"},
+     *      @OA\Parameter( 
+     *          in="path", 
+     *          name="amoumt", 
+     *          required=true, 
+     *          description="Number of newest film - Số lượng phim muốn lấy.", 
+     *      ),
+     *      @OA\Response( 
+     *          response=200, 
+     *          description="Display a listing of films - Hiển thị danh sách các phim mới nhất.", 
+     *      ), 
+     *      @OA\Response( 
+     *          response=400, 
+     *          description="Bad Request - Máy chủ không thể hiểu yêu cầu do cú pháp không hợp lệ", 
+     *      ),
+     *       @OA\Response( 
+     *          response=500, 
+     *          description="Server errors - Lỗi phía máy chủ", 
+     *      ),
+     * )
+     */
+    public function getNewestFilm(Request $request)
+    {
+        return Episode::orderBy('created_at', 'desc')->take($request->amount)->get();
     }
 }

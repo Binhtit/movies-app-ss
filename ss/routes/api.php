@@ -19,6 +19,9 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::apiResource('films', 'Api\FilmController');
+Route::get('films/{id}/episodes', 'Api\FilmController@getAllEpisodeByID');
+Route::get('films/newest/{amount}', 'Api\FilmController@getNewestFilm');
+
 Route::apiResource('film_categories', 'Api\FilmCategoryController');
 Route::apiResource('menus', 'Api\MenuController');
 Route::apiResource('types', 'Api\TypeController');
