@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Episode;
 use Illuminate\Http\Request;
 
-class MenuController extends Controller
+class EpisodeController extends Controller
 {
     /**
      * Display a listing of the resource.
