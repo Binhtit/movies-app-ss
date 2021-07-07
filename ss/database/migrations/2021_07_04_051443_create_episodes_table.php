@@ -16,8 +16,11 @@ class CreateEpisodesTable extends Migration
         Schema::create('episodes', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');
-            $table->string('link');
             $table->integer('film_id');
+            $table->string('link_1');
+            $table->string('link_2')->nullable();
+            $table->string('link_3')->nullable();
+            $table->string('link_4')->nullable();
             $table->string('thumbnail')->nullable();
             $table->string('description')->nullable();
             $table->integer('status')->default(1);

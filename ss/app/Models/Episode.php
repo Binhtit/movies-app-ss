@@ -10,7 +10,10 @@ use Illuminate\Database\Eloquent\Model;
  * @OA\Xml(name="Episode"),
  * @OA\Property(property="id", ref="#/components/schemas/BaseModel/properties/id"),
  * @OA\Property(property="name", type="string", example="Tập 1"),
- * @OA\Property(property="link", type="string", example="https://www.youtube.com/watch?v=yCvSR4lSqTg"),
+ * @OA\Property(property="link_1", type="string", example="https://www.youtube.com/watch?v=yCvSR4lSqTg"),
+ * @OA\Property(property="link_2", type="string", example="https://www.youtube.com/watch?v=yCvSR4lSqTg"),
+ * @OA\Property(property="link_3", type="string", example="https://www.youtube.com/watch?v=yCvSR4lSqTg"),
+ * @OA\Property(property="link_4", type="string", example="https://www.youtube.com/watch?v=yCvSR4lSqTg"),
  * @OA\Property(property="film_id", type="integer", example="1"),
  * @OA\Property(property="thumbnail", type="string", example="upload/img.jpg"),
  * @OA\Property(property="description", type="string", example="Description"),
@@ -31,7 +34,10 @@ class Episode extends Model
 
     public $fillable = [
         'name',
-        'link',
+        'link_1',
+        'link_2',
+        'link_3',
+        'link_4',
         'film_id',
         'thumbnail',
         'description',
