@@ -15,7 +15,7 @@ class EpisodeTableSeeder extends Seeder
         if(Episode::count() == 0){
             Episode::firstOrCreate([
                 'name' => "Tập 1",
-                'link' => "https://www.youtube.com/watch?v=V3VSqlomOCI",
+                'link_1' => "https://www.youtube.com/watch?v=V3VSqlomOCI",
                 'film_id' => "1",
                 'status' => 1,
                 'created_by' => 'seeder',
@@ -23,7 +23,7 @@ class EpisodeTableSeeder extends Seeder
             ]);
             Episode::firstOrCreate([
                 'name' => "Tập 2",
-                'link' => "https://www.youtube.com/watch?v=iICDVqXkhWk",
+                'link_1' => "https://www.youtube.com/watch?v=iICDVqXkhWk",
                 'film_id' => "1",
                 'status' => 1,
                 'created_by' => 'seeder',
@@ -31,7 +31,7 @@ class EpisodeTableSeeder extends Seeder
             ]);
             Episode::firstOrCreate([
                 'name' => "Tập 1",
-                'link' => "https://www.youtube.com/watch?v=V3VSqlomOCI",
+                'link_1' => "https://www.youtube.com/watch?v=V3VSqlomOCI",
                 'film_id' => "2",
                 'status' => 1,
                 'created_by' => 'seeder',
@@ -39,7 +39,7 @@ class EpisodeTableSeeder extends Seeder
             ]);
             Episode::firstOrCreate([
                 'name' => "Tập 2",
-                'link' => "https://www.youtube.com/watch?v=iICDVqXkhWk",
+                'link_1' => "https://www.youtube.com/watch?v=iICDVqXkhWk",
                 'film_id' => "2",
                 'status' => 1,
                 'created_by' => 'seeder',
