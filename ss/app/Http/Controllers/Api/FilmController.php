@@ -6,6 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Models\Film;
 use Illuminate\Http\Request;
 use App\Models\Episode;
+use App\Models\Country;
+use App\Models\FilmCategory;
+use App\Models\Type;
 
 class FilmController extends Controller
 {
@@ -238,7 +241,26 @@ class FilmController extends Controller
      */
     public function getAllEpisodeByID(Request $request)
     {
-        return Episode::where('film_id', $request->id)->get();
+        # eps
+        $data['eps'] = Episode::where('film_id', $request->id)->get();
+
+        # film details
+        $countries = Country::all();
+        $film = Film::where('id', $request->id)->get();
+        $categories = FilmCategory::all();
+        foreach ($countries as $country){
+            if($country->id == $film[0]->country){
+                $film[0]->country = $country->name;
+            }
+        }
+        foreach ($categories as $category){
+            if($category->id == $film[0]->category_id){
+                $film[0]->category_id = [$category->id, $category->name];
+            }
+        }
+        $data['film'] = $film[0];
+
+        return $data;
     }
 
     /**
@@ -276,5 +298,31 @@ class FilmController extends Controller
     public function getNewestFilm(Request $request)
     {
         return Episode::orderBy('created_at', 'desc')->take($request->amount)->get();
+    }
+
+    public function getDetail(Request $request)
+    {
+        $films = Film::orderBy('created_at', 'desc')->where('id', $request->id)->get();
+        $countries = Country::all();
+        $categories = FilmCategory::all();
+        $types = Type::all();
+        foreach ($films as $film){
+            foreach ($countries as $country){
+                if($film->country == $country->id){
+                    $film->country = $country->name;
+                }
+            }
+            foreach ($categories as $category){
+                if($film->category_id == $category->id){
+                    $film->category_id = [$category->id, $category->name];
+                }
+            }
+            foreach ($types as $type){
+                if($film->type_id == $type->id){
+                    $film->type_id = [$type->id, $type->name];
+                }
+            }
+        } 
+        return $films;
     }
 }

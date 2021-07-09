@@ -36,3 +36,15 @@ Route::apiResource('password_resets', 'Api\PasswordResetController');
 
 # home page
 Route::get('home', 'Api\HomeController@getHomePage');
+
+# Phim 2D, phim 3D
+Route::get('movies/{id}', 'Api\FilmCategoryController@getAllFilm');
+
+# Detail 
+Route::get('movies/detail/{id}', 'Api\FilmController@getDetail');
+
+# tập film
+Route::get('movies/detail/episodes/{id}', 'Api\FilmController@getAllEpisodeByID');
+
+# xem phim
+Route::get('movies/detail/episodes/play/{id}', 'Api\EpisodeController@getDetailEp');

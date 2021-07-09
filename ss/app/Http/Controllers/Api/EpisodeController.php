@@ -209,4 +209,8 @@ class EpisodeController extends Controller
     {
         $episode->delete();
     }
+
+    public function getDetailEp(Request $request){
+        return Episode::orderBy('created_at', 'desc')->where('id', $request->id)->get();
+    }
 }

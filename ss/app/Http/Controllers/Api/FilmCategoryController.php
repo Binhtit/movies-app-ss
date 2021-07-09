@@ -4,7 +4,10 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\FilmCategory;
+use App\Models\Film;
 use Illuminate\Http\Request;
+use App\Models\Country;
+use App\Models\Type;
 
 class FilmCategoryController extends Controller
 {
@@ -194,5 +197,30 @@ class FilmCategoryController extends Controller
     public function destroy(FilmCategory $filmCategory)
     {
         $filmCategory->delete();
+    }
+
+    public function getAllFilm(Request $request){
+        $films = Film::where('category_id', $request->id)->orderBy('created_at', 'desc')->get();
+        $countries = Country::all();
+        $categories = FilmCategory::all();
+        $types = Type::all();
+        foreach ($films as $film){
+            foreach ($countries as $country){
+                if($film->country == $country->id){
+                    $film->country = $country->name;
+                }
+            }
+            foreach ($categories as $category){
+                if($film->category_id == $category->id){
+                    $film->category_id = [$category->id, $category->name];
+                }
+            }
+            foreach ($types as $type){
+                if($film->type_id == $type->id){
+                    $film->type_id = [$type->id, $type->name];
+                }
+            }
+        } 
+        return $films;
     }
 }
