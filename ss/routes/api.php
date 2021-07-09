@@ -33,3 +33,6 @@ Route::apiResource('configurations', 'Api\ConfigurationController');
 Route::apiResource('users', 'Api\UserController');
 Route::apiResource('admins', 'Api\AdminController');
 Route::apiResource('password_resets', 'Api\PasswordResetController');
+
+# home page
+Route::get('home', 'Api\HomeController@getHomePage');
