@@ -40,19 +40,21 @@ Route::post('login', 'Api\APIController@login');
 Route::group(['middleware' => 'auth.jwt'], function () {
     Route::get('logout', 'Api\APIController@logout');
     Route::get('users', 'Api\UserController@index');
+
+    # home page
+    Route::get('home', 'Api\HomeController@getHomePage');
+
+    # Phim 2D, phim 3D
+    Route::get('movies/{id}', 'Api\FilmCategoryController@getAllFilm');
+
+    # Detail 
+    Route::get('movies/detail/{id}', 'Api\FilmController@getDetail');
+
+    # tập film
+    Route::get('movies/detail/episodes/{id}', 'Api\FilmController@getAllEpisodeByID');
+
+    # xem phim
+    Route::get('movies/detail/episodes/play/{id}', 'Api\EpisodeController@getDetailEp');
 });
 
-# home page
-Route::get('home', 'Api\HomeController@getHomePage');
 
-# Phim 2D, phim 3D
-Route::get('movies/{id}', 'Api\FilmCategoryController@getAllFilm');
-
-# Detail 
-Route::get('movies/detail/{id}', 'Api\FilmController@getDetail');
-
-# tập film
-Route::get('movies/detail/episodes/{id}', 'Api\FilmController@getAllEpisodeByID');
-
-# xem phim
-Route::get('movies/detail/episodes/play/{id}', 'Api\EpisodeController@getDetailEp');
