@@ -30,9 +30,17 @@ Route::apiResource('episodes', 'Api\EpisodeController');
 Route::apiResource('banners', 'Api\BannerController');
 Route::apiResource('ads', 'Api\AdController');
 Route::apiResource('configurations', 'Api\ConfigurationController');
-Route::apiResource('users', 'Api\UserController');
+// Route::apiResource('users', 'Api\UserController');
 Route::apiResource('admins', 'Api\AdminController');
 Route::apiResource('password_resets', 'Api\PasswordResetController');
+
+
+Route::post('login', 'Api\APIController@login');
+
+Route::group(['middleware' => 'auth.jwt'], function () {
+    Route::get('logout', 'Api\APIController@logout');
+    Route::get('users', 'Api\UserController@index');
+});
 
 # home page
 Route::get('home', 'Api\HomeController@getHomePage');
