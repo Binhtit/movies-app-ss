@@ -23,65 +23,45 @@ class HomeController extends Controller
         $types = Type::all();
 
         # Category
-        $data['categories'] = $film_categories;
+        $data['categories'] = FilmCategory::select('id', 'name')->orderBy('id', 'asc')->get();
 
         # Top 5 film
-        $top5_newest_films = Film::orderBy('created_at', 'desc')->take(5)->get();
-        foreach ($top5_newest_films as $film){
-            foreach ($countries as $country){
-                if($film->country == $country->id){
-                    $film->country = $country->name;
-                }
-            }
-            foreach ($categories as $category){
-                if($film->category_id == $category->id){
-                    $film->category_id = [$category->id, $category->name];
-                }
-            }
+        $top5_newest_films = Film::orderBy('created_at', 'desc')
+                                ->select('id', 'name', 'banner', 'star', 'episodes', 'release_date', 'description', 'author', 'type_id')
+                                ->take(5)->get();
+        foreach ($top5_newest_films as $key => $film){
             foreach ($types as $type){
                 if($film->type_id == $type->id){
-                    $film->type_id = [$type->id, $type->name];
+                    $top5_newest_films[$key]['type_name'] = $type->name;
                 }
             }
         }
         $data['5_newest_films'] = $top5_newest_films;
 
-        # Top 20 film
-        $top20_newest_films = Film::orderBy('created_at', 'desc')->take(20)->get();
-        $data['20_newest_films'] = $top20_newest_films;
-        foreach ($top20_newest_films as $film){
-            foreach ($countries as $country){
-                if($film->country == $country->id){
-                    $film->country = $country->name;
-                }
-            }
-            foreach ($categories as $category){
-                if($film->category_id == $category->id){
-                    $film->category_id = [$category->id, $category->name];
-                }
-            }
-            foreach ($types as $type){
-                if($film->type_id == $type->id){
-                    $film->type_id = [$type->id, $type->name];
+        # top 40 newest eps
+        $top40_newest_eps = Episode::orderBy('created_at', 'desc')
+                                    ->select('id', 'name', 'film_id')
+                                    ->take(40)->get();
+        $allFilm = Film::all();
+        foreach ($top40_newest_eps as $key => $ep){
+            foreach ($allFilm as $film){
+                if($film->id == $ep->film_id){
+                    $top40_newest_eps[$key]['film_name'] = $film->name;
+                    $top40_newest_eps[$key]['image'] = $film->image;
+                    $top40_newest_eps[$key]['star'] = $film->star;
+                    $top40_newest_eps[$key]['release_date'] = $film->release_date;
+                    $top40_newest_eps[$key]['category_id'] = $film->category_id;
+                    $top40_newest_eps[$key]['type_id'] = $film->type_id;
                 }
             }
         }
-
-        # top 20 ep
-        foreach ($film_categories as $key => $category){
-            $data['20_newest_episodes'][$key]['category_id'] = $category->id;
-            $data['20_newest_episodes'][$key]['category_name'] = $category->name;
-            foreach ($types as $key1 => $type){
-                $data['20_newest_episodes'][$key][$key1]['type_id'] = $type->id;
-                $data['20_newest_episodes'][$key][$key1]['type_name'] = $type->name;
-                $filmByType = Film::where('type_id', $type->id)->get();
-                $ids = [];
-                foreach ($filmByType as $film){
-                    array_push($ids, $film->id);
-                }
-                $data['20_newest_episodes'][$key][$key1]['episodes'] = Episode::orderBy('created_at', 'desc')->whereIn('id', $ids)->get();
-            }
-        }
+        $data['40_newest_eps'] = $top40_newest_eps;
         return $data;
+    }
+
+    public function get20NewestFilm(){
+        # Top 20 film
+        $top20_newest_films = Film::orderBy('created_at', 'desc')->select('name', 'id', 'created_at')->take(20)->get();
+        return $top20_newest_films;
     }
 }

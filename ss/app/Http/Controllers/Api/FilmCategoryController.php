@@ -200,24 +200,15 @@ class FilmCategoryController extends Controller
     }
 
     public function getAllFilm(Request $request){
-        $films = Film::where('category_id', $request->id)->orderBy('created_at', 'desc')->get();
-        $countries = Country::all();
-        $categories = FilmCategory::all();
+        $films = Film::where('category_id', $request->id)
+                    ->orderBy('created_at', 'desc')
+                    ->select('id', 'episodes', 'name', 'star', 'release_date', 'type_id')
+                    ->get();
         $types = Type::all();
-        foreach ($films as $film){
-            foreach ($countries as $country){
-                if($film->country == $country->id){
-                    $film->country = $country->name;
-                }
-            }
-            foreach ($categories as $category){
-                if($film->category_id == $category->id){
-                    $film->category_id = [$category->id, $category->name];
-                }
-            }
+        foreach ($films as $key => $film){
             foreach ($types as $type){
                 if($film->type_id == $type->id){
-                    $film->type_id = [$type->id, $type->name];
+                    $films[$key]['type_name'] = $type->name;
                 }
             }
         } 

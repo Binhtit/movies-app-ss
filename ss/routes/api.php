@@ -34,6 +34,9 @@ Route::apiResource('users', 'Api\UserController');
 Route::apiResource('admins', 'Api\AdminController');
 Route::apiResource('password_resets', 'Api\PasswordResetController');
 
+# 20 phim mới nhất
+Route::get('top20newest', 'Api\HomeController@get20NewestFilm');
+
 # home page
 Route::get('home', 'Api\HomeController@getHomePage');
 

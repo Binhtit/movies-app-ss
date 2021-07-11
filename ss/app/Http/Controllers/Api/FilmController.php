@@ -242,23 +242,34 @@ class FilmController extends Controller
     public function getAllEpisodeByID(Request $request)
     {
         # eps
-        $data['eps'] = Episode::where('film_id', $request->id)->get();
+        $data['eps'] = Episode::where('film_id', $request->id)
+                                ->select('id', 'name', 'film_id', 'link_1', 'link_2', 'link_3', 'link_4')
+                                ->get();
 
         # film details
         $countries = Country::all();
-        $film = Film::where('id', $request->id)->get();
+        $film = Film::where('id', $request->id)
+                        ->select('id', 'name', 'author', 'country', 'category_id', 'episodes', 'description', 
+                        'star', 'release_date', 'type_id', 'image', 'banner', 'running_time', 'time_slot')
+                        ->first();
         $categories = FilmCategory::all();
+        $types = Type::all();
         foreach ($countries as $country){
-            if($country->id == $film[0]->country){
-                $film[0]->country = $country->name;
+            if($country->id == $film->country){
+                $film['country_name'] = $country->name;
             }
         }
         foreach ($categories as $category){
-            if($category->id == $film[0]->category_id){
-                $film[0]->category_id = [$category->id, $category->name];
+            if($category->id == $film->category_id){
+                $film['category_name'] = $category->name;
             }
         }
-        $data['film'] = $film[0];
+        foreach ($types as $type){
+            if($type->id == $film->type_id){
+                $film['type_name'] = $type->name;
+            }
+        }
+        $data['film'] = $film;
 
         return $data;
     }
@@ -302,27 +313,25 @@ class FilmController extends Controller
 
     public function getDetail(Request $request)
     {
-        $films = Film::orderBy('created_at', 'desc')->where('id', $request->id)->get();
+        $film = Film::where('id', $request->id)
+                        ->select('id', 'name', 'image', 'description', 'banner', 'star', 'episodes', 'release_date', 'type_id', 'country')
+                        ->first();
         $countries = Country::all();
-        $categories = FilmCategory::all();
         $types = Type::all();
-        foreach ($films as $film){
-            foreach ($countries as $country){
-                if($film->country == $country->id){
-                    $film->country = $country->name;
-                }
+        foreach ($countries as $country){
+            if($film->country == $country->id){
+                $film['country_name'] = $country->name;
             }
-            foreach ($categories as $category){
-                if($film->category_id == $category->id){
-                    $film->category_id = [$category->id, $category->name];
-                }
+        }
+        foreach ($types as $key => $type){
+            if($film->type_id == $type->id){
+                $film['type_name'] = $type->name;
             }
-            foreach ($types as $type){
-                if($film->type_id == $type->id){
-                    $film->type_id = [$type->id, $type->name];
-                }
-            }
-        } 
-        return $films;
+        }
+        $film['film_status'] = '';
+        $film['screen_resolution'] = '';
+        $film['language'] = '';
+        $film['imdb'] = ''; 
+        return $film;
     }
 }
