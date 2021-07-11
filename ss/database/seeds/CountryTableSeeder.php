@@ -14,7 +14,7 @@ class CountryTableSeeder extends Seeder
     public function run()
     {
         if(Country::count() == 0){
-            $countries = Countries::getList('en');
+            $countries = Country::getList('en');
             foreach($countries as $country){
                 Country::firstOrCreate([
                     'name' => $country,
