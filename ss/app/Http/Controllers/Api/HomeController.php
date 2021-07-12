@@ -46,7 +46,8 @@ class HomeController extends Controller
         foreach ($top40_newest_eps as $key => $ep){
             foreach ($allFilm as $film){
                 if($film->id == $ep->film_id){
-                    $top40_newest_eps[$key]['film_name'] = $film->name;
+                    $top40_newest_eps[$key]['ep_name'] = $ep->name;
+                    $top40_newest_eps[$key]['name'] = $film->name;
                     $top40_newest_eps[$key]['image'] = $film->image;
                     $top40_newest_eps[$key]['star'] = $film->star;
                     $top40_newest_eps[$key]['release_date'] = $film->release_date;
