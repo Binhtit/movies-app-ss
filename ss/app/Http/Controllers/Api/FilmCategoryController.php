@@ -202,7 +202,7 @@ class FilmCategoryController extends Controller
     public function getAllFilm(Request $request){
         $films = Film::where('category_id', $request->id)
                     ->orderBy('created_at', 'desc')
-                    ->select('id', 'episodes', 'name', 'star', 'release_date', 'type_id')
+                    ->select('id', 'episodes', 'name', 'star', 'release_date', 'type_id', 'image')
                     ->get();
         $types = Type::all();
         foreach ($films as $key => $film){
