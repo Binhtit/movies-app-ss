@@ -36,7 +36,7 @@ class HomeController extends Controller
                 }
             }
         }
-        $data['5_newest_films'] = $top5_newest_films;
+        $data['top_5_newest_films'] = $top5_newest_films;
 
         # top 40 newest eps
         $top40_newest_eps = Episode::orderBy('created_at', 'desc')
@@ -55,7 +55,7 @@ class HomeController extends Controller
                 }
             }
         }
-        $data['40_newest_eps'] = $top40_newest_eps;
+        $data['top_40_newest_eps'] = $top40_newest_eps;
         return $data;
     }
 
