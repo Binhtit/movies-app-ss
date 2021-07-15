@@ -25,7 +25,7 @@ class HomeController extends Controller
         # Category
         $data['categories'] = FilmCategory::select('id', 'name')->orderBy('id', 'asc')->get();
 
-        # Top 5 film
+        # Top 5 newest film
         $top5_newest_films = Film::orderBy('created_at', 'desc')
                                 ->select('id', 'name', 'banner', 'star', 'episodes', 'release_date', 'description', 'author', 'type_id')
                                 ->take(5)->get();

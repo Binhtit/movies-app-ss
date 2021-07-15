@@ -28,6 +28,10 @@ class CreateFilmsTable extends Migration
             $table->integer('type_id')->nullable();
             $table->string('image')->nullable();
             $table->string('banner')->nullable();
+            $table->string('film_status')->nullable();
+            $table->string('resolution')->nullable();
+            $table->string('language')->nullable();
+            $table->string('imdb')->nullable();
             $table->string('running_time')->nullable();
             $table->string('time_slot')->nullable();
             $table->integer('status')->default(1);

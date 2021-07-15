@@ -314,7 +314,8 @@ class FilmController extends Controller
     public function getDetail(Request $request)
     {
         $film = Film::where('id', $request->id)
-                        ->select('id', 'name', 'image', 'description', 'banner', 'star', 'episodes', 'release_date', 'type_id', 'country')
+                        ->select('id', 'name', 'image', 'description', 'banner', 'star', 'episodes', 
+                        'release_date', 'type_id', 'country', 'resolution', 'language', 'imdb')
                         ->first();
         $countries = Country::all();
         $types = Type::all();
@@ -323,15 +324,15 @@ class FilmController extends Controller
                 $film['country_name'] = $country->name;
             }
         }
-        foreach ($types as $key => $type){
+        foreach ($types as $type){
             if($film->type_id == $type->id){
                 $film['type_name'] = $type->name;
             }
         }
-        $film['film_status'] = '';
-        $film['screen_resolution'] = '';
-        $film['language'] = '';
-        $film['imdb'] = ''; 
+        $film['film_status'] = $film->film_status;
+        $film['resolution'] = $film->resolution;
+        $film['language'] = $film->language;
+        $film['imdb'] = $film->imdb; 
         return $film;
     }
 }

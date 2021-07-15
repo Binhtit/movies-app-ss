@@ -18,22 +18,22 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-# 20 newest film
+# Get 20 newest films
 Route::get('top20newest', 'Api\HomeController@get20NewestFilm');
 
-# home page
+# Home page: get categories, top 5 newest films, top 40 newest eps
 Route::get('home', 'Api\HomeController@getHomePage');
 
-# Phim 2D, phim 3D
+# Get films by category id
 Route::get('movies/{id}', 'Api\FilmCategoryController@getAllFilm');
 
-# Detail 
+# Get detail of film by id
 Route::get('movies/detail/{id}', 'Api\FilmController@getDetail');
 
-# tập film
+# Get eps by film id
 Route::get('movies/detail/episodes/{id}', 'Api\FilmController@getAllEpisodeByID');
 
-# xem phim
+# Get details of ep by id
 Route::get('movies/detail/episodes/play/{id}', 'Api\EpisodeController@getDetailEp');
 
 /*
