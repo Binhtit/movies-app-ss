@@ -11,7 +11,7 @@ class AdminController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function login()
+    public function index()
     {
         if ( Auth::check() )   {
             return redirect('admin/dashboard');
@@ -19,23 +19,30 @@ class AdminController extends Controller
         return view('pages.admins.login');
     }
 
-    public function dashboard(Request $request)
+    public function login(Request $request)
     {
         $data = [
             'email' => $request->email,
             'password' => $request->password,
         ];
-
         if (Auth::attempt($data)) {
-            return view('pages.admins.dashboard');
-        } else {
-            return redirect('admin/login');
+            return redirect('admin/dashboard');
         }
+        else{
+            return redirect('admin/');
+        }
+    }
+
+    public function dashboard(){
+        if (!Auth::check()) {
+            return redirect('admin/');
+        }
+        return view('pages.admins.dashboard')->with('username', Auth::user()->name);
     }
 
     public function logout()
     {
         Auth::logout();
-        return redirect('admin/login');
+        return redirect('admin/');
     }
 }

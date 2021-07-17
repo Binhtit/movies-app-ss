@@ -21,16 +21,15 @@ Route::get('/', 'HomeController@index');
 |--------------------------------------------------------------------------
 */
 $moduleRoute = '/admin';
-
 Route::group(['prefix' => $moduleRoute], function () {
-    Route::get('/login', 'AdminController@login');
-    Route::post('/dashboard', 'AdminController@dashboard');
-    Route::get('logout', 'AdminController@logout');
-    Route::get('users', 'UserController@index');
-    Route::resource('films', 'FilmController');
+    Route::get('/', 'AdminController@index');
+    Route::post('/login', 'AdminController@login');
+    Route::get('/dashboard', 'AdminController@dashboard');
+    Route::get('/logout', 'AdminController@logout');
+    Route::resource('film_categories', 'FilmCategoryController');
+    Route::resource('/films', 'FilmController');
     Route::get('films/{id}/episodes', 'FilmController@getAllEpisodeByID');
     Route::get('films/newest/{amount}', 'FilmController@getNewestFilm');
-    Route::resource('film_categories', 'FilmCategoryController');
     Route::resource('menus', 'MenuController');
     Route::resource('types', 'TypeController');
     Route::resource('countries', 'CountryController');
