@@ -12,5 +12,10 @@ Route::group([
 ], function (Router $router) {
 
     $router->get('/', 'HomeController@index')->name('home');
-
+    $router->resource('film-categories', FilmCategoryController::class);
+    $router->resource('films', FilmController::class);
+    $router->resource('episodes', EpisodeController::class);
+    $router->resource('countries', CountryController::class);
+    $router->resource('ads', AdController::class);
+    $router->resource('types', TypeController::class);
 });
