@@ -10,7 +10,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        $this->call(AdminMenuTableSeeder::class);
+        $this->call(AdminTablesSeeder::class);
         $this->call(FilmCategoryTableSeeder::class);
         $this->call(CountryTableSeeder::class);
         $this->call(TypeTableSeeder::class);

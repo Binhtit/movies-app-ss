@@ -93,7 +93,7 @@ class EpisodeController extends AdminController
         $form->text('link_2', __('Link 2'));
         $form->text('link_3', __('Link 3'));
         $form->text('link_4', __('Link 4'));
-        $form->text('thumbnail', __('Thumbnail'));
+        $form->image('thumbnail', __('Thumbnail'));
         $form->text('description', __('Description'));
         $form->number('status', __('Status'))->default(1);
         $form->number('position', __('Position'));

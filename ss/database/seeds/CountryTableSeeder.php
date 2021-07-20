@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use Monarobase\CountryList\CountryListFacade;
 use App\Models\Country;
 
 class CountryTableSeeder extends Seeder

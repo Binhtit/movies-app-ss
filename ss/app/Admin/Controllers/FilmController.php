@@ -116,7 +116,7 @@ class FilmController extends AdminController
         $form->datetime('release_date', __('Release date'))->default(date('Y-m-d H:i:s'));
         $form->number('type_id', __('Type id'));
         $form->image('image', __('Image'));
-        $form->text('banner', __('Banner'));
+        $form->image('banner', __('Banner'));
         $form->text('resolution', __('Resolution'));
         $form->text('language', __('Language'));
         $form->text('imdb', __('Imdb'));
