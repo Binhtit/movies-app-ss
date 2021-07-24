@@ -12,6 +12,6 @@ class FilmTableSeeder extends Seeder
      */
     public function run()
     {
-        Film::truncate();
+        // Film::truncate();
     }
 }

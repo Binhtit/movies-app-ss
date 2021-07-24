@@ -12,7 +12,7 @@ class EpisodeTableSeeder extends Seeder
      */
     public function run()
     {
-        Episode::truncate();
+        // Episode::truncate();
         
     }
 }
