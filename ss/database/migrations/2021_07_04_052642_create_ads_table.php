@@ -16,6 +16,7 @@ class CreateAdsTable extends Migration
         Schema::create('ads', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');
+            $table->string('code');
             $table->string('image');
             $table->integer('status')->default(1);
             $table->integer('position')->nullable();

@@ -180,7 +180,6 @@ return [
         /*
          * Package Service Providers...
          */
-        Film\Providers\ModuleServiceProvider::class,
         Tymon\JWTAuth\Providers\LaravelServiceProvider::class,
 
     ],

@@ -42,7 +42,7 @@ class AdminTablesSeeder extends Seeder
             ],
             [
                 'name' => 'Manager',
-                'slug' => 'Manager',
+                'slug' => 'manager',
             ]
         ]);
 
@@ -86,8 +86,8 @@ class AdminTablesSeeder extends Seeder
             [
                 'name'        => 'Modules',
                 'slug'        => 'modules',
-                'http_method' => '',
-                'http_path'   => "/episodes\r\n/films\r\n/film-categories\r\n/types\r\n/countries\r\n/ads",
+                'http_method' => 'GET,POST,PUT,PATCH,DELETE',
+                'http_path'   => "/episodes*\r\n/films*\r\n/film-categories*\r\n/types*\r\n/countries*\r\n/ads*",
             ]
         ]);
 

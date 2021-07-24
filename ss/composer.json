@@ -10,7 +10,6 @@
     "require": {
         "php": "^7.2.5|^8.0",
         "darkaonline/l5-swagger": "7.0",
-        "duyphan2502/hmvc-tools": "^1.0",
         "encore/laravel-admin": "^1.8",
         "fideloper/proxy": "^4.4",
         "fruitcake/laravel-cors": "^2.0",
@@ -18,8 +17,6 @@
         "laravel/framework": "^7.29",
         "laravel/tinker": "^2.5",
         "monarobase/country-list": "^3.2",
-        "plugins/admin": "*",
-        "plugins/film": "*",
         "tymon/jwt-auth": "dev-develop"
     },
     "require-dev": {
@@ -66,19 +63,5 @@
         "post-create-project-cmd": [
             "@php artisan key:generate --ansi"
         ]
-    },
-    "repositories": [
-        {
-            "type": "path",
-            "url": "./platform/core/*"
-        },
-        {
-            "type": "path",
-            "url": "./platform/plugins/*"
-        },
-        {
-            "type": "path",
-            "url": "./platform/themes/*"
-        }
-    ]
+    }
 }
