@@ -7,6 +7,7 @@ use Encore\Admin\Controllers\AdminController;
 use Encore\Admin\Form;
 use Encore\Admin\Grid;
 use Encore\Admin\Show;
+use App\Models\Film;
 
 class EpisodeController extends AdminController
 {
@@ -88,7 +89,7 @@ class EpisodeController extends AdminController
         $form = new Form(new Episode());
 
         $form->text('name', __('Name'));
-        $form->number('film_id', __('Film id'));
+        $form->select('film_id', __('Film id'))->options(Film::all()->pluck('name', 'id'));
         $form->text('link_1', __('Link 1'));
         $form->text('link_2', __('Link 2'));
         $form->text('link_3', __('Link 3'));
