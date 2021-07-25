@@ -29,17 +29,27 @@ class FilmController extends AdminController
     {
         $grid = new Grid(new Film());
 
+        $grid->filter(function($filter){
+            $filter->like('name', 'Name');
+        });
+
         $grid->column('id', __('ID'));
         $grid->column('name', __('Name'));
         $grid->column('author', __('Author'));
         $grid->column('cast', __('Cast'));
-        $grid->column('country', __('Country'));
-        $grid->column('category_id', __('Film Category'))->pluck('name');
+        $grid->column('country', __('Country'))->display(function ($country){
+            return Country::find($country)->name;
+        });
+        $grid->column('category_id', __('Film Category'))->display(function ($category_id){
+            return FilmCategory::find($category_id)->name;
+        });
         $grid->column('episodes', __('Episodes'));
         $grid->column('description', __('Description'));
         $grid->column('star', __('Star'));
         $grid->column('release_date', __('Release Date'));
-        $grid->column('type_id', __('Type ID'));
+        $grid->column('type_id', __('Type'))->display(function ($type_id){
+            return Type::find($type_id)->name;
+        });
         $grid->column('image', __('Image'));
         $grid->column('banner', __('Banner'));
         $grid->column('resolution', __('Resolution'));
@@ -49,12 +59,8 @@ class FilmController extends AdminController
         $grid->column('time_slot', __('Time slot'));
         $grid->column('status', __('Status'));
         $grid->column('position', __('Position'));
-        $grid->column('created_by', __('Created By'));
-        $grid->column('updated_by', __('Updated By'));
-        $grid->column('deleted_by', __('Deleted By'));
-        $grid->column('created_at', __('Created By'));
-        $grid->column('updated_at', __('Updated By'));
-        $grid->column('deleted_at', __('Deleted By'));
+        $grid->column('created_at', __('Created at'));
+        $grid->column('updated_at', __('Updated at'));
 
         return $grid;
     }
@@ -89,12 +95,8 @@ class FilmController extends AdminController
         $show->field('time_slot', __('Time slot'));
         $show->field('status', __('Status'));
         $show->field('position', __('Position'));
-        $show->field('created_by', __('Created by'));
-        $show->field('updated_by', __('Updated by'));
-        $show->field('deleted_by', __('Deleted by'));
         $show->field('created_at', __('Created at'));
         $show->field('updated_at', __('Updated at'));
-        $show->field('deleted_at', __('Deleted at'));
 
         return $show;
     }
@@ -117,7 +119,7 @@ class FilmController extends AdminController
         $form->text('description', __('Description'));
         $form->number('star', __('Star'));
         $form->datetime('release_date', __('Release Date'))->default(date('Y-m-d H:i:s'));
-        $form->select('type_id', __('Type ID'))->options(Type::all()->pluck('name', 'id'));
+        $form->select('type_id', __('Type'))->options(Type::all()->pluck('name', 'id'));
         $form->text('image', __('Image'));
         $form->text('banner', __('Banner'));
         $form->text('resolution', __('Resolution'));
@@ -127,9 +129,6 @@ class FilmController extends AdminController
         $form->text('time_slot', __('Time Slot'));
         $form->number('status', __('Status'))->default(1);
         $form->number('position', __('Position'));
-        $form->text('created_by', __('Created By'));
-        $form->text('updated_by', __('Updated By'));
-        $form->text('deleted_by', __('Deleted By'));
 
         return $form;
     }
