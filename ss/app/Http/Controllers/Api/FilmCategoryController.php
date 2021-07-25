@@ -205,13 +205,20 @@ class FilmCategoryController extends Controller
                     ->select('id', 'episodes', 'name', 'star', 'release_date', 'type_id', 'image')
                     ->get();
         $types = Type::all();
+        $data = [];
         foreach ($films as $key => $film){
+            $data[$key]['film_id'] = $film->id;
+            $data[$key]['episodes'] = $film->episodes;
+            $data[$key]['name'] = $film->name;
+            $data[$key]['star'] = $film->star;
+            $data[$key]['release_date'] = $film->release_date;
+            $data[$key]['image'] = $film->image;
             foreach ($types as $type){
                 if($film->type_id == $type->id){
-                    $films[$key]['type_name'] = $type->name;
+                    $data[$key]['type_name'] = $type->name;
                 }
             }
         } 
-        return $films;
+        return $data;
     }
 }
