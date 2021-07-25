@@ -2,32 +2,103 @@
 
 namespace App\Models;
 
+use Encore\Admin\Traits\DefaultDatetimeFormat;
+use Encore\Admin\Traits\ModelTree;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Support\Facades\DB;
 
 /**
- * @OA\Schema(
- * required={"name"},
- * @OA\Xml(name="Menu"),
- * @OA\Property(property="id", ref="#/components/schemas/BaseModel/properties/id"),
- * @OA\Property(property="name", type="string", example="Trang chủ"),
- * @OA\Property(property="status", type="integer", example="Trạng thái: 1-kích hoạt, 2-vô hiệu, 3-đã xóa"),
- * @OA\Property(property="position", type="integer", example="1"),
- * @OA\Property(property="created_by", ref="#/components/schemas/BaseModel/properties/created_by"),
- * @OA\Property(property="updated_by", ref="#/components/schemas/BaseModel/properties/updated_at"),
- * @OA\Property(property="deleted_by", ref="#/components/schemas/BaseModel/properties/deleted_at"),
- * @OA\Property(property="created_at", ref="#/components/schemas/BaseModel/properties/created_at"),
- * @OA\Property(property="update_at", ref="#/components/schemas/BaseModel/properties/updated_at"),
- * @OA\Property(property="deleted_at", ref="#/components/schemas/BaseModel/properties/deleted_at"),
- * )
+ * Class Menu.
+ *
+ * @property int $id
+ *
+ * @method where($parent_id, $id)
  */
-
 class Menu extends Model
 {
-    public $table = 'menus';
+    use DefaultDatetimeFormat;
+    use ModelTree {
+        ModelTree::boot as treeBoot;
+    }
 
-    public $fillable = [
-        'name',
-        'status',
-        'position',
-    ];
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = ['parent_id', 'order', 'title', 'icon', 'uri', 'permission'];
+
+    /**
+     * Create a new Eloquent model instance.
+     *
+     * @param array $attributes
+     */
+    public function __construct(array $attributes = [])
+    {
+        $connection = config('admin.database.connection') ?: config('database.default');
+
+        $this->setConnection($connection);
+
+        $this->setTable(config('admin.database.menu_table'));
+
+        parent::__construct($attributes);
+    }
+
+    /**
+     * A Menu belongs to many roles.
+     *
+     * @return BelongsToMany
+     */
+    public function roles(): BelongsToMany
+    {
+        $pivotTable = config('admin.database.role_menu_table');
+
+        $relatedModel = config('admin.database.roles_model');
+
+        return $this->belongsToMany($relatedModel, $pivotTable, 'menu_id', 'role_id');
+    }
+
+    /**
+     * @return array
+     */
+    public function allNodes(): array
+    {
+        $connection = config('admin.database.connection') ?: config('database.default');
+        $orderColumn = DB::connection($connection)->getQueryGrammar()->wrap($this->orderColumn);
+
+        $byOrder = 'ROOT ASC,'.$orderColumn;
+
+        $query = static::query();
+
+        if (config('admin.check_menu_roles') !== false) {
+            $query->with('roles');
+        }
+
+        return $query->selectRaw('*, '.$orderColumn.' ROOT')->orderByRaw($byOrder)->get()->toArray();
+    }
+
+    /**
+     * determine if enable menu bind permission.
+     *
+     * @return bool
+     */
+    public function withPermission()
+    {
+        return (bool) config('admin.menu_bind_permission');
+    }
+
+    /**
+     * Detach models from the relationship.
+     *
+     * @return void
+     */
+    protected static function boot()
+    {
+        static::treeBoot();
+
+        static::deleting(function ($model) {
+            $model->roles()->detach();
+        });
+    }
 }
