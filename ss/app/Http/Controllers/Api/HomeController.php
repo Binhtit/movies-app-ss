@@ -57,6 +57,15 @@ class HomeController extends Controller
             }
         }
         $data['top_40_newest_eps'] = $top40_newest_eps;
+
+        foreach($allFilm as $key => $film){
+            $data['all_film'][$key]['id'] = $film->id;
+            $data['all_film'][$key]['name'] = $film->name;
+            $data['all_film'][$key]['star'] = $film->star;
+            $data['all_film'][$key]['release_date'] = $film->release_date;
+            $data['all_film'][$key]['image'] = $film->image;
+        }
+        
         return $data;
     }
 
