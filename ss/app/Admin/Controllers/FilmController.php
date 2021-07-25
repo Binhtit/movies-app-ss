@@ -118,8 +118,8 @@ class FilmController extends AdminController
         $form->number('star', __('Star'));
         $form->datetime('release_date', __('Release Date'))->default(date('Y-m-d H:i:s'));
         $form->select('type_id', __('Type ID'))->options(Type::all()->pluck('name', 'id'));
-        $form->image('image', __('Image'));
-        $form->image('banner', __('Banner'));
+        $form->text('image', __('Image'));
+        $form->text('banner', __('Banner'));
         $form->text('resolution', __('Resolution'));
         $form->text('language', __('Language'));
         $form->text('imdb', __('Imdb'));
