@@ -12,17 +12,6 @@ class CountryTableSeeder extends Seeder
      */
     public function run()
     {
-        if(Country::count() == 0){
-            $countries = Country::getList('en');
-            foreach($countries as $country){
-                Country::firstOrCreate([
-                    'name' => $country,
-                    'status' => 1,
-                    'created_by' => 'seeder',
-                    'updated_by' => 'seeder',
-                ]);
-            }
-        }
 
     }
 }
