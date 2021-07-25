@@ -113,7 +113,7 @@ class FilmController extends AdminController
         $form->text('cast', __('Cast'));
         $form->select('country', __('Country'))->options(Country::all()->pluck('name', 'id'));
         $form->select('category_id', __('Film Category'))->options(FilmCategory::all()->pluck('name', 'id'));
-        $form->number('episodes', __('Episodes'));
+        $form->text('episodes', __('Episodes'));
         $form->text('description', __('Description'));
         $form->number('star', __('Star'));
         $form->datetime('release_date', __('Release Date'))->default(date('Y-m-d H:i:s'));
