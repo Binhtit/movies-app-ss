@@ -17,9 +17,6 @@ class HomeController extends Controller
      */
     public function getHomePage(){
         $data = [];
-        $film_categories = FilmCategory::all();
-        $countries = Country::all();
-        $categories = FilmCategory::all();
         $types = Type::all();
 
         # Category
@@ -39,25 +36,44 @@ class HomeController extends Controller
         $data['top_5_newest_films'] = $top5_newest_films;
 
         # top 40 newest eps
-        $top40_newest_eps = Episode::orderBy('created_at', 'desc')
+        $top40_newest_eps = [];
+        $newest_eps = Episode::orderBy('created_at', 'desc')
                                     ->select('id', 'name', 'film_id')
-                                    ->take(40)->get();
+                                    ->get();
         $allFilm = Film::all();
-        foreach ($top40_newest_eps as $key => $ep){
+        $count1 = 1;
+        $count2 = 1;
+        foreach ($newest_eps as $key => $ep){
             foreach ($allFilm as $film){
-                if($film->id == $ep->film_id){
-                    $top40_newest_eps[$key]['ep_name'] = $ep->name;
-                    $top40_newest_eps[$key]['name'] = $film->name;
-                    $top40_newest_eps[$key]['image'] = $film->image;
-                    $top40_newest_eps[$key]['star'] = $film->star;
-                    $top40_newest_eps[$key]['release_date'] = $film->release_date;
-                    $top40_newest_eps[$key]['category_id'] = $film->category_id;
-                    $top40_newest_eps[$key]['type_id'] = $film->type_id;
+                if($film->id == $ep->film_id && $film->category_id == 1 && $count1 <= 20){
+                    $arr1['ep_id'] = $ep->id;
+                    $arr1['ep_name'] = $ep->name;
+                    $arr1['name'] = $film->name;
+                    $arr1['image'] = $film->image;
+                    $arr1['star'] = $film->star;
+                    $arr1['release_date'] = $film->release_date;
+                    $arr1['category_id'] = $film->category_id;
+                    $arr1['type_id'] = $film->type_id;
+                    array_push($top40_newest_eps, $arr1);
+                    $count1++;
+                }
+                if($film->id == $ep->film_id && $film->category_id == 2 && $count2 <= 20){
+                    $arr2['ep_id'] = $ep->id;
+                    $arr2['ep_name'] = $ep->name;
+                    $arr2['name'] = $film->name;
+                    $arr2['image'] = $film->image;
+                    $arr2['star'] = $film->star;
+                    $arr2['release_date'] = $film->release_date;
+                    $arr2['category_id'] = $film->category_id;
+                    $arr2['type_id'] = $film->type_id;
+                    array_push($top40_newest_eps, $arr2);
+                    $count2++;
                 }
             }
         }
         $data['top_40_newest_eps'] = $top40_newest_eps;
 
+        # all film
         foreach($allFilm as $key => $film){
             $data['all_film'][$key]['id'] = $film->id;
             $data['all_film'][$key]['name'] = $film->name;
