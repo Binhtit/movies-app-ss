@@ -9,6 +9,7 @@ use App\Models\Film;
 use App\Models\Episode;
 use App\Models\Type;
 use App\Models\Country;
+use DateTime;
 
 class HomeController extends Controller
 {
@@ -35,45 +36,54 @@ class HomeController extends Controller
         }
         $data['top_5_newest_films'] = $top5_newest_films;
 
-        # top 40 newest eps
-        $top40_newest_eps = [];
-        $newest_eps = Episode::orderBy('created_at', 'desc')
-                                    ->select('id', 'name', 'film_id')
-                                    ->get();
-        $allFilm = Film::all();
-        $count1 = 1;
-        $count2 = 1;
-        foreach ($newest_eps as $key => $ep){
-            foreach ($allFilm as $film){
-                if($film->id == $ep->film_id && $film->category_id == 1 && $count1 <= 20){
-                    $arr1['ep_id'] = $ep->id;
-                    $arr1['ep_name'] = $ep->name;
-                    $arr1['name'] = $film->name;
-                    $arr1['image'] = $film->image;
-                    $arr1['star'] = $film->star;
-                    $arr1['release_date'] = $film->release_date;
-                    $arr1['category_id'] = $film->category_id;
-                    $arr1['type_id'] = $film->type_id;
-                    array_push($top40_newest_eps, $arr1);
-                    $count1++;
-                }
-                if($film->id == $ep->film_id && $film->category_id == 2 && $count2 <= 20){
-                    $arr2['ep_id'] = $ep->id;
-                    $arr2['ep_name'] = $ep->name;
-                    $arr2['name'] = $film->name;
-                    $arr2['image'] = $film->image;
-                    $arr2['star'] = $film->star;
-                    $arr2['release_date'] = $film->release_date;
-                    $arr2['category_id'] = $film->category_id;
-                    $arr2['type_id'] = $film->type_id;
-                    array_push($top40_newest_eps, $arr2);
-                    $count2++;
+        # top 40 newest films
+        $newest_created_at = new DateTime('2021-01-01 00:00:00');
+        $top40_newest_films = [];
+        $all_eps = Episode::all();
+
+        $top20_film_2Ds = Film::orderBy('created_at', 'desc')
+                                ->select('id', 'name', 'image', 'star', 'release_date', 'category_id', 'type_id', 'created_at', 'episodes')
+                                ->where('category_id', 1)
+                                ->take(20)->get();
+        
+        foreach($top20_film_2Ds as $film_2D){
+            foreach($all_eps as $ep){
+                if($ep->film_id == $film_2D->id && $ep->created_at >= $newest_created_at){
+                    $arr1['ep_name'] = $ep->position . '/' . $film_2D->episodes;
                 }
             }
+            $arr1['name'] = $film_2D->name;
+            $arr1['image'] = $film_2D->image;
+            $arr1['star'] = $film_2D->star;
+            $arr1['release_date'] = $film_2D->release_date;
+            $arr1['category_id'] = $film_2D->category_id;
+            $arr1['type_id'] = $film_2D->type_id;
+            array_push($top40_newest_films, $arr1);
         }
-        $data['top_40_newest_eps'] = $top40_newest_eps;
+        
+        $top20_film_3Ds = Film::orderBy('created_at', 'desc')
+                                ->select('id', 'name', 'image', 'star', 'release_date', 'category_id', 'type_id', 'created_at')
+                                ->where('category_id', 2)
+                                ->take(20)->get();
+        foreach($top20_film_3Ds as $film_2D){
+            foreach($all_eps as $ep){
+                if($ep->film_id == $film_2D->id && $ep->created_at >= $newest_created_at){
+                    $arr2['ep_name'] = $ep->position . '/' . $film_2D->episodes;
+                }
+            }
+            $arr2['name'] = $film_2D->name;
+            $arr2['image'] = $film_2D->image;
+            $arr2['star'] = $film_2D->star;
+            $arr2['release_date'] = $film_2D->release_date;
+            $arr2['category_id'] = $film_2D->category_id;
+            $arr2['type_id'] = $film_2D->type_id;
+            array_push($top40_newest_films, $arr2);
+        }
+
+        $data['top_40_newest_eps'] = $top40_newest_films;
 
         # all film
+        $allFilm = Film::all();
         foreach($allFilm as $key => $film){
             $data['all_film'][$key]['id'] = $film->id;
             $data['all_film'][$key]['name'] = $film->name;
