@@ -8,6 +8,8 @@ use App\Models\Film;
 use Illuminate\Http\Request;
 use App\Models\Country;
 use App\Models\Type;
+use App\Models\Episode;
+use DateTime;
 
 class FilmCategoryController extends Controller
 {
@@ -200,24 +202,31 @@ class FilmCategoryController extends Controller
     }
 
     public function getAllFilm(Request $request){
+        $newest_created_at = new DateTime('2021-01-01 00:00:00');
         $films = Film::where('category_id', $request->id)
                     ->orderBy('created_at', 'desc')
                     ->select('id', 'episodes', 'name', 'star', 'release_date', 'type_id', 'image')
                     ->get();
         $types = Type::all();
+        $eps = Episode::all();
         $data = [];
         foreach ($films as $key => $film){
-            $data[$key]['film_id'] = $film->id;
-            $data[$key]['episodes'] = $film->episodes;
-            $data[$key]['name'] = $film->name;
-            $data[$key]['star'] = $film->star;
-            $data[$key]['release_date'] = $film->release_date;
-            $data[$key]['image'] = $film->image;
+            foreach($eps as $ep){
+                if($ep->film_id == $film->id && $ep->created_at >= $newest_created_at){
+                    $data[$key]['film_id'] = $film->id;
+                    $data[$key]['episodes'] = $ep->position . '/' . $film->episodes;
+                    $data[$key]['name'] = $film->name;
+                    $data[$key]['star'] = $film->star;
+                    $data[$key]['release_date'] = $film->release_date;
+                    $data[$key]['image'] = $film->image;
+                }
+            }
             foreach ($types as $type){
                 if($film->type_id == $type->id){
                     $data[$key]['type_name'] = $type->name;
                 }
             }
+            dd($data);
         } 
         return $data;
     }
