@@ -226,7 +226,6 @@ class FilmCategoryController extends Controller
                     $data[$key]['type_name'] = $type->name;
                 }
             }
-            dd($data);
         } 
         return $data;
     }
