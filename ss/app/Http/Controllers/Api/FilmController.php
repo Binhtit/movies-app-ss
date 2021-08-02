@@ -9,6 +9,7 @@ use App\Models\Episode;
 use App\Models\Country;
 use App\Models\FilmCategory;
 use App\Models\Type;
+use DateTime;
 
 class FilmController extends Controller
 {
@@ -313,12 +314,14 @@ class FilmController extends Controller
 
     public function getDetail(Request $request)
     {
+        $newest_created_at = new DateTime('2021-01-01 00:00:00');
         $film = Film::where('id', $request->id)
                         ->select('id', 'name', 'image', 'description', 'banner', 'star', 'episodes', 
                         'release_date', 'type_id', 'country', 'resolution', 'language', 'imdb')
                         ->first();
         $countries = Country::all();
         $types = Type::all();
+        $eps = Episode::all();
         foreach ($countries as $country){
             if($film->country == $country->id){
                 $film['country_name'] = $country->name;
@@ -329,6 +332,14 @@ class FilmController extends Controller
                 $film['type_name'] = $type->name;
             }
         }
+        $total_eps = $film->episodes;
+        foreach($eps as $ep){
+            if($ep->film_id == $film->id && $ep->created_at >= $newest_created_at){
+                $film['episodes'] = $ep->position;
+                $newest_created_at = $ep->created_at;
+            }
+        }
+        $film['episodes'] .=  '/' . $total_eps;
         $film['film_status'] = $film->film_status;
         $film['resolution'] = $film->resolution;
         $film['language'] = $film->language;
