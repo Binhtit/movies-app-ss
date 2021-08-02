@@ -50,6 +50,7 @@ class HomeController extends Controller
             foreach($all_eps as $ep){
                 if($ep->film_id == $film_2D->id && $ep->created_at >= $newest_created_at){
                     $arr1['ep_name'] = $ep->position . '/' . $film_2D->episodes;
+                    $newest_created_at = $ep->created_at;
                 }
             }
             $arr1['name'] = $film_2D->name;
