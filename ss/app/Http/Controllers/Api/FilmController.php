@@ -270,6 +270,16 @@ class FilmController extends Controller
                 $film['type_name'] = $type->name;
             }
         }
+        $total_eps = $film->episodes;
+        $newest_created_at = new DateTime('2021-01-01 00:00:00');
+        $all_eps = Episode::all();
+        foreach($all_eps as $ep){
+            if($ep->film_id == $film->id && $ep->created_at >= $newest_created_at){
+                $film['episodes'] = $ep->position;
+                $newest_created_at = $ep->created_at;
+            }
+        }
+        $film['episodes'] .=  '/' . $total_eps;
         $data['film'] = $film;
 
         return $data;
