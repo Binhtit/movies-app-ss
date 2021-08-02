@@ -219,6 +219,7 @@ class FilmCategoryController extends Controller
                     $data[$key]['star'] = $film->star;
                     $data[$key]['release_date'] = $film->release_date;
                     $data[$key]['image'] = $film->image;
+                    $newest_created_at = $ep->created_at;
                 }
             }
             foreach ($types as $type){
