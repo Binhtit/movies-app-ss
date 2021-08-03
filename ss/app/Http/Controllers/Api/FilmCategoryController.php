@@ -211,9 +211,11 @@ class FilmCategoryController extends Controller
         $eps = Episode::all();
         $data = [];
         foreach ($films as $film){
+            $newest_created_at = new DateTime('2021-01-01 00:00:00');
             foreach($eps as $ep){
-                if($ep->film_id == $film->id){
+                if($ep->film_id == $film->id && $ep->created_at >= $newest_created_at){
                     $arr['episodes'] = $ep->position . '/' . $film->episodes;
+                    $newest_created_at = $ep->created_at;
                 }
             }
             foreach ($types as $type){

@@ -37,7 +37,6 @@ class HomeController extends Controller
         $data['top_5_newest_films'] = $top5_newest_films;
 
         # top 40 newest films
-        $newest_created_at = new DateTime('2021-01-01 00:00:00');
         $top40_newest_films = [];
         $all_eps = Episode::all();
 
@@ -47,6 +46,7 @@ class HomeController extends Controller
                                 ->take(20)->get();
         
         foreach($top20_film_2Ds as $film_2D){
+            $newest_created_at = new DateTime('2021-01-01 00:00:00');
             foreach($all_eps as $ep){
                 if($ep->film_id == $film_2D->id && $ep->created_at >= $newest_created_at){
                     $arr1['ep_name'] = $ep->position . '/' . $film_2D->episodes;
@@ -64,22 +64,23 @@ class HomeController extends Controller
         }
         
         $top20_film_3Ds = Film::orderBy('created_at', 'desc')
-                                ->select('id', 'name', 'image', 'star', 'release_date', 'category_id', 'type_id', 'created_at')
+                                ->select('id', 'name', 'image', 'star', 'release_date', 'category_id', 'type_id', 'created_at', 'episodes')
                                 ->where('category_id', 2)
                                 ->take(20)->get();
-        foreach($top20_film_3Ds as $film_2D){
+        foreach($top20_film_3Ds as $film_3D){
+            $newest_created_at = new DateTime('2021-01-01 00:00:00');
             foreach($all_eps as $ep){
-                if($ep->film_id == $film_2D->id && $ep->created_at >= $newest_created_at){
-                    $arr2['ep_name'] = $ep->position . '/' . $film_2D->episodes;
+                if($ep->film_id == $film_3D->id && $ep->created_at >= $newest_created_at){
+                    $arr2['ep_name'] = $ep->position . '/' . $film_3D->episodes;
                 }
             }
-            $arr2['film_id'] = $film_2D->id;
-            $arr2['name'] = $film_2D->name;
-            $arr2['image'] = $film_2D->image;
-            $arr2['star'] = $film_2D->star;
-            $arr2['release_date'] = $film_2D->release_date;
-            $arr2['category_id'] = $film_2D->category_id;
-            $arr2['type_id'] = $film_2D->type_id;
+            $arr2['film_id'] = $film_3D->id;
+            $arr2['name'] = $film_3D->name;
+            $arr2['image'] = $film_3D->image;
+            $arr2['star'] = $film_3D->star;
+            $arr2['release_date'] = $film_3D->release_date;
+            $arr2['category_id'] = $film_3D->category_id;
+            $arr2['type_id'] = $film_3D->type_id;
             array_push($top40_newest_films, $arr2);
         }
 
