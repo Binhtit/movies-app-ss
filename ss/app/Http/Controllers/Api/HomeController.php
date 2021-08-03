@@ -53,6 +53,7 @@ class HomeController extends Controller
                     $newest_created_at = $ep->created_at;
                 }
             }
+            $arr1['film_id'] = $film_2D->id;
             $arr1['name'] = $film_2D->name;
             $arr1['image'] = $film_2D->image;
             $arr1['star'] = $film_2D->star;
@@ -72,6 +73,7 @@ class HomeController extends Controller
                     $arr2['ep_name'] = $ep->position . '/' . $film_2D->episodes;
                 }
             }
+            $arr2['film_id'] = $film_2D->id;
             $arr2['name'] = $film_2D->name;
             $arr2['image'] = $film_2D->image;
             $arr2['star'] = $film_2D->star;

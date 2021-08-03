@@ -201,8 +201,8 @@ class FilmCategoryController extends Controller
         $filmCategory->delete();
     }
 
+
     public function getAllFilm(Request $request){
-        $newest_created_at = new DateTime('2021-01-01 00:00:00');
         $films = Film::where('category_id', $request->id)
                     ->orderBy('created_at', 'desc')
                     ->select('id', 'episodes', 'name', 'star', 'release_date', 'type_id', 'image')
@@ -210,23 +210,23 @@ class FilmCategoryController extends Controller
         $types = Type::all();
         $eps = Episode::all();
         $data = [];
-        foreach ($films as $key => $film){
+        foreach ($films as $film){
             foreach($eps as $ep){
-                if($ep->film_id == $film->id && $ep->created_at >= $newest_created_at){
-                    $data[$key]['film_id'] = $film->id;
-                    $data[$key]['episodes'] = $ep->position . '/' . $film->episodes;
-                    $data[$key]['name'] = $film->name;
-                    $data[$key]['star'] = $film->star;
-                    $data[$key]['release_date'] = $film->release_date;
-                    $data[$key]['image'] = $film->image;
-                    $newest_created_at = $ep->created_at;
+                if($ep->film_id == $film->id){
+                    $arr['episodes'] = $ep->position . '/' . $film->episodes;
                 }
             }
             foreach ($types as $type){
                 if($film->type_id == $type->id){
-                    $data[$key]['type_name'] = $type->name;
+                    $arr['type_name'] = $type->name;
                 }
             }
+            $arr['film_id'] = $film->id;
+            $arr['name'] = $film->name;
+            $arr['star'] = $film->star;
+            $arr['release_date'] = $film->release_date;
+            $arr['image'] = $film->image;
+            array_push($data, $arr);
         } 
         return $data;
     }
