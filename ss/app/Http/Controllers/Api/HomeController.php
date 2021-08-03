@@ -19,6 +19,7 @@ class HomeController extends Controller
     public function getHomePage(){
         $data = [];
         $types = Type::all();
+        $all_eps = Episode::all();
 
         # Category
         $data['categories'] = FilmCategory::select('id', 'name')->orderBy('id', 'asc')->get();
@@ -34,11 +35,20 @@ class HomeController extends Controller
                 }
             }
         }
+        foreach ($top5_newest_films as $key => $film){
+            $newest_created_at = new DateTime('2021-01-01 00:00:00');
+            foreach($all_eps as $ep){
+                if($ep->film_id == $film->id && $ep->created_at >= $newest_created_at){
+                    $position = $ep->position;
+                    $newest_created_at = $ep->created_at;
+                }
+            }
+            $top5_newest_films[$key]['episodes'] = $position . '/' . $film->episodes;
+        }
         $data['top_5_newest_films'] = $top5_newest_films;
 
         # top 40 newest films
         $top40_newest_films = [];
-        $all_eps = Episode::all();
 
         $top20_film_2Ds = Film::orderBy('created_at', 'desc')
                                 ->select('id', 'name', 'image', 'star', 'release_date', 'category_id', 'type_id', 'created_at', 'episodes')
