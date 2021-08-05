@@ -10,6 +10,7 @@ use App\Models\Episode;
 use App\Models\Type;
 use App\Models\Country;
 use DateTime;
+use Illuminate\Support\Arr;
 
 class HomeController extends Controller
 {
@@ -60,6 +61,7 @@ class HomeController extends Controller
             foreach($all_eps as $ep){
                 if($ep->film_id == $film_2D->id && $ep->created_at >= $newest_created_at){
                     $arr1['ep_name'] = $ep->position . '/' . $film_2D->episodes;
+                    $arr1['order'] = date("Y-m-d H:i:s", strtotime($ep->created_at));
                     $newest_created_at = $ep->created_at;
                 }
             }
@@ -82,6 +84,8 @@ class HomeController extends Controller
             foreach($all_eps as $ep){
                 if($ep->film_id == $film_3D->id && $ep->created_at >= $newest_created_at){
                     $arr2['ep_name'] = $ep->position . '/' . $film_3D->episodes;
+                    $arr2['order'] = date("Y-m-d H:i:s", strtotime($ep->created_at));
+                    $newest_created_at = $ep->created_at;
                 }
             }
             $arr2['film_id'] = $film_3D->id;
@@ -93,6 +97,22 @@ class HomeController extends Controller
             $arr2['type_id'] = $film_3D->type_id;
             array_push($top40_newest_films, $arr2);
         }
+
+        $sorter=array();
+        $ret=array();
+        reset($top40_newest_films);
+        foreach ($top40_newest_films as $ii => $va) {
+            $sorter[$ii]=$va["order"];
+        }
+        rsort($sorter);
+        foreach ($sorter as $ii => $va) {
+            foreach($top40_newest_films as $key => $val) {
+                if($va == $val['order']){
+                    $ret[$ii] = $top40_newest_films[$key];
+                }
+            }
+        }
+        $top40_newest_films=$ret;
 
         $data['top_40_newest_eps'] = $top40_newest_films;
 
