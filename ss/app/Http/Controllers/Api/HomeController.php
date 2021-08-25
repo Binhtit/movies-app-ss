@@ -50,12 +50,31 @@ class HomeController extends Controller
 
         # top 40 newest films
         $top40_newest_films = [];
-
-        $top20_film_2Ds = Film::orderBy('created_at', 'desc')
-                                ->select('id', 'name', 'image', 'star', 'release_date', 'category_id', 'type_id', 'created_at', 'episodes')
-                                ->where('category_id', 1)
-                                ->take(20)->get();
-        
+        $id_film_2Ds = Film::where('category_id', 1)->select('id')->get();
+        $all_newest_2D_eps =  Episode::orderBy('created_at', 'desc')
+                                            ->whereIn('film_id', $id_film_2Ds)
+                                            ->get();
+        $all_films = Film::select('id', 'name', 'image', 'star', 'release_date', 'category_id', 'type_id', 'created_at', 'episodes')
+                            ->get();
+        $top20_film_2Ds = array();
+        $duplicate = false;
+        foreach($all_newest_2D_eps as $ep){
+            foreach($all_films as $film){
+                if($film->id == $ep->film_id && count($top20_film_2Ds) < 20){
+                    $duplicate = false;
+                    if($top20_film_2Ds){
+                        foreach($top20_film_2Ds as $value){
+                            if($value->id == $film->id){
+                                $duplicate = true;
+                            }
+                        }
+                    }
+                    if(!$duplicate) {
+                        array_push($top20_film_2Ds, $film);
+                    }
+                }
+            }
+        }
         foreach($top20_film_2Ds as $film_2D){
             $newest_created_at = new DateTime('2021-01-01 00:00:00');
             foreach($all_eps as $ep){
@@ -75,10 +94,32 @@ class HomeController extends Controller
             array_push($top40_newest_films, $arr1);
         }
         
-        $top20_film_3Ds = Film::orderBy('created_at', 'desc')
-                                ->select('id', 'name', 'image', 'star', 'release_date', 'category_id', 'type_id', 'created_at', 'episodes')
-                                ->where('category_id', 2)
-                                ->take(20)->get();
+        $id_film_3Ds = Film::where('category_id', 2)->select('id')->get();
+        $all_newest_3D_eps =  Episode::orderBy('created_at', 'desc')
+                                            ->whereIn('film_id', $id_film_3Ds)
+                                            ->get();
+        $all_films = Film::select('id', 'name', 'image', 'star', 'release_date', 'category_id', 'type_id', 'created_at', 'episodes')
+                            ->get();
+        $top20_film_3Ds = array();
+        $duplicate_3d = false;
+        foreach($all_newest_3D_eps as $ep){
+            foreach($all_films as $film){
+                if($film->id == $ep->film_id && count($top20_film_3Ds) < 20){
+                    $duplicate_3d = false;
+                    if($top20_film_3Ds){
+                        foreach($top20_film_3Ds as $value){
+                            if($value->id == $film->id){
+                                $duplicate_3d = true;
+                            }
+                        }
+                    }
+                    if(!$duplicate_3d) {
+                        array_push($top20_film_3Ds, $film);
+                    }
+                }
+            }
+        }
+
         foreach($top20_film_3Ds as $film_3D){
             $newest_created_at = new DateTime('2021-01-01 00:00:00');
             foreach($all_eps as $ep){
