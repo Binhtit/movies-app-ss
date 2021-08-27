@@ -26,7 +26,7 @@ class HomeController extends Controller
         $data['categories'] = FilmCategory::select('id', 'name')->orderBy('id', 'asc')->get();
 
         # Top 5 newest film
-        $top5_newest_films = Film::orderBy('created_at', 'desc')
+        $top5_newest_films = Film::orderBy('id', 'desc')
                                 ->select('id', 'name', 'banner', 'star', 'episodes', 'release_date', 'description', 'author', 'type_id')
                                 ->take(5)->get();
         foreach ($top5_newest_films as $key => $film){
@@ -51,7 +51,7 @@ class HomeController extends Controller
         # top 40 newest films
         $top40_newest_films = [];
         $id_film_2Ds = Film::where('category_id', 1)->select('id')->get();
-        $all_newest_2D_eps =  Episode::orderBy('created_at', 'desc')
+        $all_newest_2D_eps =  Episode::orderBy('id', 'desc')
                                             ->whereIn('film_id', $id_film_2Ds)
                                             ->get();
         $all_films = Film::select('id', 'name', 'image', 'star', 'release_date', 'category_id', 'type_id', 'created_at', 'episodes')
@@ -95,7 +95,7 @@ class HomeController extends Controller
         }
         
         $id_film_3Ds = Film::where('category_id', 2)->select('id')->get();
-        $all_newest_3D_eps =  Episode::orderBy('created_at', 'desc')
+        $all_newest_3D_eps =  Episode::orderBy('id', 'desc')
                                             ->whereIn('film_id', $id_film_3Ds)
                                             ->get();
         $all_films = Film::select('id', 'name', 'image', 'star', 'release_date', 'category_id', 'type_id', 'created_at', 'episodes')
@@ -172,7 +172,7 @@ class HomeController extends Controller
 
     public function get20NewestFilm(){
         # Top 20 film
-        $top20_newest_films = Film::orderBy('created_at', 'desc')->select('name', 'id', 'created_at')->take(20)->get();
+        $top20_newest_films = Film::orderBy('id', 'desc')->select('name', 'id', 'created_at')->take(20)->get();
         return $top20_newest_films;
     }
 }
