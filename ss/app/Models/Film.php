@@ -42,9 +42,10 @@ class Film extends Model
         'name',
         'author',
         'cast',
-        'country',
+        'country_id',
         'category_id',
-        'episodes',
+        'total_episodes',
+        'newest_episode',
         'description',
         'star',
         'release_date',
@@ -60,4 +61,22 @@ class Film extends Model
         'status',
         'position',
     ];
+
+    public function category()
+    {
+        return $this->belongsTo('App\Models\FilmCategory');
+    }
+
+    public function type(){
+        return $this->belongsTo('App\Models\Type');
+    }
+
+    public function country(){
+        return $this->belongsTo('App\Models\Country');
+    }
+
+    public function episodes()
+    {
+        return $this->hasMany('App\Models\Episode');
+    }
 }

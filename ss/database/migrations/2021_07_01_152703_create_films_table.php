@@ -19,9 +19,10 @@ class CreateFilmsTable extends Migration
             $table->string('name');
             $table->string('author')->nullable();
             $table->string('cast')->nullable();
-            $table->integer('country')->nullable();
+            $table->integer('country_id')->nullable();
             $table->integer('category_id');
-            $table->string('episodes')->nullable();
+            $table->string('total_episodes')->nullable();
+            $table->integer('newest_episode')->nullable();
             $table->string('description', 1500);
             $table->integer('star')->nullable();
             $table->datetime('release_date')->nullable();

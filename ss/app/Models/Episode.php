@@ -44,4 +44,9 @@ class Episode extends Model
         'status',
         'position',
     ];
+
+    public function film()
+    {
+        return $this->belongsTo('App\Models\Film');
+    }
 }

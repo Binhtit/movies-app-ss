@@ -248,38 +248,15 @@ class FilmController extends Controller
                                 ->get();
 
         # film details
-        $countries = Country::all();
         $film = Film::where('id', $request->id)
-                        ->select('id', 'name', 'author', 'country', 'category_id', 'episodes', 'description', 
+                        ->select('id', 'name', 'author', 'country_id', 'category_id', 'total_episodes', 'description', 
                         'star', 'release_date', 'type_id', 'image', 'banner', 'running_time', 'time_slot')
+                        ->with('country:id,name', 'category:id,name', 'type:id,name')
                         ->first();
-        $categories = FilmCategory::all();
-        $types = Type::all();
-        foreach ($countries as $country){
-            if($country->id == $film->country){
-                $film['country_name'] = $country->name;
-            }
-        }
-        foreach ($categories as $category){
-            if($category->id == $film->category_id){
-                $film['category_name'] = $category->name;
-            }
-        }
-        foreach ($types as $type){
-            if($type->id == $film->type_id){
-                $film['type_name'] = $type->name;
-            }
-        }
-        $total_eps = $film->episodes;
-        $newest_created_at = new DateTime('2021-01-01 00:00:00');
-        $all_eps = Episode::all();
-        foreach($all_eps as $ep){
-            if($ep->film_id == $film->id && $ep->created_at >= $newest_created_at){
-                $film['episodes'] = $ep->position;
-                $newest_created_at = $ep->created_at;
-            }
-        }
-        $film['episodes'] .=  '/' . $total_eps;
+        $film['country_name'] = $film->country->name;
+        $film['category_name'] = $film->category->name;
+        $film['type_name'] = $film->type->name;
+        $film['episodes'] =  $film->newest_episode . '/' . $film->total_episodes;
         $data['film'] = $film;
 
         return $data;
@@ -324,32 +301,14 @@ class FilmController extends Controller
 
     public function getDetail(Request $request)
     {
-        $newest_created_at = new DateTime('2021-01-01 00:00:00');
         $film = Film::where('id', $request->id)
-                        ->select('id', 'name', 'image', 'description', 'banner', 'star', 'episodes', 
-                        'release_date', 'type_id', 'country', 'resolution', 'language', 'imdb')
+                        ->select('id', 'name', 'image', 'description', 'banner', 'star', 'total_episodes', 
+                        'release_date', 'type_id', 'country_id', 'resolution', 'language', 'imdb', 'newest_episode')
+                        ->with('type', 'country')
                         ->first();
-        $countries = Country::all();
-        $types = Type::all();
-        $eps = Episode::all();
-        foreach ($countries as $country){
-            if($film->country == $country->id){
-                $film['country_name'] = $country->name;
-            }
-        }
-        foreach ($types as $type){
-            if($film->type_id == $type->id){
-                $film['type_name'] = $type->name;
-            }
-        }
-        $total_eps = $film->episodes;
-        foreach($eps as $ep){
-            if($ep->film_id == $film->id && $ep->created_at >= $newest_created_at){
-                $film['episodes'] = $ep->position;
-                $newest_created_at = $ep->created_at;
-            }
-        }
-        $film['episodes'] .=  '/' . $total_eps;
+        $film['country_name'] = $film->country->name;
+        $film['type_name'] = $film->type->name;
+        $film['episodes'] = $film->newest_episode . '/' . $film->total_episodes;
         $film['film_status'] = $film->film_status;
         $film['resolution'] = $film->resolution;
         $film['language'] = $film->language;

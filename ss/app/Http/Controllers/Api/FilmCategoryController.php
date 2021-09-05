@@ -204,25 +204,16 @@ class FilmCategoryController extends Controller
 
     public function getAllFilm(Request $request){
         $films = Film::where('category_id', $request->id)
-                    ->orderBy('created_at', 'desc')
-                    ->select('id', 'episodes', 'name', 'star', 'release_date', 'type_id', 'image')
+                    ->orderBy('id', 'desc')
+                    ->with(['type' => function ($q){
+                        $q->select('id', 'name');
+                    }])
+                    ->select('id', 'total_episodes', 'newest_episode', 'name', 'star', 'release_date', 'type_id', 'image')
                     ->get();
-        $types = Type::all();
-        $eps = Episode::all();
         $data = [];
         foreach ($films as $film){
-            $newest_created_at = new DateTime('2021-01-01 00:00:00');
-            foreach($eps as $ep){
-                if($ep->film_id == $film->id && $ep->created_at >= $newest_created_at){
-                    $arr['episodes'] = $ep->position . '/' . $film->episodes;
-                    $newest_created_at = $ep->created_at;
-                }
-            }
-            foreach ($types as $type){
-                if($film->type_id == $type->id){
-                    $arr['type_name'] = $type->name;
-                }
-            }
+            $arr['episodes'] = $film->newest_episode . "/" . $film->total_episodes;
+            $arr['type_name'] = $film->type->name;
             $arr['film_id'] = $film->id;
             $arr['name'] = $film->name;
             $arr['star'] = $film->star;

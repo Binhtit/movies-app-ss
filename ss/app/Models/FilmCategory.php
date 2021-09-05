@@ -30,4 +30,8 @@ class FilmCategory extends Model
         'status',
         'position',
     ];
+
+    public function episodes(){
+        return $this->hasManyThrough('App\Models\Episode', 'App\Models\Film');
+    }
 }

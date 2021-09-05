@@ -37,13 +37,14 @@ class FilmController extends AdminController
         $grid->column('name', __('Name'));
         $grid->column('author', __('Author'));
         $grid->column('cast', __('Cast'));
-        $grid->column('country', __('Country'))->display(function ($country){
+        $grid->column('country_id', __('Country'))->display(function ($country){
             return Country::find($country)->name;
         });
         $grid->column('category_id', __('Film Category'))->display(function ($category_id){
             return FilmCategory::find($category_id)->name;
         });
-        $grid->column('episodes', __('Episodes'));
+        $grid->column('total_episodes', __('Episodes'));
+        $grid->column('newest_episode', __('Newest Episode'));
         $grid->column('description', __('Description'));
         $grid->column('star', __('Star'));
         $grid->column('release_date', __('Release Date'));
@@ -79,9 +80,10 @@ class FilmController extends AdminController
         $show->field('name', __('Name'));
         $show->field('author', __('Author'));
         $show->field('cast', __('Cast'));
-        $show->field('country', __('Country'));
+        $show->field('country_id', __('Country'));
         $show->field('category_id', __('Category id'));
-        $show->field('episodes', __('Episodes'));
+        $show->field('total_episodes', __('Total Episodes'));
+        $show->field('newest_episode', __('Newest Episode'));
         $show->field('description', __('Description'));
         $show->field('star', __('Star'));
         $show->field('release_date', __('Release date'));
@@ -113,9 +115,10 @@ class FilmController extends AdminController
         $form->text('name', __('Name'));
         $form->text('author', __('Author'));
         $form->text('cast', __('Cast'));
-        $form->select('country', __('Country'))->options(Country::all()->pluck('name', 'id'));
+        $form->select('country_id', __('Country'))->options(Country::all()->pluck('name', 'id'));
         $form->select('category_id', __('Film Category'))->options(FilmCategory::all()->pluck('name', 'id'));
-        $form->text('episodes', __('Episodes'));
+        $form->text('total_episodes', __('Total Episodes'));
+        $form->text('newest_episode', __('Newest Episode'));
         $form->text('description', __('Description'));
         $form->number('star', __('Star'));
         $form->datetime('release_date', __('Release Date'))->default(date('Y-m-d H:i:s'));
