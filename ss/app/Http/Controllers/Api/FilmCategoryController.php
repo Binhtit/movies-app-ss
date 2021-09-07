@@ -205,15 +205,12 @@ class FilmCategoryController extends Controller
     public function getAllFilm(Request $request){
         $films = Film::where('category_id', $request->id)
                     ->orderBy('id', 'desc')
-                    ->with(['type' => function ($q){
-                        $q->select('id', 'name');
-                    }])
                     ->select('id', 'total_episodes', 'newest_episode', 'name', 'star', 'release_date', 'type_id', 'image')
                     ->get();
         $data = [];
         foreach ($films as $film){
             $arr['episodes'] = $film->newest_episode . "/" . $film->total_episodes;
-            $arr['type_name'] = $film->type->name;
+            $arr['type_id'] = $film->type_id;
             $arr['film_id'] = $film->id;
             $arr['name'] = $film->name;
             $arr['star'] = $film->star;
