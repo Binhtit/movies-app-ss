@@ -303,16 +303,19 @@ class FilmController extends Controller
     {
         $film = Film::where('id', $request->id)
                         ->select('id', 'name', 'image', 'description', 'banner', 'star', 'total_episodes', 
-                        'release_date', 'type_id', 'country_id', 'resolution', 'language', 'imdb', 'newest_episode')
+                        'release_date', 'type_id', 'country_id', 'resolution', 'language', 'imdb', 'newest_episode', 'time_slot')
                         ->with('type', 'country')
                         ->first();
-        $film['country_name'] = $film->country->name;
-        $film['type_name'] = $film->type->name;
-        $film['episodes'] = $film->newest_episode . '/' . $film->total_episodes;
-        $film['film_status'] = $film->film_status;
-        $film['resolution'] = $film->resolution;
-        $film['language'] = $film->language;
-        $film['imdb'] = $film->imdb; 
+        if($film){
+            $film['country_name'] = $film->country->name;
+            $film['type_name'] = $film->type->name;
+            $film['episodes'] = $film->newest_episode . '/' . $film->total_episodes;
+            $film['film_status'] = $film->film_status;
+            $film['resolution'] = $film->resolution;
+            $film['language'] = $film->language;
+            $film['imdb'] = $film->imdb; 
+            $film['time_slot'] = $film->time_slot; 
+        }
         return $film;
     }
 }
