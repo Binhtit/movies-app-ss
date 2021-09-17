@@ -36,6 +36,9 @@ Route::get('movies/detail/episodes/{id}', 'Api\FilmController@getAllEpisodeByID'
 # Get details of ep by id
 Route::get('movies/detail/episodes/play/{id}', 'Api\EpisodeController@getDetailEp');
 
+# Home paging 
+Route::get('home_page/{category_id}/{type}/{quantity}', 'Api\FilmController@getFilmByQuantity');
+
 /*
 |--------------------------------------------------------------------------
 | Admin Routes

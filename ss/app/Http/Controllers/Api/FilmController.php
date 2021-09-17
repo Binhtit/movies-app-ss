@@ -321,4 +321,72 @@ class FilmController extends Controller
         }
         return $film;
     }
+
+    public function getFilmByQuantity(Request $request){
+        $quantity = $request->quantity;
+        $skip = 0;
+        if($request->skip != 20){
+            $skip = ($quantity/20-1)*20;
+        }
+        $episodes = Episode::orderBy('id', 'desc')
+                            ->with(['film' => function ($query) {
+                                $query->select('id', 'name', 'image', 'banner', 'star', 'release_date', 'category_id', 
+                                    'type_id', 'newest_episode', 'total_episodes', 'description', 'author', 'type_id')
+                                    ->get();
+                            }])
+                            ->get();
+        $films = [];
+        $count1 = 0;
+        foreach($episodes as $key => $episode){
+            $duplicate = false;
+            if($episode->film != null){
+                $film_id = $episode->film->id;
+                $name = $episode->film->name;
+                $image = $episode->film->image;
+                $star = $episode->film->star;
+                $newest = $episode->film->newest_episode . "/" . $episode->film->total_episodes;
+                $release_date = $episode->film->release_date;
+                $category_id = $episode->film->category_id;
+                $type_id = $episode->film->type_id;
+                # check duplicate film
+                if($films){
+                    foreach ($films as $film){
+                        if($film_id == $film['film_id']){
+                            $duplicate = true;
+                        }
+                    }
+                }
+                if(!$duplicate){
+                    if($category_id == 1){ # 20 film 2d
+                        $arr1['ep_name'] = $newest;
+                        $arr1['film_id'] = $film_id;
+                        $arr1['name'] = $name;
+                        $arr1['image'] = $image;
+                        $arr1['star'] = $star;
+                        $arr1['release_date'] = $release_date;
+                        $arr1['category_id'] = $category_id;
+                        $arr1['type_id'] = $type_id;
+                        array_push($films, $arr1);
+                        $count1++;
+                    }
+                }
+            }
+        }
+        $result = [];
+        if(count($films) > ($quantity - 20)){
+            foreach($films as $key => $film){
+                if($film['category_id'] == $request->category_id && $key < $quantity && $key >= $skip){
+                    if($request->type != 0){
+                        array_push($result, $film);
+                    }
+                    else{
+                        if($film['type_id'] == $request->type_id){
+                            array_push($result, $film);
+                        }
+                    }
+                }
+            }
+        }
+        return $result;
+    }
 }
