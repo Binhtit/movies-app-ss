@@ -100,7 +100,7 @@ class HomeController extends Controller
         $data['top_40_newest_eps'] = $top40_newest_films;
 
         # all film
-        $data['all_film'] = DB::table('films')->select('id', 'name', 'star', 'release_date', 'image')->get();
+        $data['all_film'] = DB::table('films')->select('id', 'name', 'star', 'release_date', 'image', 'image_mobile')->get();
         return $data;
     }
 
