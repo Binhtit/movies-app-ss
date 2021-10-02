@@ -52,7 +52,9 @@ class FilmController extends AdminController
             return Type::find($type_id)->name;
         });
         $grid->column('image', __('Image'));
+        $grid->column('image_mobile', __('Image Mobile'));
         $grid->column('banner', __('Banner'));
+        $grid->column('banner_mobile', __('Banner Mobile'));
         $grid->column('resolution', __('Resolution'));
         $grid->column('language', __('Language'));
         $grid->column('imdb', __('ImDb'));
@@ -89,7 +91,9 @@ class FilmController extends AdminController
         $show->field('release_date', __('Release date'));
         $show->field('type_id', __('Type id'));
         $show->field('image', __('Image'));
+        $show->field('image_mobile', __('Image Mobile'));
         $show->field('banner', __('Banner'));
+        $show->field('banner_mobile', __('Banner Mobile'));
         $show->field('resolution', __('Resolution'));
         $show->field('language', __('Language'));
         $show->field('imdb', __('Imdb'));
@@ -124,7 +128,9 @@ class FilmController extends AdminController
         $form->datetime('release_date', __('Release Date'))->default(date('Y-m-d H:i:s'));
         $form->select('type_id', __('Type'))->options(Type::all()->pluck('name', 'id'));
         $form->text('image', __('Image'));
+        $form->text('image_mobile', __('Image Mobile'));
         $form->text('banner', __('Banner'));
+        $form->text('banner_mobile', __('Banner Mobile'));
         $form->text('resolution', __('Resolution'));
         $form->text('language', __('Language'));
         $form->text('imdb', __('Imdb'));

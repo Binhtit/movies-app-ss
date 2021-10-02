@@ -19,7 +19,7 @@ class HomeController extends Controller
         # top 5 and top 40 newest films
         $episodes = Episode::orderBy('id', 'desc')
                             ->with(['film' => function ($query) {
-                                $query->select('id', 'name', 'image', 'banner', 'star', 'release_date', 'category_id', 'type_id', 'newest_episode', 'total_episodes', 'description', 'author', 'type_id')->get();
+                                $query->select('id', 'name', 'image', 'image_mobile', 'banner', 'banner_mobile', 'banner_mobile', 'star', 'release_date', 'category_id', 'type_id', 'newest_episode', 'total_episodes', 'description', 'author', 'type_id')->get();
                             }])
                             ->get();
         $top40_newest_films = [];
@@ -33,6 +33,7 @@ class HomeController extends Controller
                 $film_id = $episode->film->id;
                 $name = $episode->film->name;
                 $image = $episode->film->image;
+                $image_mobile = $episode->film->image_mobile;
                 $star = $episode->film->star;
                 $newest = $episode->film->newest_episode . "/" . $episode->film->total_episodes;
                 $release_date = $episode->film->release_date;
@@ -53,6 +54,7 @@ class HomeController extends Controller
                         $arr1['film_id'] = $film_id;
                         $arr1['name'] = $name;
                         $arr1['image'] = $image;
+                        $arr1['image_mobile'] = $image_mobile;
                         $arr1['star'] = $star;
                         $arr1['release_date'] = $release_date;
                         $arr1['category_id'] = $category_id;
@@ -65,6 +67,7 @@ class HomeController extends Controller
                         $arr2['film_id'] = $film_id;
                         $arr2['name'] = $name;
                         $arr2['image'] = $image;
+                        $arr2['image_mobile'] = $image_mobile;
                         $arr2['star'] = $star;
                         $arr2['release_date'] = $release_date;
                         $arr2['category_id'] = $category_id;
@@ -76,6 +79,7 @@ class HomeController extends Controller
                         $arr3['id'] = $film_id;
                         $arr3['name'] = $name;
                         $arr3['banner'] = $episode->film->banner;
+                        $arr3['banner_mobile'] = $episode->film->banner_mobile;
                         $arr3['star'] = $star;
                         $arr3['episodes'] = $newest;
                         $arr3['release_date'] = $episode->film->release_date;

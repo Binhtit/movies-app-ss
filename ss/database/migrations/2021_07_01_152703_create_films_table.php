@@ -28,7 +28,9 @@ class CreateFilmsTable extends Migration
             $table->datetime('release_date')->nullable();
             $table->integer('type_id')->nullable();
             $table->string('image')->nullable();
+            $table->string('image_mobile')->nullable();
             $table->string('banner')->nullable();
+            $table->string('banner_mobile')->nullable();
             $table->string('film_status')->nullable();
             $table->string('resolution')->nullable();
             $table->string('language')->nullable();

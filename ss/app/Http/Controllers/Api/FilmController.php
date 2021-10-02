@@ -250,7 +250,7 @@ class FilmController extends Controller
         # film details
         $film = Film::where('id', $request->id)
                         ->select('id', 'name', 'author', 'country_id', 'category_id', 'total_episodes', 'description', 
-                        'star', 'release_date', 'type_id', 'image', 'banner', 'running_time', 'time_slot', 'newest_episode', 'time_slot')
+                        'star', 'release_date', 'type_id', 'image', 'image_mobile', 'banner', 'banner_mobile', 'running_time', 'time_slot', 'newest_episode', 'time_slot')
                         ->with('country:id,name', 'category:id,name', 'type:id,name')
                         ->first();
         if($film){
@@ -305,7 +305,7 @@ class FilmController extends Controller
     public function getDetail(Request $request)
     {
         $film = Film::where('id', $request->id)
-                        ->select('id', 'name', 'image', 'description', 'banner', 'star', 'total_episodes', 
+                        ->select('id', 'name', 'image', 'image_mobile', 'description', 'banner', 'banner_mobile', 'star', 'total_episodes', 
                         'release_date', 'type_id', 'country_id', 'resolution', 'language', 'imdb', 'newest_episode', 'time_slot')
                         ->with('type', 'country')
                         ->first();
@@ -330,7 +330,7 @@ class FilmController extends Controller
         }
         $episodes = Episode::orderBy('id', 'desc')
                             ->with(['film' => function ($query) {
-                                $query->select('id', 'name', 'image', 'banner', 'star', 'release_date', 'category_id', 
+                                $query->select('id', 'name', 'image', 'image_mobile', 'banner', 'banner_mobile', 'star', 'release_date', 'category_id', 
                                     'type_id', 'newest_episode', 'total_episodes', 'description', 'author', 'type_id')
                                     ->get();
                             }])
@@ -343,6 +343,7 @@ class FilmController extends Controller
                 $film_id = $episode->film->id;
                 $name = $episode->film->name;
                 $image = $episode->film->image;
+                $image_mobile = $episode->film->image_mobile;
                 $star = $episode->film->star;
                 $newest = $episode->film->newest_episode . "/" . $episode->film->total_episodes;
                 $release_date = $episode->film->release_date;
@@ -361,7 +362,7 @@ class FilmController extends Controller
                         $arr1['ep_name'] = $newest;
                         $arr1['film_id'] = $film_id;
                         $arr1['name'] = $name;
-                        $arr1['image'] = $image;
+                        $arr1['image_mobile'] = $image_mobile;
                         $arr1['star'] = $star;
                         $arr1['release_date'] = $release_date;
                         $arr1['category_id'] = $category_id;
