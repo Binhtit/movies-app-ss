@@ -335,59 +335,117 @@ class FilmController extends Controller
                                     ->get();
                             }])
                             ->get();
-        $films = [];
-        $count1 = 0;
-        foreach($episodes as $key => $episode){
-            $duplicate = false;
-            if($episode->film != null){
-                $film_id = $episode->film->id;
-                $name = $episode->film->name;
-                $image = $episode->film->image;
-                $image_mobile = $episode->film->image_mobile;
-                $star = $episode->film->star;
-                $newest = $episode->film->newest_episode . "/" . $episode->film->total_episodes;
-                $release_date = $episode->film->release_date;
-                $category_id = $episode->film->category_id;
-                $type_id = $episode->film->type_id;
-                # check duplicate film
-                if($films){
-                    foreach ($films as $film){
-                        if($film_id == $film['film_id']){
-                            $duplicate = true;
+        if($request->category_id == 1){
+            $films = [];
+            $count1 = 0;
+            foreach($episodes as $key => $episode){
+                $duplicate = false;
+                if($episode->film != null){
+                    $film_id = $episode->film->id;
+                    $name = $episode->film->name;
+                    $image = $episode->film->image;
+                    $image_mobile = $episode->film->image_mobile;
+                    $star = $episode->film->star;
+                    $newest = $episode->film->newest_episode . "/" . $episode->film->total_episodes;
+                    $release_date = $episode->film->release_date;
+                    $category_id = $episode->film->category_id;
+                    $type_id = $episode->film->type_id;
+                    # check duplicate film
+                    if($films){
+                        foreach ($films as $film){
+                            if($film_id == $film['film_id']){
+                                $duplicate = true;
+                            }
+                        }
+                    }
+                    if(!$duplicate){
+                        if($category_id == 1){ # 20 film 2d
+                            $arr1['ep_name'] = $newest;
+                            $arr1['film_id'] = $film_id;
+                            $arr1['name'] = $name;
+                            $arr1['image_mobile'] = $image_mobile;
+                            $arr1['star'] = $star;
+                            $arr1['release_date'] = $release_date;
+                            $arr1['category_id'] = $category_id;
+                            $arr1['type_id'] = $type_id;
+                            array_push($films, $arr1);
+                            $count1++;
                         }
                     }
                 }
-                if(!$duplicate){
-                    if($category_id == 1){ # 20 film 2d
-                        $arr1['ep_name'] = $newest;
-                        $arr1['film_id'] = $film_id;
-                        $arr1['name'] = $name;
-                        $arr1['image_mobile'] = $image_mobile;
-                        $arr1['star'] = $star;
-                        $arr1['release_date'] = $release_date;
-                        $arr1['category_id'] = $category_id;
-                        $arr1['type_id'] = $type_id;
-                        array_push($films, $arr1);
-                        $count1++;
-                    }
-                }
             }
-        }
-        $result = [];
-        if(count($films) > ($quantity - 20)){
-            foreach($films as $key => $film){
-                if($film['category_id'] == $request->category_id && $key < $quantity && $key >= $skip){
-                    if($request->type != 0){
-                        array_push($result, $film);
-                    }
-                    else{
-                        if($film['type_id'] == $request->type_id){
+            $result = [];
+            if(count($films) > ($quantity - 20)){
+                foreach($films as $key => $film){
+                    if($film['category_id'] == $request->category_id && $key < $quantity && $key >= $skip){
+                        if($request->type == 0){
                             array_push($result, $film);
                         }
+                        else{
+                            if($film['type_id'] == $request->type_id){
+                                array_push($result, $film);
+                            }
+                        }
                     }
                 }
             }
+            return $result;
         }
-        return $result;
+        else if($request->category_id == 2){
+            $films = [];
+            $count1 = 0;
+            foreach($episodes as $key => $episode){
+                $duplicate = false;
+                if($episode->film != null){
+                    $film_id = $episode->film->id;
+                    $name = $episode->film->name;
+                    $image = $episode->film->image;
+                    $image_mobile = $episode->film->image_mobile;
+                    $star = $episode->film->star;
+                    $newest = $episode->film->newest_episode . "/" . $episode->film->total_episodes;
+                    $release_date = $episode->film->release_date;
+                    $category_id = $episode->film->category_id;
+                    $type_id = $episode->film->type_id;
+                    # check duplicate film
+                    if($films){
+                        foreach ($films as $film){
+                            if($film_id == $film['film_id']){
+                                $duplicate = true;
+                            }
+                        }
+                    }
+                    if(!$duplicate){
+                        if($category_id == 2){ # 20 film 2d
+                            $arr1['ep_name'] = $newest;
+                            $arr1['film_id'] = $film_id;
+                            $arr1['name'] = $name;
+                            $arr1['image_mobile'] = $image_mobile;
+                            $arr1['star'] = $star;
+                            $arr1['release_date'] = $release_date;
+                            $arr1['category_id'] = $category_id;
+                            $arr1['type_id'] = $type_id;
+                            array_push($films, $arr1);
+                            $count1++;
+                        }
+                    }
+                }
+            }
+            $result = [];
+            if(count($films) > ($quantity - 20)){
+                foreach($films as $key => $film){
+                    if($film['category_id'] == $request->category_id && $key < $quantity && $key >= $skip){
+                        if($request->type == 0){
+                            array_push($result, $film);
+                        }
+                        else{
+                            if($film['type_id'] == $request->type_id){
+                                array_push($result, $film);
+                            }
+                        }
+                    }
+                }
+            }
+            return $result;
+        }
     }
 }
