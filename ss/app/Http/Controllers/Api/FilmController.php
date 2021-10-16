@@ -325,8 +325,8 @@ class FilmController extends Controller
     public function getFilmByQuantity(Request $request){
         $quantity = $request->quantity;
         $skip = 0;
-        if($request->skip != 20){
-            $skip = ($quantity/20-1)*20;
+        if($request->quantity != 20){
+            $skip = $quantity - 20;
         }
         $arrWhere = [];
         if($request->type){
